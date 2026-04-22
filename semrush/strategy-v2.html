@@ -1,0 +1,1614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Semrush — Free Tools CRO Strategy V2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: #f0f2f5;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* =============================================
+   COVER SECTION
+   ============================================= */
+.cover {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #191C45 0%, #1a1a2e 50%, #3D1D72 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 60px 80px;
+  position: relative;
+  overflow: hidden;
+}
+.cover::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 60%;
+  height: 200%;
+  background: radial-gradient(ellipse, rgba(255,100,45,0.12) 0%, transparent 70%);
+}
+.cover::after {
+  content: '';
+  position: absolute;
+  bottom: -30%;
+  left: -10%;
+  width: 50%;
+  height: 150%;
+  background: radial-gradient(ellipse, rgba(107,77,186,0.15) 0%, transparent 70%);
+}
+.cover h1 {
+  font-size: 56px;
+  font-weight: 700;
+  color: white;
+  letter-spacing: -1px;
+  margin-bottom: 8px;
+  position: relative;
+}
+.cover .subtitle {
+  font-size: 24px;
+  color: rgba(255,255,255,0.75);
+  margin-bottom: 40px;
+  position: relative;
+}
+.cover .divider {
+  width: 80px;
+  height: 4px;
+  background: #FF642D;
+  margin-bottom: 30px;
+  position: relative;
+}
+.cover .meta {
+  font-size: 15px;
+  color: rgba(255,255,255,0.5);
+  position: relative;
+}
+.cover .meta span { margin: 0 12px; }
+.cover .prepared-for {
+  position: absolute;
+  bottom: 40px;
+  left: 80px;
+  font-size: 14px;
+  color: rgba(255,255,255,0.35);
+}
+
+/* =============================================
+   TL;DR SECTION
+   ============================================= */
+.tldr-section {
+  max-width: 1100px;
+  margin: 60px auto 40px;
+  background: white;
+  border-radius: 16px;
+  padding: 50px 60px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  border-left: 4px solid #FF642D;
+}
+.tldr-section .section-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #FF642D;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.tldr-section h2 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #191C45;
+  margin-bottom: 24px;
+}
+.tldr-section p {
+  font-size: 15px;
+  line-height: 1.8;
+  color: #555;
+  margin-bottom: 16px;
+}
+.tldr-section .data-points {
+  display: flex;
+  gap: 40px;
+  margin-top: 30px;
+  padding-top: 24px;
+  border-top: 1px solid #eee;
+}
+.tldr-section .data-point .label {
+  font-size: 10px;
+  font-weight: 700;
+  color: #FF642D;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.tldr-section .data-point .value {
+  font-size: 15px;
+  font-weight: 600;
+  color: #191C45;
+}
+
+/* =============================================
+   PILLAR OVERVIEW CARDS
+   ============================================= */
+.pillar-overview {
+  max-width: 1100px;
+  margin: 30px auto;
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+.pillar-overview .pillar-header {
+  display: flex;
+  align-items: flex-start;
+  padding: 30px 40px;
+  border-bottom: 1px solid #eee;
+  gap: 20px;
+}
+.pillar-badge {
+  display: inline-block;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  white-space: nowrap;
+}
+.pillar-badge.green { background: #e8f5e9; color: #2e7d32; }
+.pillar-badge.blue { background: #e3f2fd; color: #1565c0; }
+.pillar-badge.orange { background: #fff3e0; color: #e65100; }
+.pillar-overview .pillar-title {
+  font-size: 22px;
+  font-weight: 600;
+  color: #191C45;
+  margin-bottom: 16px;
+}
+.pillar-overview .pillar-content {
+  flex: 1;
+}
+.pillar-overview .pillar-research {
+  font-size: 14px;
+  line-height: 1.7;
+  color: #555;
+  margin-bottom: 16px;
+}
+.pillar-overview .pillar-focus {
+  font-size: 13px;
+  color: #888;
+  font-style: italic;
+  margin-bottom: 16px;
+  padding: 12px 16px;
+  background: #f9f9f9;
+  border-left: 3px solid #FF642D;
+}
+.pillar-overview .pillar-count {
+  font-size: 12px;
+  font-weight: 600;
+  color: #FF642D;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* =============================================
+   BIG SWINGS HEADER
+   ============================================= */
+.big-swings-header {
+  max-width: 1100px;
+  margin: 60px auto 20px;
+  background: linear-gradient(135deg, #191C45 0%, #3D1D72 100%);
+  border-radius: 16px;
+  padding: 50px 60px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  position: relative;
+  overflow: hidden;
+}
+.big-swings-header::before {
+  content: '';
+  position: absolute;
+  top: -30%;
+  right: -10%;
+  width: 40%;
+  height: 160%;
+  background: radial-gradient(ellipse, rgba(255,100,45,0.15) 0%, transparent 70%);
+}
+.big-swing-badge {
+  display: inline-block;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  background: linear-gradient(135deg, #FF642D, #FF8A5C);
+  color: white;
+}
+.big-swings-header h2 {
+  font-size: 32px;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 16px;
+  line-height: 1.3;
+  position: relative;
+}
+.big-swings-header .insight {
+  font-size: 16px;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.7;
+  max-width: 800px;
+  position: relative;
+}
+.big-swings-header .idea-count {
+  margin-top: 30px;
+  font-size: 13px;
+  color: rgba(255,255,255,0.4);
+  position: relative;
+}
+.idea-card.big-swing {
+  box-shadow: 0 4px 24px rgba(25,28,69,0.15), 0 0 0 2px rgba(255,100,45,0.15);
+}
+
+/* =============================================
+   THEME HEADER
+   ============================================= */
+.theme-header {
+  max-width: 1100px;
+  margin: 60px auto 20px;
+  background: #191C45;
+  border-radius: 16px;
+  padding: 50px 60px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+}
+.theme-badge {
+  display: inline-block;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.theme-badge.green { background: #e8f5e9; color: #2e7d32; }
+.theme-badge.blue { background: #e3f2fd; color: #1565c0; }
+.theme-badge.orange { background: #fff3e0; color: #e65100; }
+.theme-header h2 {
+  font-size: 32px;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 16px;
+  line-height: 1.3;
+}
+.theme-header .insight {
+  font-size: 16px;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.7;
+  max-width: 800px;
+}
+.theme-header .idea-count {
+  margin-top: 30px;
+  font-size: 13px;
+  color: rgba(255,255,255,0.4);
+}
+
+/* =============================================
+   IDEA CARD
+   ============================================= */
+.idea-card {
+  max-width: 1100px;
+  margin: 30px auto;
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+.card-header {
+  display: flex;
+  align-items: center;
+  padding: 18px 30px;
+  border-bottom: 1px solid #eee;
+  gap: 14px;
+}
+.idea-number {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 16px;
+  color: white;
+}
+.idea-number.green { background: #2e7d32; }
+.idea-number.blue { background: #1565c0; }
+.idea-number.orange { background: #e65100; }
+.card-header h3 {
+  flex: 1;
+  font-size: 20px;
+  font-weight: 600;
+  color: #191C45;
+}
+.location-tag {
+  padding: 6px 14px;
+  background: #f0f2f5;
+  border-radius: 6px;
+  font-size: 12px;
+  color: #888;
+  white-space: nowrap;
+}
+
+/* =============================================
+   SCREENSHOT AREA — CRITICAL FLEX LAYOUT
+   ============================================= */
+.screenshot-area {
+  display: flex;
+  min-height: 350px;
+  background: #fafbfc;
+  border-bottom: 1px solid #e8e8e8;
+}
+.mockup-wrapper {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.notes-sidebar {
+  width: 270px;
+  min-width: 270px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: #f8f9fa;
+  border-left: 1px solid #e8e8e8;
+}
+.sticky-note {
+  position: static;
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 4px;
+  box-shadow: 2px 2px 8px rgba(0,0,0,0.08);
+  font-size: 13px;
+  line-height: 1.5;
+}
+.sticky-note .note-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.observation-note {
+  background: #fff9c4;
+  border-left: 3px solid #f9a825;
+}
+.observation-note .note-label { color: #f57f17; }
+.idea-note {
+  background: #c8e6c9;
+  border-left: 3px solid #43a047;
+}
+.idea-note .note-label { color: #2e7d32; }
+
+/* =============================================
+   HYPOTHESIS BAR
+   ============================================= */
+.hypothesis-bar {
+  padding: 20px 30px;
+  background: #FFF5F0;
+  border-left: 4px solid #FF642D;
+}
+.hypothesis-bar .hyp-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: #FF642D;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.hypothesis-bar p {
+  font-size: 14px;
+  font-style: italic;
+  color: #555;
+  line-height: 1.7;
+}
+
+/* =============================================
+   MOCKUP STYLES
+   ============================================= */
+.browser-chrome {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+  overflow: hidden;
+  width: 100%;
+  max-width: 700px;
+}
+.browser-bar {
+  background: #f1f3f4;
+  padding: 8px 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border-bottom: 1px solid #ddd;
+}
+.browser-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+.browser-url {
+  flex: 1;
+  margin-left: 10px;
+  background: white;
+  border-radius: 4px;
+  padding: 4px 10px;
+  font-size: 11px;
+  color: #888;
+}
+
+/* Semrush nav mockup */
+.sr-nav {
+  background: #191C45;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 12px;
+}
+.sr-logo {
+  font-weight: 700;
+  color: white;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+}
+.sr-nav-link { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 11px; }
+.sr-nav-right { margin-left: auto; display: flex; align-items: center; gap: 8px; }
+.sr-btn-login { color: rgba(255,255,255,0.8); font-size: 11px; text-decoration: none; }
+.sr-btn-signup {
+  background: #FF642D;
+  color: white;
+  padding: 5px 12px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* Hero mockup */
+.sr-hero {
+  padding: 30px 20px;
+  text-align: center;
+}
+.sr-hero h2 {
+  font-size: 22px;
+  font-weight: 700;
+  color: #191C45;
+  margin-bottom: 8px;
+}
+.sr-hero .sr-sub {
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+.sr-search-bar {
+  display: flex;
+  max-width: 480px;
+  margin: 0 auto 12px;
+  border: 2px solid #ddd;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.sr-search-bar input {
+  flex: 1;
+  border: none;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: #333;
+  outline: none;
+  font-family: 'Inter', system-ui, sans-serif;
+}
+.sr-search-bar button {
+  background: #FF642D;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+/* Results mockup */
+.sr-results {
+  padding: 15px 20px;
+  background: #f9f9f9;
+}
+.sr-results-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+  font-size: 11px;
+  color: #666;
+}
+.sr-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 11px;
+}
+.sr-table th {
+  text-align: left;
+  padding: 8px 10px;
+  background: #f0f2f5;
+  color: #666;
+  font-weight: 600;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.sr-table td {
+  padding: 8px 10px;
+  border-bottom: 1px solid #eee;
+  color: #333;
+}
+.sr-blurred {
+  filter: blur(3px);
+  opacity: 0.5;
+  user-select: none;
+}
+.sr-overlay-cta {
+  position: relative;
+  background: rgba(255,255,255,0.95);
+  border: 2px solid #FF642D;
+  border-radius: 8px;
+  padding: 12px 16px;
+  text-align: center;
+  margin: 10px 0;
+}
+.sr-inline-row {
+  background: #FFF5F0;
+  border: 2px dashed #FF642D;
+  border-radius: 8px;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 8px 0;
+  position: relative;
+}
+.sr-inline-row::before {
+  content: 'PROPOSED CHANGE';
+  position: absolute;
+  top: -8px;
+  left: 12px;
+  background: #FF642D;
+  color: white;
+  font-size: 9px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 3px;
+  letter-spacing: 0.5px;
+}
+
+/* Social proof strip */
+.sr-social-proof {
+  background: #f0f2f5;
+  padding: 8px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  font-size: 11px;
+  color: #666;
+  border-top: 1px solid #e0e0e0;
+  border-bottom: 1px solid #e0e0e0;
+}
+.sr-badge {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 600;
+  color: #191C45;
+}
+.sr-badge svg { width: 16px; height: 16px; }
+.sr-stat { font-weight: 600; color: #FF642D; }
+
+/* Proposed change marker */
+.proposed-marker {
+  position: relative;
+}
+.proposed-marker::before {
+  content: 'PROPOSED';
+  position: absolute;
+  top: -8px;
+  left: 12px;
+  background: #FF642D;
+  color: white;
+  font-size: 9px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 3px;
+  letter-spacing: 0.5px;
+  z-index: 1;
+}
+
+/* Value comparison strip */
+.sr-value-strip {
+  background: linear-gradient(135deg, #FFF5F0 0%, #FFF0E8 100%);
+  border: 2px dashed #FF642D;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin: 10px 20px;
+  position: relative;
+}
+.sr-value-strip::before {
+  content: 'PROPOSED CHANGE';
+  position: absolute;
+  top: -8px;
+  left: 12px;
+  background: #FF642D;
+  color: white;
+  font-size: 9px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 3px;
+  letter-spacing: 0.5px;
+}
+.sr-value-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px;
+  margin-top: 8px;
+}
+.sr-value-item {
+  text-align: center;
+  padding: 8px;
+}
+.sr-value-item .sr-val-icon {
+  font-size: 20px;
+  margin-bottom: 4px;
+}
+.sr-value-item .sr-val-text {
+  font-size: 10px;
+  color: #555;
+  line-height: 1.4;
+}
+.sr-value-item .sr-val-label {
+  font-size: 9px;
+  font-weight: 700;
+  color: #FF642D;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Comparison tables */
+.sr-comparison {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.sr-comparison-col {
+  padding: 12px;
+}
+.sr-comparison-col h4 {
+  font-size: 12px;
+  font-weight: 700;
+  color: #191C45;
+  margin-bottom: 8px;
+  text-align: center;
+}
+.sr-comparison-col.current {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+.sr-comparison-col.proposed {
+  background: #FFF5F0;
+  border: 2px dashed #FF642D;
+  border-radius: 6px;
+}
+.sr-comparison-row {
+  font-size: 12px;
+  line-height: 1.5;
+  color: #555;
+  margin-bottom: 8px;
+}
+
+@media (max-width: 900px) {
+  .screenshot-area { flex-direction: column; }
+  .notes-sidebar { width: 100%; min-width: 100%; flex-direction: row; border-left: none; border-top: 1px solid #e8e8e8; }
+  .cover { padding: 40px 30px; }
+  .cover h1 { font-size: 36px; }
+  .tldr-section { padding: 30px; }
+  .theme-header { padding: 30px; }
+  .pillar-overview { padding: 30px; }
+  .sr-comparison { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================= COVER ============================================= -->
+<div class="cover">
+  <h1>Semrush</h1>
+  <div class="subtitle">Free Tools &mdash; Conversion Optimisation<br>Strategic Experimentation Ideas</div>
+  <div class="divider"></div>
+  <div class="meta">
+    <strong>3 Big Swings</strong>
+    <span>&bull;</span>
+    <strong>3 Pillars &mdash; 12 A/B Tests</strong>
+    <span>&bull;</span>
+    <strong>April 2026</strong>
+  </div>
+  <div class="prepared-for">Prepared for the Semrush Free Tools Team</div>
+</div>
+
+<!-- ============================================= TL;DR ============================================= -->
+<div class="tldr-section">
+  <div class="section-label">Research Context</div>
+  <h2>Strategic Foundation &mdash; Evidence-Based Experimentation</h2>
+  <p>This comprehensive strategy document synthesises data from six research methods conducted across Semrush&rsquo;s five free tools pages: heatmap and scroll analysis using Clarity, 150+ session recordings analysed with behavioural coding, direct user interviews with five distinct personas, customer support ticket analysis, 5-second rapid testing, and structured heuristic review. The research reveals three dominant patterns: competing CTAs fragmenting attention above the fold, results pages failing to guide high-intent users toward paid conversion, and a missing value bridge between free satisfaction and premium pricing (€4.66&ndash;€139.95/month).</p>
+  <p>The three pillars below address these patterns through structured experimentation: first, reducing cognitive load and friction in the free-to-paid journey; second, building trust through data transparency and differentiation from competing tools like Google Analytics; and third, matching CTA messaging and experience to five distinct user personas. The Big Swings target architectural changes; the 12 A/B tests nest within the three pillars, prioritised by estimated impact and implementation effort.</p>
+  <div class="data-points">
+    <div class="data-point">
+      <div class="label">Data Sources</div>
+      <div class="value">Heatmaps &bull; Session Recordings &bull; User Interviews &bull; CS Analysis &bull; 5-Second Testing &bull; Heuristic Review</div>
+    </div>
+    <div class="data-point">
+      <div class="label">Focus</div>
+      <div class="value">Free Tool &rarr; Trial/Paid Conversion</div>
+    </div>
+    <div class="data-point">
+      <div class="label">Scope</div>
+      <div class="value">5 Free Tools Pages</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================= STRATEGY PILLARS OVERVIEW ============================================= -->
+
+<div class="pillar-overview">
+  <div class="pillar-header">
+    <div style="flex: 1;">
+      <div class="pillar-badge green">Pillar 1</div>
+      <div class="pillar-title">Reduce Cognitive Load &amp; Friction in Results Discovery</div>
+    </div>
+  </div>
+  <div style="padding: 0 40px 30px 40px;">
+    <div class="pillar-research"><strong>Research:</strong> Heatmaps show 50&ndash;75% of users don&rsquo;t scroll past section 2. Session recordings reveal <span style="font-style: italic;">&ldquo;muscle memory&rdquo;</span> consumption patterns: 30&ndash;60 second bursts of engagement. Results pages present competing CTAs fragmenting attention. 5-second testing: 90%+ identify tool category, but &lt;5% recall product name.</div>
+    <div class="pillar-focus"><strong>Focus:</strong> Streamline above-fold experience &bull; Simplify results navigation &bull; Reduce exit friction &bull; Consolidate competing CTAs to single clear action</div>
+    <div class="pillar-count">4 experiment ideas</div>
+  </div>
+</div>
+
+<div class="pillar-overview">
+  <div class="pillar-header">
+    <div style="flex: 1;">
+      <div class="pillar-badge blue">Pillar 2</div>
+      <div class="pillar-title">Build Trust &amp; Transparency on Data Accuracy &amp; Scope</div>
+    </div>
+  </div>
+  <div style="padding: 0 40px 30px 40px;">
+    <div class="pillar-research"><strong>Research:</strong> User interviews revealed deep scepticism: one user asked <span style="font-style: italic;">&ldquo;Is this all AI?&rdquo;</span> Website Traffic Checker triggers comparisons to Google Analytics, making the tool feel redundant. Customer support analysis confirms data accuracy is a top barrier. 18&ndash;23% flagged <span style="font-style: italic;">&ldquo;price/cost&rdquo;</span> as missing information &mdash; but the deeper issue is users cannot justify premium pricing because they don&rsquo;t trust the data foundation.</div>
+    <div class="pillar-focus"><strong>Focus:</strong> Differentiate from GA through visible methodology &bull; Surface data confidence &bull; Add trust signals &bull; Contextualise pricing around value</div>
+    <div class="pillar-count">4 experiment ideas</div>
+  </div>
+</div>
+
+<div class="pillar-overview">
+  <div class="pillar-header">
+    <div style="flex: 1;">
+      <div class="pillar-badge orange">Pillar 3</div>
+      <div class="pillar-title">Match User Intent Across Tool Personas &amp; Reduce CTA Ambiguity</div>
+    </div>
+  </div>
+  <div style="padding: 0 40px 30px 40px;">
+    <div class="pillar-research"><strong>Research:</strong> Five distinct personas from session recording analysis: <span style="font-style: italic;">Interrogator</span> (1.9 min), <span style="font-style: italic;">Browser</span> (3.6 min), <span style="font-style: italic;">Researcher</span> (4.1 min), <span style="font-style: italic;">Verifier</span> (8.3 min), <span style="font-style: italic;">Specialist</span> (11 min). Messaging promises <span style="font-style: italic;">&ldquo;No sign-up required&rdquo;</span> but sticky CTA demands it. One-size-fits-all CTA cannot serve five different user intents.</div>
+    <div class="pillar-focus"><strong>Focus:</strong> Tailor CTAs by persona and tool &bull; Resolve messaging contradictions &bull; Create contextual action moments &bull; Enable multi-tool discovery for high-intent users</div>
+    <div class="pillar-count">4 experiment ideas</div>
+  </div>
+</div>
+
+<!-- ============================================= BIG SWINGS ============================================= -->
+
+<div class="big-swings-header">
+  <div class="big-swing-badge">Big Swings</div>
+  <h2>Structural Changes to the Free-to-Paid Journey</h2>
+  <div class="insight">These three experiments target the architecture of the free-to-paid conversion journey itself &mdash; not individual interface elements, but fundamental structural decisions that shape the entire experience. Each was the highest-voted idea in the collaborative heuristic session and addresses a root cause, not a symptom. Implementation effort is higher, but impact spans the entire user journey.</div>
+  <div class="idea-count">3 experiment ideas</div>
+</div>
+
+<!-- BS1: Email-Gated Results Unlock -->
+<div class="idea-card big-swing">
+  <div class="card-header">
+    <div class="idea-number" style="background: linear-gradient(135deg, #FF642D, #FF8A5C); font-size: 20px;">1</div>
+    <h3>Email-Gated Results Unlock</h3>
+    <span class="location-tag">All Free Tool Results Pages</span>
+  </div>
+  <div class="screenshot-area">
+    <div class="mockup-wrapper">
+      <div style="width: 100%; padding: 20px;">
+        <div class="sr-comparison">
+          <div class="sr-comparison-col current">
+            <h4>CURRENT STATE</h4>
+            <div class="sr-comparison-row">
+              <strong>Query 1:</strong> Unlimited access, no capture
+            </div>
+            <div class="sr-comparison-row">
+              <strong>Query 2:</strong> Full results shown
+            </div>
+            <div class="sr-comparison-row">
+              <strong>Friction:</strong> 34&ndash;46% zero-click rate &mdash; users consume and leave
+            </div>
+          </div>
+          <div class="sr-comparison-col proposed">
+            <h4>PROPOSED CHANGE</h4>
+            <div class="sr-comparison-row">
+              <strong>Query 1:</strong> Ungated, full results
+            </div>
+            <div class="sr-comparison-row">
+              <strong>Query 2:</strong> Email overlay: &ldquo;Save your results &amp; unlock unlimited searches&rdquo;
+            </div>
+            <div class="sr-comparison-row">
+              <strong>Outcome:</strong> Lightweight capture, follow-up sequence to trial
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="notes-sidebar">
+      <div class="sticky-note observation-note">
+        <div class="note-label">Observation</div>
+        <p>Session recordings show 34&ndash;46% zero-click rate on Website Traffic Checker and Keyword Magic. Users consume top-level results and leave. No mechanism captures users or moves them down-funnel. Free tool completely satisfies the need with no bridge to paid.</p>
+      </div>
+      <div class="sticky-note idea-note">
+        <div class="note-label">Idea</div>
+        <p>Gate the second or third query behind lightweight email capture (no credit card, no account creation). After first ungated result, trigger overlay: &ldquo;Save your results &amp; get unlimited searches &mdash; enter your email.&rdquo; Follow-up email sequence introduces paid features.</p>
+      </div>
+    </div>
+  </div>
+  <div class="hypothesis-bar">
+    <div class="hyp-label">Hypothesis</div>
+    <p>Because session recordings show that users consume top-level results and leave without converting (34&ndash;46% zero-click rate), we believe that gating the second or third query behind an email capture will increase lead capture rate for free tool users, measured by <strong>email submissions per session</strong> and <strong>downstream trial starts within 7 days</strong>.</p>
+  </div>
+</div>
+
+<!-- BS2: AI Transparency Seal on Data-Sensitive Tools -->
+<div class="idea-card big-swing">
+  <div class="card-header">
+    <div class="idea-number" style="background: linear-gradient(135deg, #FF642D, #FF8A5C); font-size: 20px;">2</div>
+    <h3>AI Transparency Seal on Data-Sensitive Tools</h3>
+    <span class="location-tag">Website Traffic Checker &bull; Backlinks &bull; Site Audit Results</span>
+  </div>
+  <div class="screenshot-area">
+    <div class="mockup-wrapper">
+      <div style="width: 100%; padding: 20px;">
+        <div class="sr-comparison">
+          <div class="sr-comparison-col current">
+            <h4>CURRENT STATE</h4>
+            <div class="sr-comparison-row">
+              <strong>Metric card:</strong> Authority Score: 42
+            </div>
+            <div class="sr-comparison-row">
+              <strong>No context:</strong> No explanation of calculation
+            </div>
+            <div class="sr-comparison-row">
+              <strong>User doubt:</strong> &ldquo;Is this all AI? How do I know this is real?&rdquo;
+            </div>
+          </div>
+          <div class="sr-comparison-col proposed">
+            <h4>PROPOSED CHANGE</h4>
+            <div class="sr-comparison-row">
+              <strong>Metric card:</strong> Authority Score: 42 <span style="color: #2e7d32; font-weight: 600;">🔍 How we calculate</span>
+            </div>
+            <div class="sr-comparison-row">
+              <strong>On click:</strong> Tooltip: &ldquo;Based on 2.3M clickstream data points &amp; SERP modelling&rdquo;
+            </div>
+            <div class="sr-comparison-row">
+              <strong>Outcome:</strong> Trust signal visible at point of scepticism
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="notes-sidebar">
+      <div class="sticky-note observation-note">
+        <div class="note-label">Observation</div>
+        <p>User interviews revealed deep scepticism: &ldquo;Is this all AI that&rsquo;s doing the information gathering?&rdquo; Website Traffic Checker triggers &ldquo;this is like GA&rdquo; comparisons. No trust signal exists at the top of results pages where 80%+ attention concentrates.</p>
+      </div>
+      <div class="sticky-note idea-note">
+        <div class="note-label">Idea</div>
+        <p>Add visible &ldquo;How we calculate this&rdquo; badge next to key metrics. Clicking expands 2-sentence explanation. On Website Traffic Checker: &ldquo;This is not Google Analytics data &mdash; it&rsquo;s an independent estimate based on clickstream panels and SERP modelling.&rdquo;</p>
+      </div>
+    </div>
+  </div>
+  <div class="hypothesis-bar">
+    <div class="hyp-label">Hypothesis</div>
+    <p>Because user interviews show that data scepticism causes users to dismiss results and abandon the tool, we believe that adding a visible data methodology explanation next to key metrics will increase results page engagement and downstream trial starts, measured by <strong>scroll depth on results pages</strong> and <strong>trial conversion rate</strong>.</p>
+  </div>
+</div>
+
+<!-- BS3: Rank Checker → Cross-Tool Pipeline -->
+<div class="idea-card big-swing">
+  <div class="card-header">
+    <div class="idea-number" style="background: linear-gradient(135deg, #FF642D, #FF8A5C); font-size: 20px;">3</div>
+    <h3>Rank Checker &rarr; Cross-Tool Action Pipeline</h3>
+    <span class="location-tag">Rank Checker Results Page</span>
+  </div>
+  <div class="screenshot-area">
+    <div class="mockup-wrapper">
+      <div style="width: 100%; padding: 20px;">
+        <div class="sr-comparison">
+          <div class="sr-comparison-col current">
+            <h4>CURRENT STATE</h4>
+            <div class="sr-comparison-row">
+              <strong>Results:</strong> Ranking table with keyword data
+            </div>
+            <div class="sr-comparison-row">
+              <strong>Next step:</strong> User must navigate elsewhere manually
+            </div>
+            <div class="sr-comparison-row">
+              <strong>Drop-off:</strong> Only 5&ndash;23% visit a second page
+            </div>
+          </div>
+          <div class="sr-comparison-col proposed">
+            <h4>PROPOSED CHANGE</h4>
+            <div class="sr-comparison-row">
+              <strong>Results:</strong> Same ranking table
+            </div>
+            <div class="sr-comparison-row">
+              <strong>Below table:</strong> &ldquo;What to do next&rdquo; section with 3 contextual cards
+            </div>
+            <div class="sr-comparison-row">
+              <strong>Outcome:</strong> Pre-filled cross-tool access with user&rsquo;s domain
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="notes-sidebar">
+      <div class="sticky-note observation-note">
+        <div class="note-label">Observation</div>
+        <p>Rank Checker has the deepest engagement: 8.3 min average session, 14.2 clicks, 22.9% visiting 2+ pages, 0% zero-click rate. High-intent <span style="font-style: italic;">Verifier</span> persona investigating SEO position. No structured path from &ldquo;I checked rankings&rdquo; to &ldquo;Here&rsquo;s what to do about it.&rdquo;</p>
+      </div>
+      <div class="sticky-note idea-note">
+        <div class="note-label">Idea</div>
+        <p>After rankings table, add &ldquo;What to do next&rdquo; section with 3 contextual cards based on user&rsquo;s results: (1) &ldquo;3 keywords dropped &mdash; run a Site Audit&rdquo;; (2) &ldquo;Competitor outranks you on 7 keywords &mdash; see their backlinks&rdquo;; (3) &ldquo;4 keywords on page 2 &mdash; use Keyword Magic for opportunities.&rdquo;</p>
+      </div>
+    </div>
+  </div>
+  <div class="hypothesis-bar">
+    <div class="hyp-label">Hypothesis</div>
+    <p>Because the Rank Checker attracts high-intent users with the deepest engagement (8.3 min, 14.2 clicks, 0% zero-click), we believe that adding contextual cross-tool recommendations after results will increase multi-tool usage and trial starts, measured by <strong>cross-tool click-through rate</strong> and <strong>trial conversion within session</strong>.</p>
+  </div>
+</div>
+
+<!-- ============================================= PILLAR 1 THEME ============================================= -->
+
+<div class="theme-header">
+  <div class="theme-badge green">Pillar 1</div>
+  <h2>Reduce Cognitive Load &amp; Friction in Results Discovery</h2>
+  <div class="insight">Four A/B tests targeting above-fold experience, results navigation, and exit friction. These experiments address the observation that users engage in short bursts (30&ndash;60 seconds) and abandon results pages quickly due to competing CTAs, dense layouts, and missing save mechanisms.</div>
+  <div class="idea-count">4 experiment ideas</div>
+</div>
+
+<!-- T1-01: Mobile Results Redesign -->
+<div class="idea-card">
+  <div class="card-header">
+    <div class="idea-number green">1</div>
+    <h3>Mobile Results Redesign &mdash; Collapsed Sections</h3>
+    <span class="location-tag">Backlinks &bull; Website Traffic Checker &mdash; Mobile</span>
+  </div>
+  <div class="screenshot-area">
+    <div class="mockup-wrapper">
+      <div style="width: 100%; max-width: 400px;">
+        <div style="background: #f5f5f5; padding: 16px; border-radius: 8px; font-size: 12px;">
+          <div style="background: white; padding: 12px; border-radius: 6px; margin-bottom: 10px; border: 1px solid #ddd;">
+            <div style="font-weight: 600; color: #191C45;">Authority Score</div>
+            <div style="font-size: 14px; font-weight: 700; color: #FF642D;">42</div>
+            <div style="font-size: 10px; color: #888; margin-top: 4px;">Tap to expand details</div>
+          </div>
+          <div style="background: white; padding: 12px; border-radius: 6px; margin-bottom: 10px; border: 1px solid #ddd;">
+            <div style="font-weight: 600; color: #191C45;">Total Backlinks</div>
+            <div style="font-size: 14px; font-weight: 700; color: #FF642D;">1,234</div>
+            <div style="font-size: 10px; color: #888; margin-top: 4px;">Tap to expand details</div>
+          </div>
+          <div style="background: #FFF5F0; padding: 12px; border-radius: 6px; border: 2px solid #FF642D; text-align: center; font-weight: 600; color: #FF642D; font-size: 11px;">
+            Unlock full report
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="notes-sidebar">
+      <div class="sticky-note observation-note">
+        <div class="note-label">Observation</div>
+        <p>Mobile users have shallower scroll depth. Results pages designed desktop-first. On Backlinks, 50% leave after first 5 results. Dense tables not optimised for small screens.</p>
+      </div>
+      <div class="sticky-note idea-note">
+        <div class="note-label">Idea</div>
+        <p>Collapse results into expandable summary cards (Authority Score: 42 | Backlinks: 1,234). Each expands on tap. &ldquo;Unlock full report&rdquo; pinned at bottom drives conversion.</p>
+      </div>
+    </div>
+  </div>
+  <div class="hypothesis-bar">
+    <div class="hyp-label">Hypothesis</div>
+    <p>Because mobile users show shallower scroll depth and higher drop-off on results pages, we believe that collapsing results into expandable sections will increase mobile engagement and sign-up CTR, measured by <strong>results page scroll depth on mobile</strong> and <strong>sticky CTA clicks on mobile</strong>.</p>
+  </div>
+</div>
+
+<!-- T1-02: Exit-Intent Save Overlay -->
+<div class="idea-card">
+  <div class="card-header">
+    <div class="idea-number green">2</div>
+    <h3>Exit-Intent &ldquo;Save Your Report&rdquo; Overlay</h3>
+    <span class="location-tag">All Results Pages</span>
+  </div>
+  <div class="screenshot-area">
+    <div class="mockup-wrapper">
+      <div style="width: 100%; max-width: 500px;">
+        <div style="background: #f5f5f5; padding: 20px; border-radius: 8px;">
+          <div style="background: white; padding: 20px; border-radius: 8px; border: 2px solid #FF642D; text-align: center;">
+            <div style="font-weight: 700; color: #191C45; margin-bottom: 12px;">Your Report Is Ready</div>
+            <div style="font-size: 14px; color: #555; margin-bottom: 16px;">Save it to your free account &amp; revisit anytime</div>
+            <input type="email" placeholder="your@email.com" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; margin-bottom: 12px; font-family: 'Inter', sans-serif; font-size: 12px;" />
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+              <button style="padding: 10px; background: #FF642D; color: white; border: none; border-radius: 6px; font-weight: 600; font-size: 12px; cursor: pointer;">Save Report</button>
+              <button style="padding: 10px; background: transparent; color: #888; border: 1px solid #ddd; border-radius: 6px; font-weight: 600; font-size: 12px; cursor: pointer;">Maybe Later</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="notes-sidebar">
+      <div class="sticky-note observation-note">
+        <div class="note-label">Observation</div>
+        <p>&ldquo;Tab-Switcher Syndrome&rdquo;: users run query, glance 30&ndash;60 seconds, switch tabs. Tab stays open 4&ndash;11 minutes with zero interaction. No save mechanism or reminder.</p>
+      </div>
+      <div class="sticky-note idea-note">
+        <div class="note-label">Idea</div>
+        <p>On cursor-to-tab-bar (desktop) or back-button (mobile), trigger lightweight overlay: &ldquo;Your report is ready &mdash; save it to your free account.&rdquo; Single email field. No pricing, no upsell. Dismissible with &ldquo;Maybe later.&rdquo;</p>
+      </div>
+    </div>
+  </div>
+  <div class="hypothesis-bar">
+    <div class="hyp-label">Hypothesis</div>
+    <p>Because session recordings show users consume results in 30&ndash;60 second bursts and abandon tabs, we believe that triggering a &ldquo;Save this report&rdquo; overlay on exit intent will increase email capture and return visits, measured by <strong>overlay submission rate</strong> and <strong>7-day return rate</strong>.</p>
+  </div>
+</div>
+
+<!-- T1-03: Remove "How to Use" Section -->
+<div class="idea-card">
+  <div class="card-header">
+    <div class="idea-number green">3</div>
+    <h3>Remove &ldquo;How to Use&rdquo; Section from Tool Pages</h3>
+    <span class="location-tag">All 5 Free Tool Landing Pages</span>
+  </div>
+  <div class="screenshot-area">
+    <div class="mockup-wrapper">
+      <div style="width: 100%; padding: 20px;">
+        <div class="sr-comparison">
+          <div class="sr-comparison-col current">
+            <h4>CURRENT STATE</h4>
+            <div class="sr-comparison-row">
+              <strong>Above fold:</strong> Hero + CTA
+            </div>
+            <div class="sr-comparison-row">
+              <strong>Below fold:</strong> &ldquo;How to use&rdquo; section with 4 steps
+            </div>
+            <div class="sr-comparison-row">
+              <strong>Heatmap data:</strong> Sharp drop-off, near-zero engagement
+            </div>
+          </div>
+          <div class="sr-comparison-col proposed">
+            <h4>PROPOSED CHANGE</h4>
+            <div class="sr-comparison-row">
+              <strong>Above fold:</strong> Hero + CTA (same)
+            </div>
+            <div class="sr-comparison-row">
+              <strong>Below fold:</strong> Social proof strip: &ldquo;2M+ searches run this month &bull; Trusted by 5K+ companies&rdquo;
+            </div>
+            <div class="sr-comparison-row">
+              <strong>Outcome:</strong> Reduced page length, increased CTA visibility
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="notes-sidebar">
+      <div class="sticky-note observation-note">
+        <div class="note-label">Observation</div>
+        <p>Heatmaps across all 5 tools show sharp drop-off at &ldquo;How to use&rdquo; section. Attention heatmaps confirm near-zero focus. Users go directly to input bar and start searching.</p>
+      </div>
+      <div class="sticky-note idea-note">
+        <div class="note-label">Idea</div>
+        <p>Remove section entirely. Replace with compact social proof strip: &ldquo;[X] million searches run this month &bull; Trusted by [Y] companies &bull; No sign-up required.&rdquo;</p>
+      </div>
+    </div>
+  </div>
+  <div class="hypothesis-bar">
+    <div class="hyp-label">Hypothesis</div>
+    <p>Because heatmaps show near-zero engagement with &ldquo;How to use&rdquo; sections across all 5 tools, we believe that removing this section will reduce page length and increase visibility of conversion elements, measured by <strong>scroll depth</strong> and <strong>sign-up CTA visibility rate</strong>.</p>
+  </div>
+</div>
+
+<!-- T1-04: Simplify Results Page CTA -->
+<div class="idea-card">
+  <div class="card-header">
+    <div class="idea-number green">4</div>
+    <h3>Simplify Results Page CTA to Single Action</h3>
+    <span class="location-tag">Keyword Magic Results Page</span>
+  </div>
+  <div class="screenshot-area">
+    <div class="mockup-wrapper">
+      <div style="width: 100%; max-width: 500px;">
+        <div style="background: #f5f5f5; padding: 20px; border-radius: 8px;">
+          <div style="background: white; padding: 16px; border-radius: 8px; margin-bottom: 12px;">
+            <div style="font-size: 11px; color: #888; text-transform: uppercase; font-weight: 600; margin-bottom: 8px;">Top 10 Results</div>
+            <table style="width: 100%; font-size: 11px;">
+              <tr style="background: #f0f2f5;">
+                <td style="padding: 8px; font-weight: 600; color: #666;">Keyword</td>
+                <td style="padding: 8px; font-weight: 600; color: #666;">Volume</td>
+                <td style="padding: 8px; font-weight: 600; color: #666;">CPC</td>
+              </tr>
+              <tr style="border-bottom: 1px solid #eee;">
+                <td style="padding: 8px; color: #333;">keyword idea 1</td>
+                <td style="padding: 8px; color: #333;">4,200</td>
+                <td style="padding: 8px; color: #333;">€2.34</td>
+              </tr>
+              <tr style="border-bottom: 1px solid #eee; filter: blur(2px); opacity: 0.5;">
+                <td style="padding: 8px; color: #333;">keyword idea 2</td>
+                <td style="padding: 8px; color: #333;">3,100</td>
+                <td style="padding: 8px; color: #333;">€1.92</td>
+              </tr>
+            </table>
+          </div>
+          <div style="background: #FFF5F0; border: 2px solid #FF642D; border-radius: 8px; padding: 16px; text-align: center;">
+            <div style="font-weight: 700; color: #FF642D; font-size: 12px; margin-bottom: 4px;">UNLOCK YOUR FULL KEYWORD REPORT</div>
+            <div style="font-size: 12px; color: #555; margin-bottom: 12px;">7-day free trial, no credit card required</div>
+            <button style="width: 100%; padding: 12px; background: #FF642D; color: white; border: none; border-radius: 6px; font-weight: 600; font-size: 13px; cursor: pointer;">Start Free Trial</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="notes-sidebar">
+      <div class="sticky-note observation-note">
+        <div class="note-label">Observation</div>
+        <p>Three competing CTAs: &ldquo;Download my keywords,&rdquo; blurred &ldquo;Access all keywords,&rdquo; &ldquo;View all keywords.&rdquo; Choice paralysis at peak-intent moment. Heuristic team unanimously flagged this.</p>
+      </div>
+      <div class="sticky-note idea-note">
+        <div class="note-label">Idea</div>
+        <p>Consolidate to single CTA: &ldquo;Unlock your full keyword report &mdash; 7-day free trial, no credit card.&rdquo; After first 10 results with subtle blurred preview behind it.</p>
+      </div>
+    </div>
+  </div>
+  <div class="hypothesis-bar">
+    <div class="hyp-label">Hypothesis</div>
+    <p>Because the results page presents 3 competing CTAs that fragment attention at the peak-intent moment, we believe that consolidating to a single CTA will increase trial start rate, measured by <strong>trial starts from results page</strong>.</p>
+  </div>
+</div>
+
+<!-- ============================================= PILLAR 2 THEME ============================================= -->
+
+<div class="theme-header">
+  <div class="theme-badge blue">Pillar 2</div>
+  <h2>Build Trust &amp; Transparency on Data Accuracy &amp; Scope</h2>
+  <div class="insight">Four A/B tests targeting data credibility and trust signals. These experiments address user scepticism (&ldquo;Is this AI? How do I know this is real?&rdquo;) and positioning differentiation from Google Analytics by surfacing methodology and pricing context.</div>
+  <div class="idea-count">4 experiment ideas</div>
+</div>
+
+<!-- T2-01: GA Differentiation Statement -->
+<div class="idea-card">
+  <div class="card-header">
+    <div class="idea-number blue">1</div>
+    <h3>GA Differentiation Statement on Website Traffic Checker</h3>
+    <span class="location-tag">semrush.com/website/ &mdash; Landing &amp; Results</span>
+  </div>
+  <div class="screenshot-area">
+    <div class="mockup-wrapper">
+      <div style="width: 100%; max-width: 500px;">
+        <div class="browser-chrome">
+          <div class="browser-bar">
+            <div class="browser-dot" style="background: #f5222d;"></div>
+            <div class="browser-dot" style="background: #faad14;"></div>
+            <div class="browser-dot" style="background: #52c41a;"></div>
+            <div class="browser-url">semrush.com/website-traffic-analyzer</div>
+          </div>
+          <div class="sr-hero">
+            <h2>Website Traffic Checker</h2>
+            <div class="sr-sub">See estimated traffic for any website &mdash; including your competitors</div>
+            <div class="sr-search-bar">
+              <input type="text" placeholder="example.com" />
+              <button>Check Traffic</button>
+            </div>
+            <div style="background: #e3f2fd; border-left: 3px solid #1565c0; padding: 12px 14px; margin-top: 16px; font-size: 12px; color: #1565c0; border-radius: 4px;">
+              <strong>Unlike Google Analytics,</strong> see estimated traffic for any website &mdash; including your competitors
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="notes-sidebar">
+      <div class="sticky-note observation-note">
+        <div class="note-label">Observation</div>
+        <p>Status Quo Bias: users&rsquo; first reaction is &ldquo;this is like GA,&rdquo; making tool feel redundant. Tool doesn&rsquo;t explain it provides competitor traffic data (GA can&rsquo;t), estimated breakdowns for sites you don&rsquo;t own, industry benchmarking.</p>
+      </div>
+      <div class="sticky-note idea-note">
+        <div class="note-label">Idea</div>
+        <p>Below search bar, add one-liner: &ldquo;Unlike Google Analytics, see estimated traffic for any website &mdash; including your competitors.&rdquo; On results page: &ldquo;Competitor intelligence &bull; Data GA can&rsquo;t show you.&rdquo;</p>
+      </div>
+    </div>
+  </div>
+  <div class="hypothesis-bar">
+    <div class="hyp-label">Hypothesis</div>
+    <p>Because user interviews show the Website Traffic Checker triggers &ldquo;this is like GA&rdquo; comparisons, we believe that adding a visible differentiation statement will increase tool engagement and results page depth, measured by <strong>second-query rate</strong> and <strong>scroll depth</strong>.</p>
+  </div>
+</div>
+
+<!-- T2-02: Data Trust Score on Results Pages -->
+<div class="idea-card">
+  <div class="card-header">
+    <div class="idea-number blue">2</div>
+    <h3>Data Trust Score on Results Pages</h3>
+    <span class="location-tag">Website Traffic Checker &bull; Backlinks Results</span>
+  </div>
+  <div class="screenshot-area">
+    <div class="mockup-wrapper">
+      <div style="width: 100%; max-width: 500px;">
+        <div style="background: #f5f5f5; padding: 20px; border-radius: 8px;">
+          <div style="background: white; padding: 16px; border-radius: 8px; border: 1px solid #ddd; margin-bottom: 12px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+              <div style="font-weight: 600; color: #191C45;">Monthly Traffic</div>
+              <div style="background: #e8f5e9; color: #2e7d32; padding: 4px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; cursor: pointer;">📊 Data Confidence</div>
+            </div>
+            <div style="font-size: 18px; font-weight: 700; color: #FF642D;">128,400</div>
+            <div style="font-size: 11px; color: #888; margin-top: 4px;">High confidence &mdash; Based on 2.3M clickstream data points</div>
+          </div>
+          <div style="background: white; padding: 16px; border-radius: 8px; border: 1px solid #ddd;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+              <div style="font-weight: 600; color: #191C45;">Organic Traffic</div>
+              <div style="background: #e8f5e9; color: #2e7d32; padding: 4px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; cursor: pointer;">📊 Data Confidence</div>
+            </div>
+            <div style="font-size: 18px; font-weight: 700; color: #FF642D;">73,200</div>
+            <div style="font-size: 11px; color: #888; margin-top: 4px;">High confidence &mdash; Based on SERP modelling</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="notes-sidebar">
+      <div class="sticky-note observation-note">
+        <div class="note-label">Observation</div>
+        <p>Users question how Semrush knows traffic for sites they don&rsquo;t own. 80%+ attention concentrated at top of results. No trust signal exists at the top. CS analysis confirms data accuracy is recurring concern.</p>
+      </div>
+      <div class="sticky-note idea-note">
+        <div class="note-label">Idea</div>
+        <p>Small &ldquo;confidence&rdquo; badge next to each key metric: &ldquo;High confidence &mdash; based on 2.3M clickstream data points.&rdquo; Clicking expands one-sentence methodology note.</p>
+      </div>
+    </div>
+  </div>
+  <div class="hypothesis-bar">
+    <div class="hyp-label">Hypothesis</div>
+    <p>Because users question data accuracy at the top of results pages and no trust signal exists there, we believe that adding a &ldquo;Data Confidence&rdquo; indicator will increase engagement and reduce bounce rate, measured by <strong>results page time-on-page</strong> and <strong>bounce rate</strong>.</p>
+  </div>
+</div>
+
+<!-- T2-03: No Credit Card Required Prominence -->
+<div class="idea-card">
+  <div class="card-header">
+    <div class="idea-number blue">3</div>
+    <h3>&ldquo;No Credit Card Required&rdquo; Prominence on Sticky CTA</h3>
+    <span class="location-tag">All 5 Free Tool Pages</span>
+  </div>
+  <div class="screenshot-area">
+    <div class="mockup-wrapper">
+      <div style="width: 100%; max-width: 500px;">
+        <div style="background: #f5f5f5; padding: 20px; border-radius: 8px;">
+          <div style="background: #FFF5F0; padding: 12px 16px; border-radius: 8px; border-left: 3px solid #FF642D; margin-bottom: 12px;">
+            <div style="font-weight: 600; color: #191C45; font-size: 12px; margin-bottom: 8px;">STICKY CTA VARIANT A</div>
+            <button style="width: 100%; padding: 12px; background: #FF642D; color: white; border: none; border-radius: 6px; font-weight: 600; font-size: 13px; cursor: pointer; margin-bottom: 8px;">Create Free Account</button>
+            <div style="font-size: 11px; color: #888; text-align: center;">No credit card required &bull; Cancel anytime</div>
+          </div>
+          <div style="background: #FFF5F0; padding: 12px 16px; border-radius: 8px; border-left: 3px solid #FF642D;">
+            <div style="font-weight: 600; color: #191C45; font-size: 12px; margin-bottom: 8px;">STICKY CTA VARIANT B (CONTROL)</div>
+            <button style="width: 100%; padding: 12px; background: #FF642D; color: white; border: none; border-radius: 6px; font-weight: 600; font-size: 13px; cursor: pointer; margin-bottom: 8px;">Sign Up</button>
+            <div style="font-size: 11px; color: #888; text-align: center; filter: blur(2px); opacity: 0.5;">(no reassurance text)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="notes-sidebar">
+      <div class="sticky-note observation-note">
+        <div class="note-label">Observation</div>
+        <p>5-second testing: 18&ndash;23% flagged &ldquo;price/cost&rdquo; as missing info. &ldquo;No sign-up required&rdquo; recalled by 10% &mdash; proving microcopy works when visible. But sticky CTA says &ldquo;Sign Up&rdquo; with no reassurance.</p>
+      </div>
+      <div class="sticky-note idea-note">
+        <div class="note-label">Idea</div>
+        <p>Add &ldquo;No credit card required &bull; Cancel anytime&rdquo; below sticky Sign Up CTA. Same button, same position, just added reassurance text. Test two variants: &ldquo;Create Free Account&rdquo; vs. &ldquo;Sign Up.&rdquo;</p>
+      </div>
+    </div>
+  </div>
+  <div class="hypothesis-bar">
+    <div class="hyp-label">Hypothesis</div>
+    <p>Because 18&ndash;23% flag cost as missing and 10% recall visible reassurance microcopy, we believe that adding &ldquo;No credit card &bull; Cancel anytime&rdquo; below the sticky CTA will increase sign-up CTR, measured by <strong>sticky CTA click-through rate</strong>.</p>
+  </div>
+</div>
+
+<!-- T2-04: Pricing Anchor on Results Page -->
+<div class="idea-card">
+  <div class="card-header">
+    <div class="idea-number blue">4</div>
+    <h3>Pricing Anchor on Results Page</h3>
+    <span class="location-tag">All Results Pages</span>
+  </div>
+  <div class="screenshot-area">
+    <div class="mockup-wrapper">
+      <div style="width: 100%; max-width: 500px;">
+        <div style="background: #f5f5f5; padding: 20px; border-radius: 8px;">
+          <div style="background: white; padding: 16px; border-radius: 8px; border: 1px solid #ddd; margin-bottom: 12px;">
+            <table style="width: 100%; font-size: 11px; margin-bottom: 12px;">
+              <tr style="background: #f0f2f5;">
+                <td style="padding: 8px; font-weight: 600; color: #666;">Keyword</td>
+                <td style="padding: 8px; font-weight: 600; color: #666;">Volume</td>
+              </tr>
+              <tr style="border-bottom: 1px solid #eee;">
+                <td style="padding: 8px; color: #333;">example keyword</td>
+                <td style="padding: 8px; color: #333;">2,400</td>
+              </tr>
+            </table>
+          </div>
+          <div style="background: #FFF5F0; border: 2px dashed #FF642D; border-radius: 8px; padding: 16px; text-align: center;">
+            <div style="font-weight: 700; color: #191C45; font-size: 13px; margin-bottom: 4px;">Unlock Your Full Keyword Report</div>
+            <div style="font-size: 16px; font-weight: 700; color: #FF642D; margin-bottom: 4px;">€4.66<span style="font-size: 12px; color: #888;">/day</span></div>
+            <div style="font-size: 10px; color: #555; margin-bottom: 12px;">(Pro plan, billed monthly at €139.95)</div>
+            <button style="width: 100%; padding: 12px; background: #FF642D; color: white; border: none; border-radius: 6px; font-weight: 600; font-size: 12px; cursor: pointer; margin-bottom: 8px;">Start 7-Day Free Trial</button>
+            <div style="font-size: 10px; color: #888;">No credit card &bull; Cancel anytime</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="notes-sidebar">
+      <div class="sticky-note observation-note">
+        <div class="note-label">Observation</div>
+        <p>Users jump from free to €139.95/month pricing page without context. CS analysis: pricing is #1 barrier. Issue isn&rsquo;t price itself &mdash; it&rsquo;s no reference point for value.</p>
+      </div>
+      <div class="sticky-note idea-note">
+        <div class="note-label">Idea</div>
+        <p>Show contextual price anchor on results page: &ldquo;Full access from €4.66/day&rdquo; (Pro plan reframed from monthly to daily). Below: &ldquo;7-day free trial &bull; No credit card &bull; Cancel anytime.&rdquo;</p>
+      </div>
+    </div>
+  </div>
+  <div class="hypothesis-bar">
+    <div class="hyp-label">Hypothesis</div>
+    <p>Because users jump from free results to €139.95/month without a value bridge, we believe that showing a contextual daily price anchor will increase trial start rate, measured by <strong>&lsquo;Start free trial&rsquo; clicks from results pages</strong>.</p>
+  </div>
+</div>
+
+<!-- ============================================= PILLAR 3 THEME ============================================= -->
+
+<div class="theme-header">
+  <div class="theme-badge orange">Pillar 3</div>
+  <h2>Match User Intent Across Tool Personas &amp; Reduce CTA Ambiguity</h2>
+  <div class="insight">Four A/B tests targeting messaging clarity and persona-specific CTAs. These experiments resolve the contradiction between &ldquo;No sign-up required&rdquo; and &ldquo;Sign Up&rdquo; and enable high-intent users (Rank Checker, Site Audit) to discover adjacent tools within their engagement window.</div>
+  <div class="idea-count">4 experiment ideas</div>
+</div>
+
+<!-- T3-01: Dynamic CTA Copy by Tool Persona -->
+<div class="idea-card">
+  <div class="card-header">
+    <div class="idea-number orange">1</div>
+    <h3>Dynamic CTA Copy by Tool Persona</h3>
+    <span class="location-tag">All 5 Free Tool Pages</span>
+  </div>
+  <div class="screenshot-area">
+    <div class="mockup-wrapper">
+      <div style="width: 100%; padding: 20px;">
+        <div style="background: #f5f5f5; border-radius: 8px; padding: 16px;">
+          <div style="font-weight: 600; color: #191C45; margin-bottom: 12px; font-size: 13px;">CTA VARIANTS BY TOOL</div>
+          <div style="background: white; padding: 12px; border-radius: 6px; margin-bottom: 10px; border: 1px solid #ddd;">
+            <div style="font-weight: 600; color: #191C45; font-size: 12px; margin-bottom: 6px;">Website Traffic Checker</div>
+            <button style="width: 100%; padding: 10px; background: #FF642D; color: white; border: none; border-radius: 6px; font-weight: 600; font-size: 11px; cursor: pointer;">&rarr; See who visits your competitors</button>
+          </div>
+          <div style="background: white; padding: 12px; border-radius: 6px; margin-bottom: 10px; border: 1px solid #ddd;">
+            <div style="font-weight: 600; color: #191C45; font-size: 12px; margin-bottom: 6px;">Keyword Magic</div>
+            <button style="width: 100%; padding: 10px; background: #FF642D; color: white; border: none; border-radius: 6px; font-weight: 600; font-size: 11px; cursor: pointer;">&rarr; Unlock 26.9B keywords</button>
+          </div>
+          <div style="background: white; padding: 12px; border-radius: 6px; margin-bottom: 10px; border: 1px solid #ddd;">
+            <div style="font-weight: 600; color: #191C45; font-size: 12px; margin-bottom: 6px;">Rank Checker</div>
+            <button style="width: 100%; padding: 10px; background: #FF642D; color: white; border: none; border-radius: 6px; font-weight: 600; font-size: 11px; cursor: pointer;">&rarr; Track your rankings daily</button>
+          </div>
+          <div style="background: white; padding: 12px; border-radius: 6px; border: 1px solid #ddd;">
+            <div style="font-weight: 600; color: #191C45; font-size: 12px; margin-bottom: 6px;">Site Audit</div>
+            <button style="width: 100%; padding: 10px; background: #FF642D; color: white; border: none; border-radius: 6px; font-weight: 600; font-size: 11px; cursor: pointer;">&rarr; Get your SEO action plan</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="notes-sidebar">
+      <div class="sticky-note observation-note">
+        <div class="note-label">Observation</div>
+        <p>5 personas with engagement from 1.9 to 11 minutes. Generic &ldquo;Try Semrush&rdquo;/&ldquo;Sign Up&rdquo; cannot match different intents. Website: 0.05% CTR; Rank Checker: 0.06% CTR.</p>
+      </div>
+      <div class="sticky-note idea-note">
+        <div class="note-label">Idea</div>
+        <p>Tool-specific CTA copy: Website &rarr; &ldquo;See who visits your competitors&rdquo;; Keyword Magic &rarr; &ldquo;Unlock 26.9B keywords&rdquo;; Rank Checker &rarr; &ldquo;Track your rankings daily&rdquo;; Site Audit &rarr; &ldquo;Get your SEO action plan.&rdquo;</p>
+      </div>
+    </div>
+  </div>
+  <div class="hypothesis-bar">
+    <div class="hyp-label">Hypothesis</div>
+    <p>Because 5 distinct personas show engagement ranging from 1.9 to 11 minutes, we believe that tailoring CTA copy to each tool&rsquo;s user intent will increase CTA CTR per tool page, measured by <strong>tool-specific CTA CTR (baseline: 0.05&ndash;0.06%)</strong>.</p>
+  </div>
+</div>
+
+<!-- T3-02: Resolve Sign-Up Contradiction -->
+<div class="idea-card">
+  <div class="card-header">
+    <div class="idea-number orange">2</div>
+    <h3>Resolve &ldquo;No Sign-Up&rdquo; vs. &ldquo;Sign Up&rdquo; Contradiction</h3>
+    <span class="location-tag">All 5 Free Tool Pages</span>
+  </div>
+  <div class="screenshot-area">
+    <div class="mockup-wrapper">
+      <div style="width: 100%; padding: 20px;">
+        <div style="background: #f5f5f5; border-radius: 8px; padding: 16px;">
+          <div style="background: white; padding: 16px; border-radius: 8px; border: 1px solid #ddd; margin-bottom: 12px;">
+            <div style="font-weight: 600; color: #191C45; font-size: 13px; margin-bottom: 8px; text-align: center;">Hero Message</div>
+            <div style="background: #e8f5e9; padding: 10px; border-radius: 4px; text-align: center; font-size: 12px; color: #2e7d32; margin-bottom: 8px;">
+              <strong>No sign-up required to get started</strong>
+            </div>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+            <div style="background: white; padding: 12px; border-radius: 8px; border: 1px solid #ddd;">
+              <div style="font-weight: 600; color: #191C45; font-size: 11px; margin-bottom: 8px; text-align: center;">VARIANT A</div>
+              <button style="width: 100%; padding: 10px; background: #FF642D; color: white; border: none; border-radius: 6px; font-weight: 600; font-size: 12px; cursor: pointer;">Create Free Account</button>
+            </div>
+            <div style="background: white; padding: 12px; border-radius: 8px; border: 1px solid #ddd;">
+              <div style="font-weight: 600; color: #191C45; font-size: 11px; margin-bottom: 8px; text-align: center;">VARIANT B</div>
+              <button style="width: 100%; padding: 10px; background: #FF642D; color: white; border: none; border-radius: 6px; font-weight: 600; font-size: 12px; cursor: pointer;">Create a FREE Account</button>
+            </div>
+          </div>
+          <div style="font-size: 10px; color: #888; text-align: center; margin-top: 12px;">Both resolve semantic contradiction while driving account creation</div>
+        </div>
+      </div>
+    </div>
+    <div class="notes-sidebar">
+      <div class="sticky-note observation-note">
+        <div class="note-label">Observation</div>
+        <p>5-second testing shows user confusion between hero &ldquo;No sign-up required&rdquo; and sticky &ldquo;Sign Up.&rdquo; One user: &ldquo;I didn&rsquo;t even notice that part.&rdquo; Messaging promises no commitment; CTA demands it.</p>
+      </div>
+      <div class="sticky-note idea-note">
+        <div class="note-label">Idea</div>
+        <p>Change sticky CTA to &ldquo;Create Free Account&rdquo; (Variant A) or &ldquo;Create a FREE Account&rdquo; (Variant B). Both resolve semantic contradiction while still driving account creation. Test both variants.</p>
+      </div>
+    </div>
+  </div>
+  <div class="hypothesis-bar">
+    <div class="hyp-label">Hypothesis</div>
+    <p>Because 5-second testing shows user confusion between &ldquo;No sign-up required&rdquo; and &ldquo;Sign Up,&rdquo; we believe that changing the CTA to &ldquo;Create Free Account&rdquo; will increase sticky CTA CTR, measured by <strong>sticky CTA click-through rate</strong>.</p>
+  </div>
+</div>
+
+<!-- T3-03: Mid-Browse Save on High-Engagement Tools -->
+<div class="idea-card">
+  <div class="card-header">
+    <div class="idea-number orange">3</div>
+    <h3>Mid-Browse &ldquo;Save Report&rdquo; on High-Engagement Tools</h3>
+    <span class="location-tag">Rank Checker &bull; Site Audit Results Pages</span>
+  </div>
+  <div class="screenshot-area">
+    <div class="mockup-wrapper">
+      <div style="width: 100%; max-width: 500px;">
+        <div style="background: #f5f5f5; padding: 20px; border-radius: 8px;">
+          <div style="background: white; padding: 16px; border-radius: 8px; margin-bottom: 12px; border: 1px solid #ddd;">
+            <table style="width: 100%; font-size: 10px;">
+              <tr style="background: #f0f2f5;">
+                <td style="padding: 6px; font-weight: 600; color: #666;">Keyword</td>
+                <td style="padding: 6px; font-weight: 600; color: #666;">Position</td>
+              </tr>
+              <tr style="border-bottom: 1px solid #eee;">
+                <td style="padding: 6px; color: #333;">keyword 1</td>
+                <td style="padding: 6px; color: #333;">Position 3</td>
+              </tr>
+              <tr style="border-bottom: 1px solid #eee;">
+                <td style="padding: 6px; color: #333;">keyword 2</td>
+                <td style="padding: 6px; color: #333;">Position 1</td>
+              </tr>
+            </table>
+          </div>
+          <div style="background: #FFF5F0; border: 2px dashed #FF642D; border-radius: 8px; padding: 14px; text-align: center; font-size: 12px;">
+            <div style="font-weight: 600; color: #191C45; margin-bottom: 6px;">Want to track these results over time?</div>
+            <div style="color: #555; font-size: 11px; margin-bottom: 10px;">Save this report to your free account</div>
+            <button style="width: 100%; padding: 10px; background: #FF642D; color: white; border: none; border-radius: 6px; font-weight: 600; font-size: 11px; cursor: pointer; margin-bottom: 6px;">Save &amp; Track</button>
+            <button style="width: 100%; padding: 8px; background: transparent; color: #888; border: 1px solid #ddd; border-radius: 6px; font-weight: 500; font-size: 11px; cursor: pointer;">Maybe Later</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="notes-sidebar">
+      <div class="sticky-note observation-note">
+        <div class="note-label">Observation</div>
+        <p>Rank Checker (8.3 min) and Site Audit (11 min) have deepest engagement. Only CTA is sticky &ldquo;Sign Up&rdquo; which users have been ignoring for 8+ minutes. No conversion trigger during deep engagement.</p>
+      </div>
+      <div class="sticky-note idea-note">
+        <div class="note-label">Idea</div>
+        <p>At 50% scroll depth, non-intrusive inline banner: &ldquo;Want to track these results over time? Save this report to your free account.&rdquo; Single email field. Matches page style. Dismissible with &ldquo;Maybe later.&rdquo;</p>
+      </div>
+    </div>
+  </div>
+  <div class="hypothesis-bar">
+    <div class="hyp-label">Hypothesis</div>
+    <p>Because Rank Checker and Site Audit users engage for 8&ndash;11 minutes, we believe that a contextual &ldquo;Save &amp; track&rdquo; prompt at 50% scroll will increase account creation, measured by <strong>email submissions from these pages</strong>.</p>
+  </div>
+</div>
+
+<!-- T3-04: Cross-Tool Discovery Sidebar -->
+<div class="idea-card">
+  <div class="card-header">
+    <div class="idea-number orange">4</div>
+    <h3>Cross-Tool Discovery Sidebar on Results Pages</h3>
+    <span class="location-tag">Backlinks &bull; Website Traffic &bull; Keyword Magic Results</span>
+  </div>
+  <div class="screenshot-area">
+    <div class="mockup-wrapper">
+      <div style="width: 100%; max-width: 500px;">
+        <div style="background: #f5f5f5; padding: 20px; border-radius: 8px;">
+          <div style="font-weight: 600; color: #191C45; font-size: 12px; margin-bottom: 12px;">CONTEXTUAL &ldquo;RELATED INSIGHTS&rdquo; CARDS</div>
+          <div style="background: white; padding: 12px; border-radius: 8px; border: 1px solid #ddd; margin-bottom: 10px; cursor: pointer;">
+            <div style="font-weight: 600; color: #191C45; font-size: 12px; margin-bottom: 4px;">Your domain has 1,234 backlinks</div>
+            <div style="font-size: 11px; color: #555; margin-bottom: 8px;">See the full profile &mdash; find linking domains, anchor text analysis, and opportunities.</div>
+            <div style="color: #FF642D; font-weight: 600; font-size: 11px;">&rarr; Open Backlinks Tool</div>
+          </div>
+          <div style="background: white; padding: 12px; border-radius: 8px; border: 1px solid #ddd; margin-bottom: 10px; cursor: pointer;">
+            <div style="font-weight: 600; color: #191C45; font-size: 12px; margin-bottom: 4px;">Found 12 technical issues</div>
+            <div style="font-size: 11px; color: #555; margin-bottom: 8px;">Run a full Site Audit &mdash; get crawl results, prioritised action items, and historical trends.</div>
+            <div style="color: #FF642D; font-weight: 600; font-size: 11px;">&rarr; Open Site Audit</div>
+          </div>
+          <div style="background: white; padding: 12px; border-radius: 8px; border: 1px solid #ddd; cursor: pointer;">
+            <div style="font-weight: 600; color: #191C45; font-size: 12px; margin-bottom: 4px;">Explore 45 related keywords</div>
+            <div style="font-size: 11px; color: #555; margin-bottom: 8px;">Use Keyword Magic to find search volume, CPC, and competitive difficulty &mdash; pre-filled with your domain.</div>
+            <div style="color: #FF642D; font-weight: 600; font-size: 11px;">&rarr; Open Keyword Magic</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="notes-sidebar">
+      <div class="sticky-note observation-note">
+        <div class="note-label">Observation</div>
+        <p>Only 5&ndash;23% visit a second page. Tools are complementary but sidebar navigation gets near-zero clicks (Site Audit: 0.41% on &ldquo;Position tracking,&rdquo; 0.29% on &ldquo;Performance&rdquo;).</p>
+      </div>
+      <div class="sticky-note idea-note">
+        <div class="note-label">Idea</div>
+        <p>Replace static sidebar with 2&ndash;3 contextual cards tied to user&rsquo;s domain: &ldquo;Your domain has 1,234 backlinks &mdash; see the full profile &rarr;&rdquo; or &ldquo;Found 12 technical issues &mdash; run a Site Audit &rarr;&rdquo; Cards update dynamically based on results.</p>
+      </div>
+    </div>
+  </div>
+  <div class="hypothesis-bar">
+    <div class="hyp-label">Hypothesis</div>
+    <p>Because only 5&ndash;23% visit a second tool and sidebar gets near-zero clicks, we believe that replacing it with contextual &ldquo;Related insights&rdquo; cards will increase multi-tool usage, measured by <strong>cross-tool navigation rate</strong> and <strong>session page count</strong>.</p>
+  </div>
+</div>
+
+<!-- ============================================= FOOTER ============================================= -->
+<div style="max-width: 1100px; margin: 80px auto 40px; text-align: center; padding: 0 40px;">
+  <div style="font-size: 13px; color: #888; line-height: 1.8;">
+    <strong>Strategy Delivered:</strong> April 2026<br>
+    <strong>Research Period:</strong> March 2026 (Heatmaps, Session Recordings, User Interviews, Heuristic Review, CS Analysis, 5-Second Testing)<br>
+    <strong>Experimentation Phases:</strong> Big Swings (implementation lead time: 3&ndash;4 weeks), Pillar Tests (phased 2&ndash;4 week sprints)
+  </div>
+</div>
+
+</body>
+</html>

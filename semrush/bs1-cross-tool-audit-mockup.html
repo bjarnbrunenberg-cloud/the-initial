@@ -1,0 +1,1330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Big Swing 1 — Cross-Tool Guided Audit (Mockup)</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #ECEDEF;
+            color: #171A1C;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ===== ANNOTATION BAR ===== */
+        .annotation-bar {
+            position: sticky; top: 0; z-index: 1000;
+            background: #181E15; color: white;
+            padding: 0.65rem 2rem;
+            display: flex; align-items: center; gap: 1.5rem;
+            font-size: 0.78rem;
+        }
+        .annotation-bar .badge {
+            background: #C190FF; color: #181E15;
+            padding: 0.2rem 0.65rem; border-radius: 4px;
+            font-weight: 800; font-size: 0.68rem;
+            letter-spacing: 0.04em; flex-shrink: 0;
+        }
+        .annotation-bar .text { color: #D1D2D5; }
+        .annotation-bar .text strong { color: white; }
+
+        /* ===== VERSION TOGGLE ===== */
+        .version-toggle {
+            display: flex; justify-content: center; gap: 0;
+            padding: 1.5rem 2rem 0;
+        }
+        .toggle-btn {
+            padding: 0.7rem 2.25rem; font-size: 0.82rem; font-weight: 700;
+            border: none; cursor: pointer; transition: all 0.2s; font-family: inherit;
+        }
+        .toggle-btn.control {
+            background: #FFF0F0; color: #D42B2B;
+            border-radius: 8px 0 0 8px; border: 2px solid #F5CCCC;
+        }
+        .toggle-btn.control.active { background: #D42B2B; color: white; border-color: #D42B2B; }
+        .toggle-btn.variant {
+            background: #EDFFF8; color: #0A8F6A;
+            border-radius: 0 8px 8px 0; border: 2px solid #B3F0DC;
+        }
+        .toggle-btn.variant.active { background: #0A8F6A; color: white; border-color: #0A8F6A; }
+
+        /* ===== BROWSER CHROME ===== */
+        .browser-frame {
+            max-width: 1280px; margin: 1.5rem auto 3rem;
+            border-radius: 12px; overflow: hidden;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.12);
+            border: 1px solid #D0D2D6;
+        }
+        .browser-bar {
+            background: #F0F1F2; padding: 0.6rem 1rem;
+            display: flex; align-items: center; gap: 0.75rem;
+            border-bottom: 1px solid #D0D2D6;
+        }
+        .browser-dots { display: flex; gap: 5px; }
+        .browser-dots span { width: 10px; height: 10px; border-radius: 50%; }
+        .browser-dots span:nth-child(1) { background: #FF5F56; }
+        .browser-dots span:nth-child(2) { background: #FFBD2E; }
+        .browser-dots span:nth-child(3) { background: #27C93F; }
+        .browser-url {
+            flex: 1; background: white; padding: 0.4rem 0.75rem;
+            border-radius: 6px; font-size: 0.75rem; color: #6C6E79;
+            border: 1px solid #E0E2E7;
+        }
+        .browser-body { background: white; }
+
+        /* ===== SEMRUSH TOP NAV ===== */
+        .sr-nav {
+            display: flex; align-items: center; padding: 0 1rem 0 0; height: 56px;
+            background: white; border-bottom: 1px solid #ECEDEF;
+        }
+        .sr-logo {
+            font-size: 1.15rem; font-weight: 800; color: #171A1C;
+            letter-spacing: -0.02em; display: flex; align-items: center;
+            gap: 0.4rem; padding: 0 1.5rem; margin-right: 1rem;
+        }
+        .sr-logo svg { width: 22px; height: 22px; }
+        .sr-nav-links {
+            display: flex; gap: 1.5rem; font-size: 0.82rem;
+            font-weight: 500; color: #555B65;
+        }
+        .sr-nav-right {
+            margin-left: auto; display: flex; align-items: center; gap: 1rem;
+        }
+        .sr-nav-login { font-size: 0.82rem; font-weight: 600; color: #555B65; }
+        .sr-nav-signup {
+            background: #2BBF71; color: white; border: none;
+            padding: 0.5rem 1.25rem; border-radius: 28px;
+            font-size: 0.82rem; font-weight: 700; cursor: pointer; font-family: inherit;
+        }
+
+        /* ===== LEFT SIDEBAR ===== */
+        .page-layout {
+            display: flex; min-height: 600px;
+        }
+        .sr-sidebar {
+            width: 220px; flex-shrink: 0;
+            background: white; border-right: 1px solid #ECEDEF;
+            padding: 1.25rem 0; font-size: 0.8rem;
+            overflow-y: auto;
+        }
+        .sr-sidebar .nav-group { margin-bottom: 1.25rem; }
+        .sr-sidebar .nav-group-label {
+            font-size: 0.68rem; font-weight: 700; color: #8C919A;
+            text-transform: uppercase; letter-spacing: 0.04em;
+            padding: 0 1.25rem; margin-bottom: 0.35rem;
+        }
+        .sr-sidebar .nav-item {
+            display: flex; align-items: center; gap: 0.6rem;
+            padding: 0.45rem 1.25rem; color: #373D47; cursor: pointer;
+            transition: background 0.15s;
+        }
+        .sr-sidebar .nav-item:hover { background: #F5F6F7; }
+        .sr-sidebar .nav-item.active {
+            background: #E8F5EC; color: #171A1C; font-weight: 600;
+        }
+        .sr-sidebar .nav-icon {
+            width: 18px; height: 18px; display: flex;
+            align-items: center; justify-content: center;
+            font-size: 0.85rem; color: #8C919A;
+        }
+
+        /* ===== MAIN CONTENT AREA ===== */
+        .main-content {
+            flex: 1; min-width: 0;
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero-section {
+            background: linear-gradient(180deg, #D6EDDB 0%, #E4F2E7 35%, #F2F8F3 60%, #FFFFFF 100%);
+            padding: 2rem 3.5rem 2.5rem;
+        }
+        .breadcrumb {
+            font-size: 0.82rem; color: #6C6E79; margin-bottom: 1.5rem;
+        }
+        .breadcrumb a { color: #373D47; text-decoration: none; font-weight: 500; }
+        .breadcrumb a:hover { text-decoration: underline; }
+        .breadcrumb .sep { margin: 0 0.4rem; color: #B0B5BD; }
+        .hero-title {
+            font-size: 3.2rem; font-weight: 900; color: #171A1C;
+            letter-spacing: -0.035em; line-height: 1.08; margin-bottom: 1rem;
+        }
+        .hero-desc {
+            font-size: 1.05rem; color: #373D47; line-height: 1.7;
+            max-width: 680px; margin-bottom: 2.25rem;
+        }
+        .hero-desc strong { color: #171A1C; font-weight: 700; }
+
+        /* Search row */
+        .search-row {
+            display: flex; align-items: center; gap: 0.6rem; margin-bottom: 1rem;
+        }
+        .search-input-wrap { flex: 1; max-width: 380px; }
+        .search-input {
+            width: 100%; padding: 0.9rem 1.35rem;
+            border: 1.5px solid #D0D2D6; border-radius: 32px;
+            font-size: 0.92rem; font-family: inherit;
+            color: #8C919A; background: white; outline: none;
+        }
+        .search-input::placeholder { color: #B0B5BD; }
+        .country-select {
+            display: flex; align-items: center; gap: 0.5rem;
+            padding: 0.85rem 1.2rem; border: 1.5px solid #D0D2D6;
+            border-radius: 32px; font-size: 0.88rem; font-family: inherit;
+            color: #171A1C; background: white; cursor: pointer; font-weight: 500;
+        }
+        .country-flag { font-size: 1.1rem; }
+        .country-arrow { font-size: 0.5rem; color: #8C919A; margin-left: 0.1rem; }
+        .find-btn {
+            padding: 0.9rem 2rem;
+            background: #FF642D; color: white; border: none;
+            border-radius: 32px; font-size: 0.92rem; font-weight: 700;
+            cursor: pointer; font-family: inherit; white-space: nowrap;
+        }
+        .analyze-btn {
+            padding: 0.9rem 2rem;
+            background: #1A1A1A; color: white; border: none;
+            border-radius: 32px; font-size: 0.92rem; font-weight: 700;
+            cursor: pointer; font-family: inherit; white-space: nowrap;
+        }
+        .search-meta {
+            display: flex; align-items: center; gap: 0.75rem;
+        }
+        .examples-row {
+            display: flex; align-items: center; gap: 0.5rem;
+            font-size: 0.82rem; color: #8C919A;
+        }
+        .example-chip {
+            padding: 0.35rem 0.85rem; background: white;
+            border: 1px solid #E0E2E7; border-radius: 6px;
+            font-size: 0.8rem; color: #373D47; cursor: pointer;
+        }
+        .credits-counter {
+            margin-left: auto; font-size: 0.85rem; font-weight: 600;
+            color: #373D47; display: flex; align-items: center; gap: 0.3rem;
+        }
+        .credits-info {
+            width: 17px; height: 17px; border-radius: 50%;
+            border: 1.5px solid #C0C2C8; display: inline-flex;
+            align-items: center; justify-content: center;
+            font-size: 0.58rem; color: #8C919A; font-weight: 700;
+        }
+
+        /* ===== TRY SEMRUSH BANNER ===== */
+        .try-semrush-banner {
+            margin: 0.25rem 3.5rem 0;
+            padding: 2rem 2.5rem;
+            background: #E6D0F5;
+            border-radius: 16px;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .try-banner-content h2 {
+            font-size: 1.3rem; font-weight: 800; color: #171A1C;
+            margin-bottom: 0.35rem;
+        }
+        .try-banner-content p {
+            font-size: 0.9rem; color: #555B65; line-height: 1.5;
+        }
+        .try-banner-btn {
+            background: #1A1A1A; color: white; border: none;
+            padding: 1rem 2rem; border-radius: 32px;
+            font-size: 0.92rem; font-weight: 700; cursor: pointer;
+            font-family: inherit; white-space: nowrap; flex-shrink: 0;
+        }
+
+        /* ===== HOW TO USE SECTION ===== */
+        .how-to-section {
+            padding: 3rem 3.5rem 2.5rem;
+        }
+        .how-to-title {
+            font-size: 2rem; font-weight: 900; color: #171A1C;
+            text-align: center; letter-spacing: -0.02em;
+            margin-bottom: 2.25rem; text-transform: uppercase;
+        }
+        .how-to-steps {
+            display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2rem;
+        }
+        .how-step { display: flex; align-items: flex-start; gap: 1rem; }
+        .how-step-num {
+            font-size: 4rem; font-weight: 900; line-height: 1;
+            color: #D4B8F0; flex-shrink: 0; letter-spacing: -0.03em;
+        }
+        .how-step-text {
+            font-size: 0.95rem; color: #373D47; line-height: 1.6;
+            padding-top: 0.65rem;
+        }
+
+        /* ===== ANNOTATIONS ===== */
+        .control-ann {
+            position: absolute;
+            background: #D42B2B; color: white;
+            font-size: 0.62rem; font-weight: 700;
+            padding: 0.2rem 0.55rem; border-radius: 4px;
+            z-index: 10; pointer-events: none; white-space: nowrap;
+        }
+        .variant-ann {
+            position: absolute;
+            background: #0A8F6A; color: white;
+            font-size: 0.62rem; font-weight: 700;
+            padding: 0.2rem 0.55rem; border-radius: 4px;
+            z-index: 10; pointer-events: none; white-space: nowrap;
+        }
+        .control-outline {
+            outline: 2.5px dashed #D42B2B; outline-offset: 6px;
+        }
+        .variant-outline {
+            outline: 2.5px solid #0A8F6A; outline-offset: 6px; border-radius: 10px;
+        }
+
+        /* ===== DEAD-END OVERLAY (Control) ===== */
+        .dead-end-overlay {
+            position: relative;
+            margin: 2rem 3.5rem;
+            padding: 1.75rem 2rem;
+            background: #FFF8F7;
+            border: 2px dashed #D42B2B;
+            border-radius: 12px;
+        }
+        .dead-end-overlay h3 {
+            font-size: 0.9rem; font-weight: 800; color: #D42B2B;
+            margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;
+        }
+        .dead-end-overlay p {
+            font-size: 0.82rem; color: #555B65; line-height: 1.7;
+        }
+        .dead-end-overlay .stat-row {
+            display: flex; gap: 2rem; margin-top: 1rem;
+        }
+        .dead-end-overlay .stat-box {
+            background: white; border: 1px solid #F5CCCC;
+            border-radius: 8px; padding: 0.75rem 1.25rem; text-align: center;
+        }
+        .dead-end-overlay .stat-num {
+            font-size: 1.6rem; font-weight: 900; color: #D42B2B;
+        }
+        .dead-end-overlay .stat-label {
+            font-size: 0.68rem; color: #8C919A; font-weight: 600; margin-top: 0.15rem;
+        }
+
+        /* ===== TOOL CARDS (Control — isolated tools) ===== */
+        .tool-cards-row {
+            display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.25rem;
+            margin: 1.75rem 3.5rem 0;
+        }
+        .tool-card {
+            border: 1.5px solid #E0E2E7; border-radius: 12px;
+            padding: 1.5rem; position: relative;
+        }
+        .tool-card .tool-icon {
+            width: 40px; height: 40px; border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.15rem; margin-bottom: 0.85rem;
+        }
+        .tool-card h4 {
+            font-size: 0.92rem; font-weight: 800; color: #171A1C;
+            margin-bottom: 0.35rem;
+        }
+        .tool-card p {
+            font-size: 0.78rem; color: #8C919A; line-height: 1.55;
+        }
+        .tool-card .no-link {
+            font-size: 0.68rem; color: #D42B2B; font-weight: 700;
+            margin-top: 0.75rem; display: flex; align-items: center; gap: 0.3rem;
+        }
+        .tool-card.active-tool {
+            border-color: #2BBF71; background: #F0FFF8;
+        }
+        .tool-card.inactive-tool {
+            opacity: 0.5; border-color: #E0E2E7;
+        }
+
+        /* ===== GUIDED AUDIT PROGRESS BAR (Variant) ===== */
+        .audit-progress-bar {
+            background: white;
+            border-bottom: 1px solid #ECEDEF;
+            padding: 1rem 3.5rem;
+            display: flex; align-items: center; gap: 1.5rem;
+        }
+        .audit-logo {
+            display: flex; align-items: center; gap: 0.6rem;
+            font-size: 0.85rem; font-weight: 800; color: #171A1C;
+            flex-shrink: 0;
+            padding-right: 1.5rem;
+            border-right: 1px solid #E0E2E7;
+        }
+        .audit-logo .logo-icon {
+            width: 32px; height: 32px; border-radius: 8px;
+            background: linear-gradient(135deg, #FF642D, #FF8F6B);
+            display: flex; align-items: center; justify-content: center;
+            color: white; font-size: 0.9rem; font-weight: 900;
+        }
+        .audit-steps {
+            display: flex; align-items: center; gap: 0; flex: 1;
+        }
+        .audit-step {
+            display: flex; align-items: center; gap: 0.5rem;
+            font-size: 0.78rem; font-weight: 600; color: #B0B5BD;
+            position: relative;
+        }
+        .audit-step .step-circle {
+            width: 28px; height: 28px; border-radius: 50%;
+            border: 2px solid #D0D2D6;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.72rem; font-weight: 800; color: #B0B5BD;
+            background: white; flex-shrink: 0;
+        }
+        .audit-step.completed .step-circle {
+            background: #2BBF71; border-color: #2BBF71; color: white;
+        }
+        .audit-step.completed { color: #2BBF71; }
+        .audit-step.active .step-circle {
+            background: #FF642D; border-color: #FF642D; color: white;
+        }
+        .audit-step.active { color: #171A1C; font-weight: 700; }
+        .step-connector {
+            width: 60px; height: 2px; background: #E0E2E7; margin: 0 0.75rem;
+            flex-shrink: 0;
+        }
+        .step-connector.done { background: #2BBF71; }
+        .audit-progress-pct {
+            font-size: 0.72rem; font-weight: 800; color: #FF642D;
+            background: #FFF3EE; padding: 0.3rem 0.75rem; border-radius: 20px;
+            flex-shrink: 0;
+        }
+
+        /* ===== VARIANT HERO (Step 2 active — Traffic) ===== */
+        .variant-hero {
+            background: linear-gradient(180deg, #D6EDDB 0%, #E4F2E7 35%, #F2F8F3 60%, #FFFFFF 100%);
+            padding: 1.75rem 3.5rem 2rem;
+        }
+        .step-badge {
+            display: inline-flex; align-items: center; gap: 0.4rem;
+            background: #FFF3EE; color: #FF642D;
+            padding: 0.35rem 0.85rem; border-radius: 20px;
+            font-size: 0.72rem; font-weight: 800;
+            margin-bottom: 0.85rem;
+        }
+        .variant-hero .hero-title { font-size: 2.6rem; margin-bottom: 0.75rem; }
+        .variant-hero .hero-desc { font-size: 0.98rem; margin-bottom: 1.75rem; max-width: 600px; }
+
+        /* ===== STEP 1 RESULTS SUMMARY (Variant — Completed keywords) ===== */
+        .completed-step-summary {
+            margin: 0 3.5rem;
+            padding: 1.25rem 1.75rem;
+            background: #F0FFF8;
+            border: 1px solid #B3F0DC;
+            border-radius: 12px;
+            display: flex; align-items: center; gap: 1.5rem;
+        }
+        .summary-check {
+            width: 36px; height: 36px; border-radius: 50%;
+            background: #2BBF71; color: white;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.1rem; font-weight: 800; flex-shrink: 0;
+        }
+        .summary-content { flex: 1; }
+        .summary-content h4 {
+            font-size: 0.82rem; font-weight: 800; color: #171A1C;
+            margin-bottom: 0.2rem;
+        }
+        .summary-content p {
+            font-size: 0.78rem; color: #555B65; line-height: 1.5;
+        }
+        .summary-metrics {
+            display: flex; gap: 1.25rem; flex-shrink: 0;
+        }
+        .summary-metric {
+            text-align: center;
+        }
+        .summary-metric .num {
+            font-size: 1.1rem; font-weight: 900; color: #171A1C;
+        }
+        .summary-metric .label {
+            font-size: 0.62rem; color: #8C919A; font-weight: 600;
+        }
+
+        /* ===== TRAFFIC RESULTS CARD ===== */
+        .traffic-results {
+            margin: 1.5rem 3.5rem 0;
+            background: #FAFBFC;
+            border: 1px solid #E8E9EB;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        .traffic-header {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 1.25rem 1.75rem;
+            border-bottom: 1px solid #E8E9EB;
+        }
+        .traffic-header h3 {
+            font-size: 1rem; font-weight: 800; color: #171A1C;
+        }
+        .traffic-header .domain-tag {
+            font-size: 0.78rem; font-weight: 600; color: #555B65;
+            background: white; border: 1px solid #E0E2E7;
+            padding: 0.3rem 0.75rem; border-radius: 6px;
+        }
+        .traffic-grid {
+            display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 0;
+            padding: 0;
+        }
+        .traffic-stat {
+            padding: 1.25rem 1.75rem;
+            border-right: 1px solid #E8E9EB;
+        }
+        .traffic-stat:last-child { border-right: none; }
+        .traffic-stat .stat-label {
+            font-size: 0.68rem; font-weight: 600; color: #8C919A;
+            text-transform: uppercase; letter-spacing: 0.03em;
+            margin-bottom: 0.35rem;
+        }
+        .traffic-stat .stat-value {
+            font-size: 1.5rem; font-weight: 900; color: #171A1C;
+        }
+        .traffic-stat .stat-change {
+            font-size: 0.72rem; font-weight: 700; margin-top: 0.2rem;
+        }
+        .traffic-stat .stat-change.up { color: #2BBF71; }
+        .traffic-stat .stat-change.down { color: #D42B2B; }
+
+        /* Mini chart placeholder */
+        .traffic-chart {
+            padding: 1.25rem 1.75rem;
+            border-top: 1px solid #E8E9EB;
+            display: flex; align-items: flex-end; gap: 3px; height: 80px;
+        }
+        .chart-bar {
+            flex: 1; background: #D6EDDB; border-radius: 2px 2px 0 0;
+            min-height: 8px; transition: background 0.2s;
+        }
+        .chart-bar.highlight { background: #2BBF71; }
+
+        /* ===== CONTINUE CTA ===== */
+        .continue-section {
+            margin: 1.5rem 3.5rem 0;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 1.25rem 1.75rem;
+            background: white;
+            border: 2px solid #FF642D;
+            border-radius: 12px;
+        }
+        .continue-section .continue-text h4 {
+            font-size: 0.92rem; font-weight: 800; color: #171A1C;
+            margin-bottom: 0.2rem;
+        }
+        .continue-section .continue-text p {
+            font-size: 0.78rem; color: #555B65;
+        }
+        .continue-btn {
+            padding: 0.85rem 1.75rem;
+            background: #FF642D; color: white; border: none;
+            border-radius: 32px; font-size: 0.88rem; font-weight: 700;
+            cursor: pointer; font-family: inherit; white-space: nowrap;
+            display: flex; align-items: center; gap: 0.5rem;
+        }
+
+        /* ===== REPORT PREVIEW ===== */
+        .report-preview {
+            margin: 1.75rem 3.5rem 0;
+            border: 1px solid #E0E2E7;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        .report-preview-header {
+            background: #F5F6F7; padding: 0.85rem 1.75rem;
+            display: flex; align-items: center; justify-content: space-between;
+            border-bottom: 1px solid #E0E2E7;
+        }
+        .report-preview-header h4 {
+            font-size: 0.78rem; font-weight: 700; color: #8C919A;
+            text-transform: uppercase; letter-spacing: 0.04em;
+        }
+        .report-preview-header .locked-badge {
+            font-size: 0.65rem; font-weight: 700; color: #8C919A;
+            background: #E8E9EB; padding: 0.2rem 0.6rem; border-radius: 4px;
+        }
+        .report-preview-body {
+            padding: 1.5rem 1.75rem;
+            display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.25rem;
+            position: relative;
+        }
+        .report-preview-body::after {
+            content: '';
+            position: absolute; inset: 0;
+            background: linear-gradient(180deg, transparent 0%, rgba(255,255,255,0.85) 60%, white 100%);
+            pointer-events: none;
+        }
+        .report-section {
+            background: #FAFBFC; border: 1px solid #E8E9EB;
+            border-radius: 8px; padding: 1rem;
+        }
+        .report-section .section-icon {
+            font-size: 1.25rem; margin-bottom: 0.5rem;
+        }
+        .report-section h5 {
+            font-size: 0.78rem; font-weight: 800; color: #171A1C;
+            margin-bottom: 0.3rem;
+        }
+        .report-section .blurred-line {
+            height: 8px; background: #E8E9EB; border-radius: 4px;
+            margin-bottom: 0.4rem;
+        }
+        .report-section .blurred-line.short { width: 65%; }
+        .report-section .blurred-line.med { width: 85%; }
+
+        /* ===== CHANGES BOX ===== */
+        .changes-box {
+            margin: 2rem 3.5rem 0;
+            padding: 1.15rem 1.5rem;
+            background: #F0FFF8; border: 1px solid #B3F0DC; border-radius: 8px;
+        }
+        .changes-box h4 {
+            font-size: 0.78rem; font-weight: 700; color: #0A8F6A;
+            margin-bottom: 0.4rem;
+        }
+        .changes-box p {
+            font-size: 0.78rem; color: #373D47; line-height: 1.85;
+        }
+
+        /* ===== VARIANT TABS (sub-views within variant) ===== */
+        .variant-sub-toggle {
+            display: flex; justify-content: center; gap: 0.5rem;
+            padding: 1rem 2rem 0;
+        }
+        .sub-toggle-btn {
+            padding: 0.55rem 1.5rem; font-size: 0.75rem; font-weight: 700;
+            border: 1.5px solid #E0E2E7; background: white; color: #555B65;
+            border-radius: 8px; cursor: pointer; font-family: inherit;
+            transition: all 0.2s;
+        }
+        .sub-toggle-btn.active {
+            background: #171A1C; color: white; border-color: #171A1C;
+        }
+        .sub-view { display: none; }
+        .sub-view.active { display: block; }
+
+        /* ===== REPORT VIEW (Full report variant) ===== */
+        .report-full {
+            padding: 2rem 3.5rem;
+        }
+        .report-card {
+            border: 1px solid #E0E2E7;
+            border-radius: 16px;
+            overflow: hidden;
+            background: white;
+        }
+        .report-card-header {
+            background: linear-gradient(135deg, #FF642D 0%, #FF8F6B 50%, #FFC8B0 100%);
+            padding: 2rem 2.5rem;
+            color: white;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .report-card-header h2 {
+            font-size: 1.5rem; font-weight: 900; margin-bottom: 0.35rem;
+        }
+        .report-card-header p {
+            font-size: 0.88rem; opacity: 0.9;
+        }
+        .seo-score-circle {
+            width: 80px; height: 80px; border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            border: 4px solid rgba(255,255,255,0.6);
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            flex-shrink: 0;
+        }
+        .seo-score-circle .score-num {
+            font-size: 1.6rem; font-weight: 900; line-height: 1;
+        }
+        .seo-score-circle .score-label {
+            font-size: 0.5rem; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.05em; opacity: 0.85;
+        }
+
+        .report-sections-grid {
+            display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0;
+        }
+        .report-full-section {
+            padding: 1.5rem 2rem;
+            border-right: 1px solid #E8E9EB;
+        }
+        .report-full-section:last-child { border-right: none; }
+        .report-full-section .section-badge {
+            display: inline-block;
+            padding: 0.2rem 0.6rem; border-radius: 4px;
+            font-size: 0.62rem; font-weight: 800;
+            text-transform: uppercase; letter-spacing: 0.04em;
+            margin-bottom: 0.75rem;
+        }
+        .report-full-section .section-badge.keywords { background: #FFF3EE; color: #FF642D; }
+        .report-full-section .section-badge.traffic { background: #EDE6F6; color: #7D26E8; }
+        .report-full-section .section-badge.audit { background: #E8F5EC; color: #2BBF71; }
+        .report-full-section h4 {
+            font-size: 0.85rem; font-weight: 800; color: #171A1C;
+            margin-bottom: 0.75rem;
+        }
+        .report-metric-row {
+            display: flex; justify-content: space-between;
+            align-items: center; padding: 0.5rem 0;
+            border-bottom: 1px solid #F0F1F2;
+            font-size: 0.78rem;
+        }
+        .report-metric-row:last-child { border-bottom: none; }
+        .report-metric-row .metric-name { color: #555B65; }
+        .report-metric-row .metric-val { font-weight: 800; color: #171A1C; }
+
+        /* Report CTA */
+        .report-cta-section {
+            padding: 1.75rem 2.5rem;
+            border-top: 1px solid #E8E9EB;
+            display: flex; align-items: center; justify-content: space-between;
+            background: #FAFBFC;
+        }
+        .report-cta-text h4 {
+            font-size: 0.95rem; font-weight: 800; color: #171A1C;
+            margin-bottom: 0.25rem;
+        }
+        .report-cta-text p {
+            font-size: 0.8rem; color: #555B65;
+        }
+        .report-cta-btn {
+            padding: 0.95rem 2rem;
+            background: #FF642D; color: white; border: none;
+            border-radius: 32px; font-size: 0.92rem; font-weight: 700;
+            cursor: pointer; font-family: inherit;
+        }
+        .report-email-capture {
+            margin-top: 1.25rem;
+            padding: 1.25rem 2rem;
+            border-top: 1px solid #E8E9EB;
+            background: white;
+        }
+        .email-row {
+            display: flex; gap: 0.5rem; align-items: center;
+            max-width: 500px;
+        }
+        .email-input {
+            flex: 1; padding: 0.8rem 1.25rem;
+            border: 1.5px solid #D0D2D6; border-radius: 32px;
+            font-size: 0.88rem; font-family: inherit; outline: none;
+        }
+        .email-submit {
+            padding: 0.8rem 1.5rem;
+            background: #2BBF71; color: white; border: none;
+            border-radius: 32px; font-size: 0.85rem; font-weight: 700;
+            cursor: pointer; font-family: inherit; white-space: nowrap;
+        }
+        .email-note {
+            font-size: 0.68rem; color: #8C919A; margin-top: 0.5rem;
+        }
+
+        /* ===== VERSION TOGGLE ===== */
+        .version { display: none; }
+        .version.active { display: block; }
+    </style>
+</head>
+<body>
+
+    <!-- Annotation Bar -->
+    <div class="annotation-bar">
+        <span class="badge">BIG SWING 1</span>
+        <span class="text"><strong>Cross-Tool Guided Audit</strong> &mdash; &ldquo;Your Free SEO Health Check&rdquo; &middot; All Free Tool Pages &middot; New Guided Flow</span>
+        <span class="text" style="margin-left: auto; font-size: 0.68rem; opacity: 0.6;">Mockup &bull; The Initial &bull; April 2026</span>
+    </div>
+
+    <!-- Version Toggle -->
+    <div class="version-toggle">
+        <button class="toggle-btn control active" onclick="showVersion('control')">&#x2715; Control (Current)</button>
+        <button class="toggle-btn variant" onclick="showVersion('variant')">&#x2713; Variant (Proposed)</button>
+    </div>
+
+    <!-- =================================================== -->
+    <!-- CONTROL — Current Fragmented Experience              -->
+    <!-- =================================================== -->
+    <div class="version active" id="control">
+        <div class="browser-frame">
+            <div class="browser-bar">
+                <div class="browser-dots"><span></span><span></span><span></span></div>
+                <div class="browser-url">&#128274; semrush.com/analytics/keywordmagic/</div>
+            </div>
+            <div class="browser-body">
+
+                <!-- Nav -->
+                <div class="sr-nav">
+                    <div class="sr-logo">
+                        <svg viewBox="0 0 32 32" fill="none"><path d="M5.5 16.5C5.5 16.5 8 10 16 10C24 10 26.5 16.5 26.5 16.5" stroke="#171A1C" stroke-width="3" stroke-linecap="round"/><path d="M2 22C2 22 6 13 16 13C26 13 30 22 30 22" stroke="#171A1C" stroke-width="3" stroke-linecap="round"/><circle cx="16" cy="8" r="3" fill="#FF642D"/></svg>
+                        Semrush
+                    </div>
+                    <div class="sr-nav-links">
+                        <span>Pricing</span><span>Enterprise</span><span>More</span>
+                    </div>
+                    <div class="sr-nav-right">
+                        <span class="sr-nav-login">Log In</span>
+                        <button class="sr-nav-signup">Sign Up</button>
+                    </div>
+                </div>
+
+                <!-- Page layout with sidebar -->
+                <div class="page-layout">
+                    <!-- Sidebar -->
+                    <div class="sr-sidebar">
+                        <div class="nav-group">
+                            <div class="nav-item" style="font-weight: 700; color: #171A1C; padding-bottom: 0.75rem;">
+                                <span class="nav-icon">&#x1F50D;</span> SEO
+                            </div>
+                        </div>
+                        <div class="nav-group">
+                            <div class="nav-item" style="padding-left: 2.5rem;">Dashboard</div>
+                        </div>
+                        <div class="nav-group">
+                            <div class="nav-group-label">Site Performance</div>
+                            <div class="nav-item" style="padding-left: 2.5rem;">Site Audit</div>
+                            <div class="nav-item" style="padding-left: 2.5rem;">Position Tracking</div>
+                        </div>
+                        <div class="nav-group">
+                            <div class="nav-group-label">Competitive Analysis</div>
+                            <div class="nav-item" style="padding-left: 2.5rem;">Domain Overview</div>
+                            <div class="nav-item" style="padding-left: 2.5rem;">Organic Rankings</div>
+                            <div class="nav-item" style="padding-left: 2.5rem;">Top Pages</div>
+                            <div class="nav-item" style="padding-left: 2.5rem;">Compare Domains</div>
+                            <div class="nav-item" style="padding-left: 2.5rem;">Keyword Gap</div>
+                            <div class="nav-item" style="padding-left: 2.5rem;">Backlink Gap</div>
+                        </div>
+                        <div class="nav-group">
+                            <div class="nav-group-label">Keyword Research</div>
+                            <div class="nav-item" style="padding-left: 2.5rem;">Keyword Overview</div>
+                            <div class="nav-item active" style="padding-left: 2.5rem;">Keyword Magic Tool</div>
+                            <div class="nav-item" style="padding-left: 2.5rem;">Keyword Strategy Builder</div>
+                        </div>
+                    </div>
+
+                    <!-- Main content -->
+                    <div class="main-content">
+                        <!-- Hero -->
+                        <div class="hero-section">
+                            <div class="breadcrumb">
+                                <a href="#">Free Tools</a><span class="sep">/</span><span>Keyword Tool</span>
+                            </div>
+                            <h1 class="hero-title">Free Keyword Tool</h1>
+                            <p class="hero-desc">Find keywords to grow your traffic and reach more customers. Explore <strong>keyword ideas, search volumes, and keyword difficulty</strong> in seconds. Powered by Semrush&rsquo;s Keyword Magic Tool.</p>
+                            <div class="search-row">
+                                <div class="search-input-wrap">
+                                    <input class="search-input" type="text" placeholder="Enter a word or phrase">
+                                </div>
+                                <div class="country-select">
+                                    <span class="country-flag">&#127482;&#127480;</span>
+                                    United States
+                                    <span class="country-arrow">&#9660;</span>
+                                </div>
+                                <button class="find-btn">Find Keywords</button>
+                            </div>
+                            <div class="search-meta">
+                                <div class="examples-row">
+                                    For example:
+                                    <span class="example-chip">seo strategy for saas</span>
+                                    <span class="example-chip">hotels in chicago</span>
+                                </div>
+                                <div class="credits-counter">
+                                    5/5 <span class="credits-info">?</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Try Semrush Banner -->
+                        <div class="try-semrush-banner">
+                            <div class="try-banner-content">
+                                <h2>Find the Right Keywords for Your Website</h2>
+                                <p>Use real data and metrics to uncover keyword opportunities worth targeting.</p>
+                            </div>
+                            <button class="try-banner-btn">Try Semrush</button>
+                        </div>
+
+                        <!-- How to Use -->
+                        <div class="how-to-section">
+                            <h2 class="how-to-title">How to Use the Keyword Tool</h2>
+                            <div class="how-to-steps">
+                                <div class="how-step">
+                                    <span class="how-step-num">1</span>
+                                    <p class="how-step-text">Enter a word or phrase relevant to your business.</p>
+                                </div>
+                                <div class="how-step">
+                                    <span class="how-step-num">2</span>
+                                    <p class="how-step-text">Click &ldquo;Find Keywords&rdquo; to see related keyword suggestions.</p>
+                                </div>
+                                <div class="how-step">
+                                    <span class="how-step-num">3</span>
+                                    <p class="how-step-text">Review the search data to choose the best keywords.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Dead End Analysis -->
+                        <div class="dead-end-overlay">
+                            <h3>&#9888; Dead-End Experience &mdash; No Path to Other Tools</h3>
+                            <p>Users run one query, get one data point, and leave. No mechanism guides them to combine tools. The real value of Semrush &mdash; keywords + traffic + audit together &mdash; remains invisible to free users.</p>
+                            <div class="stat-row">
+                                <div class="stat-box">
+                                    <div class="stat-num">80%+</div>
+                                    <div class="stat-label">Never visit a 2nd tool</div>
+                                </div>
+                                <div class="stat-box">
+                                    <div class="stat-num">22.9%</div>
+                                    <div class="stat-label">Best cross-page rate<br>(Keyword Rank Checker)</div>
+                                </div>
+                                <div class="stat-box">
+                                    <div class="stat-num">1.2</div>
+                                    <div class="stat-label">Avg tools per session</div>
+                                </div>
+                                <div class="stat-box">
+                                    <div class="stat-num">0</div>
+                                    <div class="stat-label">Cross-tool nudges<br>on any free page</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Isolated Tool Cards -->
+                        <div style="padding: 0 3.5rem; margin-top: 1.5rem;">
+                            <div style="position: relative;">
+                                <div class="control-ann" style="top: -10px; left: 0;">ISOLATED &mdash; Each tool is a dead end with no connection to others</div>
+                            </div>
+                        </div>
+                        <div class="tool-cards-row">
+                            <div class="tool-card active-tool">
+                                <div class="tool-icon" style="background: #FFF3EE;">&#128270;</div>
+                                <h4>Keyword Magic Tool</h4>
+                                <p>User is HERE &mdash; finds keywords, gets results, and...</p>
+                                <div class="no-link">&#x274C; No link to check traffic</div>
+                            </div>
+                            <div class="tool-card inactive-tool">
+                                <div class="tool-icon" style="background: #F0F1F2;">&#128200;</div>
+                                <h4>Domain Overview</h4>
+                                <p>Could show traffic for the same domain, but user never knows it exists.</p>
+                                <div class="no-link">&#x274C; Undiscovered by 80%+ users</div>
+                            </div>
+                            <div class="tool-card inactive-tool">
+                                <div class="tool-icon" style="background: #F0F1F2;">&#128736;</div>
+                                <h4>Site Audit / SEO Checker</h4>
+                                <p>Could audit the same website, but there&rsquo;s no guided path.</p>
+                                <div class="no-link">&#x274C; Undiscovered by 80%+ users</div>
+                            </div>
+                        </div>
+
+                        <div style="height: 2rem;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- =================================================== -->
+    <!-- VARIANT — Cross-Tool Guided Audit                    -->
+    <!-- =================================================== -->
+    <div class="version" id="variant">
+
+        <!-- Sub-views within variant -->
+        <div class="variant-sub-toggle">
+            <button class="sub-toggle-btn active" onclick="showSubView('flow')">Step 2 &mdash; In Progress</button>
+            <button class="sub-toggle-btn" onclick="showSubView('report')">Final Report Preview</button>
+        </div>
+
+        <!-- ============ SUB-VIEW 1: Guided Flow (Step 2 active) ============ -->
+        <div class="sub-view active" id="flow">
+            <div class="browser-frame">
+                <div class="browser-bar">
+                    <div class="browser-dots"><span></span><span></span><span></span></div>
+                    <div class="browser-url">&#128274; semrush.com/free/seo-health-check/?step=2</div>
+                </div>
+                <div class="browser-body">
+
+                    <!-- Nav -->
+                    <div class="sr-nav">
+                        <div class="sr-logo">
+                            <svg viewBox="0 0 32 32" fill="none"><path d="M5.5 16.5C5.5 16.5 8 10 16 10C24 10 26.5 16.5 26.5 16.5" stroke="#171A1C" stroke-width="3" stroke-linecap="round"/><path d="M2 22C2 22 6 13 16 13C26 13 30 22 30 22" stroke="#171A1C" stroke-width="3" stroke-linecap="round"/><circle cx="16" cy="8" r="3" fill="#FF642D"/></svg>
+                            Semrush
+                        </div>
+                        <div class="sr-nav-links">
+                            <span>Pricing</span><span>Enterprise</span><span>More</span>
+                        </div>
+                        <div class="sr-nav-right">
+                            <span class="sr-nav-login">Log In</span>
+                            <button class="sr-nav-signup">Sign Up</button>
+                        </div>
+                    </div>
+
+                    <!-- ===== GUIDED AUDIT PROGRESS BAR ===== -->
+                    <div style="position: relative;">
+                        <div class="variant-ann" style="top: 0.5rem; right: 1rem; z-index: 20;">NEW &mdash; Guided progress bar replaces isolated tool pages</div>
+                        <div class="audit-progress-bar">
+                            <div class="audit-logo">
+                                <div class="logo-icon">&#9889;</div>
+                                SEO Health Check
+                            </div>
+                            <div class="audit-steps">
+                                <div class="audit-step completed">
+                                    <div class="step-circle">&#10003;</div>
+                                    Keywords
+                                </div>
+                                <div class="step-connector done"></div>
+                                <div class="audit-step active">
+                                    <div class="step-circle">2</div>
+                                    Traffic
+                                </div>
+                                <div class="step-connector"></div>
+                                <div class="audit-step">
+                                    <div class="step-circle">3</div>
+                                    SEO Audit
+                                </div>
+                            </div>
+                            <div class="audit-progress-pct">66% complete</div>
+                        </div>
+                    </div>
+
+                    <!-- Completed Step 1 Summary -->
+                    <div style="position: relative; margin-top: 1.25rem;">
+                        <div class="variant-ann" style="top: -8px; left: 3.5rem;">STEP 1 COMPLETE &mdash; Results carry forward into the flow</div>
+                        <div class="completed-step-summary">
+                            <div class="summary-check">&#10003;</div>
+                            <div class="summary-content">
+                                <h4>Step 1 Complete: Keyword Research</h4>
+                                <p>Found 4,892 keyword ideas for &ldquo;seo strategy for saas&rdquo; &mdash; 12 high-opportunity keywords saved to your report.</p>
+                            </div>
+                            <div class="summary-metrics">
+                                <div class="summary-metric">
+                                    <div class="num">4,892</div>
+                                    <div class="label">Keywords found</div>
+                                </div>
+                                <div class="summary-metric">
+                                    <div class="num">12</div>
+                                    <div class="label">Saved to report</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 2 Hero — Traffic Analysis -->
+                    <div class="variant-hero">
+                        <div class="step-badge">&#9679; STEP 2 OF 3</div>
+                        <h1 class="hero-title">Check Your Website Traffic</h1>
+                        <p class="hero-desc">See how your domain performs organically. We&rsquo;ll analyse your traffic sources, trends, and compare you to competitors.</p>
+                        <div class="search-row">
+                            <div class="search-input-wrap">
+                                <input class="search-input" type="text" placeholder="Enter a domain or website URL" value="yourwebsite.com" style="color: #171A1C;">
+                            </div>
+                            <button class="analyze-btn">Analyse Traffic</button>
+                        </div>
+                        <div class="search-meta">
+                            <div class="credits-counter" style="margin-left: 0;">
+                                3/3 <span class="credits-info">?</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Traffic Results -->
+                    <div style="position: relative;">
+                        <div class="variant-ann" style="top: 0.25rem; right: 3.5rem;">CONTEXTUAL DATA &mdash; Traffic analysis feeds into combined report</div>
+                        <div class="traffic-results">
+                            <div class="traffic-header">
+                                <h3>Traffic Overview</h3>
+                                <span class="domain-tag">yourwebsite.com</span>
+                            </div>
+                            <div class="traffic-grid">
+                                <div class="traffic-stat">
+                                    <div class="stat-label">Monthly Visits</div>
+                                    <div class="stat-value">12.4K</div>
+                                    <div class="stat-change up">&#9650; +8.3% vs last month</div>
+                                </div>
+                                <div class="traffic-stat">
+                                    <div class="stat-label">Organic Traffic</div>
+                                    <div class="stat-value">76%</div>
+                                    <div class="stat-change up">&#9650; +2.1% vs last month</div>
+                                </div>
+                                <div class="traffic-stat">
+                                    <div class="stat-label">Bounce Rate</div>
+                                    <div class="stat-value">42.8%</div>
+                                    <div class="stat-change down">&#9660; &minus;3.5% (improving)</div>
+                                </div>
+                                <div class="traffic-stat">
+                                    <div class="stat-label">Avg. Visit Duration</div>
+                                    <div class="stat-value">2m 48s</div>
+                                    <div class="stat-change up">&#9650; +12s vs last month</div>
+                                </div>
+                            </div>
+                            <div class="traffic-chart">
+                                <div class="chart-bar" style="height: 25%;"></div>
+                                <div class="chart-bar" style="height: 35%;"></div>
+                                <div class="chart-bar" style="height: 30%;"></div>
+                                <div class="chart-bar" style="height: 45%;"></div>
+                                <div class="chart-bar" style="height: 42%;"></div>
+                                <div class="chart-bar" style="height: 50%;"></div>
+                                <div class="chart-bar" style="height: 55%;"></div>
+                                <div class="chart-bar" style="height: 48%;"></div>
+                                <div class="chart-bar" style="height: 60%;"></div>
+                                <div class="chart-bar" style="height: 65%;"></div>
+                                <div class="chart-bar" style="height: 58%;"></div>
+                                <div class="chart-bar highlight" style="height: 72%;"></div>
+                                <div class="chart-bar highlight" style="height: 68%;"></div>
+                                <div class="chart-bar highlight" style="height: 75%;"></div>
+                                <div class="chart-bar highlight" style="height: 80%;"></div>
+                                <div class="chart-bar highlight" style="height: 78%;"></div>
+                                <div class="chart-bar highlight" style="height: 85%;"></div>
+                                <div class="chart-bar highlight" style="height: 82%;"></div>
+                                <div class="chart-bar highlight" style="height: 88%;"></div>
+                                <div class="chart-bar highlight" style="height: 90%;"></div>
+                                <div class="chart-bar highlight" style="height: 85%;"></div>
+                                <div class="chart-bar highlight" style="height: 92%;"></div>
+                                <div class="chart-bar highlight" style="height: 95%;"></div>
+                                <div class="chart-bar highlight" style="height: 100%;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Continue to Step 3 CTA -->
+                    <div class="continue-section">
+                        <div class="continue-text">
+                            <h4>Step 2 complete &mdash; continue to your SEO Audit</h4>
+                            <p>One more step to generate your full SEO Health Report. We&rsquo;ll audit your site for technical issues.</p>
+                        </div>
+                        <button class="continue-btn">
+                            Continue to Step 3 &#8594;
+                        </button>
+                    </div>
+
+                    <!-- Report Preview (locked) -->
+                    <div class="report-preview">
+                        <div class="report-preview-header">
+                            <h4>&#128196; Your SEO Health Report &mdash; Preview</h4>
+                            <span class="locked-badge">&#128274; Complete Step 3 to unlock</span>
+                        </div>
+                        <div class="report-preview-body">
+                            <div class="report-section">
+                                <div class="section-icon">&#128270;</div>
+                                <h5>Keyword Opportunities</h5>
+                                <div class="blurred-line med"></div>
+                                <div class="blurred-line short"></div>
+                                <div class="blurred-line med"></div>
+                            </div>
+                            <div class="report-section">
+                                <div class="section-icon">&#128200;</div>
+                                <h5>Traffic Analysis</h5>
+                                <div class="blurred-line med"></div>
+                                <div class="blurred-line short"></div>
+                                <div class="blurred-line med"></div>
+                            </div>
+                            <div class="report-section" style="opacity: 0.4;">
+                                <div class="section-icon">&#128736;</div>
+                                <h5>Site Health Audit</h5>
+                                <div class="blurred-line med"></div>
+                                <div class="blurred-line short"></div>
+                                <div class="blurred-line med"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Changes summary -->
+                    <div class="changes-box">
+                        <h4>&#x2713; What changed</h4>
+                        <p>
+                            &#x2022; Added guided &ldquo;SEO Health Check&rdquo; progress bar connecting 3 tools into a single flow<br>
+                            &#x2022; Completed steps show summary cards &mdash; data carries forward, building compound value<br>
+                            &#x2022; Each step uses the real Semrush tool (Keyword Magic, Domain Overview, Site Audit) in context<br>
+                            &#x2022; Locked report preview creates completion momentum &mdash; users see what they&rsquo;ll get<br>
+                            &#x2022; Final report requires email to download &mdash; natural lead capture at the moment of highest perceived value
+                        </p>
+                    </div>
+
+                    <div style="height: 2rem;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============ SUB-VIEW 2: Final Report ============ -->
+        <div class="sub-view" id="report">
+            <div class="browser-frame">
+                <div class="browser-bar">
+                    <div class="browser-dots"><span></span><span></span><span></span></div>
+                    <div class="browser-url">&#128274; semrush.com/free/seo-health-check/report/</div>
+                </div>
+                <div class="browser-body">
+
+                    <!-- Nav -->
+                    <div class="sr-nav">
+                        <div class="sr-logo">
+                            <svg viewBox="0 0 32 32" fill="none"><path d="M5.5 16.5C5.5 16.5 8 10 16 10C24 10 26.5 16.5 26.5 16.5" stroke="#171A1C" stroke-width="3" stroke-linecap="round"/><path d="M2 22C2 22 6 13 16 13C26 13 30 22 30 22" stroke="#171A1C" stroke-width="3" stroke-linecap="round"/></svg>
+                            Semrush
+                        </div>
+                        <div class="sr-nav-links">
+                            <span>Pricing</span><span>Enterprise</span><span>More</span>
+                        </div>
+                        <div class="sr-nav-right">
+                            <span class="sr-nav-login">Log In</span>
+                            <button class="sr-nav-signup">Sign Up</button>
+                        </div>
+                    </div>
+
+                    <!-- Completed progress bar -->
+                    <div class="audit-progress-bar">
+                        <div class="audit-logo">
+                            <div class="logo-icon">&#9889;</div>
+                            SEO Health Check
+                        </div>
+                        <div class="audit-steps">
+                            <div class="audit-step completed">
+                                <div class="step-circle">&#10003;</div>
+                                Keywords
+                            </div>
+                            <div class="step-connector done"></div>
+                            <div class="audit-step completed">
+                                <div class="step-circle">&#10003;</div>
+                                Traffic
+                            </div>
+                            <div class="step-connector done"></div>
+                            <div class="audit-step completed">
+                                <div class="step-circle">&#10003;</div>
+                                SEO Audit
+                            </div>
+                        </div>
+                        <div class="audit-progress-pct" style="background: #E8F5EC; color: #2BBF71;">100% complete &#10003;</div>
+                    </div>
+
+                    <!-- Full Report -->
+                    <div class="report-full">
+                        <div class="report-card">
+                            <!-- Report Header with Score -->
+                            <div class="report-card-header">
+                                <div>
+                                    <h2>Your SEO Health Report</h2>
+                                    <p>Combined analysis from Keyword Research, Traffic Overview, and Site Audit for yourwebsite.com</p>
+                                </div>
+                                <div class="seo-score-circle">
+                                    <div class="score-num">62</div>
+                                    <div class="score-label">SEO Score</div>
+                                </div>
+                            </div>
+
+                            <!-- 3-Column Results -->
+                            <div class="report-sections-grid">
+                                <div class="report-full-section">
+                                    <span class="section-badge keywords">Keywords</span>
+                                    <h4>Keyword Opportunities</h4>
+                                    <div class="report-metric-row">
+                                        <span class="metric-name">Keywords found</span>
+                                        <span class="metric-val">4,892</span>
+                                    </div>
+                                    <div class="report-metric-row">
+                                        <span class="metric-name">High-opportunity</span>
+                                        <span class="metric-val">12</span>
+                                    </div>
+                                    <div class="report-metric-row">
+                                        <span class="metric-name">Avg. difficulty</span>
+                                        <span class="metric-val">38/100</span>
+                                    </div>
+                                    <div class="report-metric-row">
+                                        <span class="metric-name">Est. monthly traffic</span>
+                                        <span class="metric-val">+2.8K</span>
+                                    </div>
+                                </div>
+
+                                <div class="report-full-section">
+                                    <span class="section-badge traffic">Traffic</span>
+                                    <h4>Traffic Analysis</h4>
+                                    <div class="report-metric-row">
+                                        <span class="metric-name">Monthly visits</span>
+                                        <span class="metric-val">12.4K</span>
+                                    </div>
+                                    <div class="report-metric-row">
+                                        <span class="metric-name">Organic share</span>
+                                        <span class="metric-val">76%</span>
+                                    </div>
+                                    <div class="report-metric-row">
+                                        <span class="metric-name">Trend (6 months)</span>
+                                        <span class="metric-val" style="color: #2BBF71;">&#9650; +8.3%</span>
+                                    </div>
+                                    <div class="report-metric-row">
+                                        <span class="metric-name">Bounce rate</span>
+                                        <span class="metric-val">42.8%</span>
+                                    </div>
+                                </div>
+
+                                <div class="report-full-section">
+                                    <span class="section-badge audit">SEO Audit</span>
+                                    <h4>Site Health</h4>
+                                    <div class="report-metric-row">
+                                        <span class="metric-name">Health score</span>
+                                        <span class="metric-val">62/100</span>
+                                    </div>
+                                    <div class="report-metric-row">
+                                        <span class="metric-name">Critical errors</span>
+                                        <span class="metric-val" style="color: #D42B2B;">7</span>
+                                    </div>
+                                    <div class="report-metric-row">
+                                        <span class="metric-name">Warnings</span>
+                                        <span class="metric-val" style="color: #E6A000;">23</span>
+                                    </div>
+                                    <div class="report-metric-row">
+                                        <span class="metric-name">Pages crawled</span>
+                                        <span class="metric-val">148</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Upsell CTA -->
+                            <div class="report-cta-section">
+                                <div class="report-cta-text">
+                                    <h4>This report shows 25% of what Semrush Pro delivers</h4>
+                                    <p>Get deeper analysis, competitor tracking, weekly monitoring, and 40+ specialised tools.</p>
+                                </div>
+                                <button class="report-cta-btn">Start Free Trial &rarr;</button>
+                            </div>
+
+                            <!-- Email Capture -->
+                            <div class="report-email-capture">
+                                <div style="position: relative;">
+                                    <div class="variant-ann" style="top: -22px; left: 0;">LEAD CAPTURE &mdash; Email required to download the full report as PDF</div>
+                                </div>
+                                <div class="email-row">
+                                    <input class="email-input" type="email" placeholder="Enter your email to download PDF report">
+                                    <button class="email-submit">Download Report</button>
+                                </div>
+                                <div class="email-note">We&rsquo;ll send your full SEO Health Report as a PDF. No spam &mdash; just your report and a 7-day free trial offer.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Changes summary -->
+                    <div class="changes-box" style="margin: 0 3.5rem;">
+                        <h4>&#x2713; What this achieves</h4>
+                        <p>
+                            &#x2022; Transforms 3 isolated free tools into one cohesive product experience<br>
+                            &#x2022; Combined report makes the value of Semrush&rsquo;s suite concrete and visible<br>
+                            &#x2022; &ldquo;25% preview&rdquo; naturally positions the paid product as the obvious next step<br>
+                            &#x2022; Email capture at the moment of highest perceived value (report completion)<br>
+                            &#x2022; Measured by: completion rate of 3-step flow, email captures at report generation, trial starts within 7 days
+                        </p>
+                    </div>
+
+                    <div style="height: 2.5rem;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showVersion(v) {
+            document.querySelectorAll('.version').forEach(function(el) { el.classList.remove('active'); });
+            document.querySelectorAll('.version-toggle .toggle-btn').forEach(function(el) { el.classList.remove('active'); });
+            document.getElementById(v).classList.add('active');
+            document.querySelector('.toggle-btn.' + v).classList.add('active');
+        }
+        function showSubView(view) {
+            document.querySelectorAll('.sub-view').forEach(function(el) { el.classList.remove('active'); });
+            document.querySelectorAll('.sub-toggle-btn').forEach(function(el) { el.classList.remove('active'); });
+            document.getElementById(view).classList.add('active');
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>

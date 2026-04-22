@@ -1,0 +1,1488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bolt Pharmacy — Subscription Funnel Experimentation Ideas Q2 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* =============================================
+   RESET & BASE
+   ============================================= */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: #f0f2f5;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* =============================================
+   COVER SECTION
+   ============================================= */
+.cover {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0f3c6c 0%, #0064b0 50%, #007f4e 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 60px 80px;
+  position: relative;
+  overflow: hidden;
+}
+.cover::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 60%;
+  height: 200%;
+  background: radial-gradient(ellipse, rgba(0,127,78,0.2) 0%, transparent 70%);
+}
+.cover h1 {
+  font-size: 56px;
+  font-weight: 800;
+  color: white;
+  letter-spacing: -1px;
+  margin-bottom: 8px;
+  position: relative;
+}
+.cover .subtitle {
+  font-size: 24px;
+  color: rgba(255,255,255,0.75);
+  margin-bottom: 40px;
+  position: relative;
+  line-height: 1.4;
+}
+.cover .divider {
+  width: 80px;
+  height: 4px;
+  background: #007f4e;
+  margin-bottom: 30px;
+  position: relative;
+  border-radius: 2px;
+}
+.cover .meta {
+  font-size: 15px;
+  color: rgba(255,255,255,0.5);
+  position: relative;
+}
+.cover .meta span { margin: 0 12px; }
+.cover .prepared-for {
+  position: absolute;
+  bottom: 40px;
+  left: 80px;
+  font-size: 14px;
+  color: rgba(255,255,255,0.35);
+}
+
+/* =============================================
+   TL;DR SECTION
+   ============================================= */
+.tldr-section {
+  max-width: 1100px;
+  margin: 60px auto 40px;
+  background: white;
+  border-radius: 16px;
+  padding: 50px 60px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  border-left: 4px solid #0064b0;
+}
+.tldr-section .section-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #007f4e;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.tldr-section h2 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #0f3c6c;
+  margin-bottom: 24px;
+}
+.tldr-section p {
+  font-size: 15px;
+  line-height: 1.8;
+  color: #555;
+  margin-bottom: 16px;
+}
+.tldr-section .data-points {
+  display: flex;
+  gap: 40px;
+  margin-top: 30px;
+  padding-top: 24px;
+  border-top: 1px solid #eee;
+  flex-wrap: wrap;
+}
+.tldr-section .data-point .label {
+  font-size: 10px;
+  font-weight: 700;
+  color: #007f4e;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.tldr-section .data-point .value {
+  font-size: 15px;
+  font-weight: 600;
+  color: #0f3c6c;
+}
+
+/* =============================================
+   BIG SWINGS HEADER
+   ============================================= */
+.big-swings-header {
+  max-width: 1100px;
+  margin: 60px auto 20px;
+  background: linear-gradient(135deg, #1a1035 0%, #2d1b69 100%);
+  border-radius: 16px;
+  padding: 50px 60px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  position: relative;
+  overflow: hidden;
+}
+.big-swings-header::before {
+  content: '';
+  position: absolute;
+  top: -30%;
+  right: -10%;
+  width: 40%;
+  height: 160%;
+  background: radial-gradient(ellipse, rgba(200,50,120,0.12) 0%, transparent 70%);
+}
+.big-swing-badge {
+  display: inline-block;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  background: linear-gradient(135deg, #c2185b, #e91e63);
+  color: white;
+  position: relative;
+}
+.big-swings-header h2 {
+  font-size: 32px;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 16px;
+  line-height: 1.3;
+  position: relative;
+}
+.big-swings-header .insight {
+  font-size: 16px;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.7;
+  max-width: 900px;
+  position: relative;
+}
+.big-swings-header .idea-count {
+  margin-top: 30px;
+  font-size: 13px;
+  color: rgba(255,255,255,0.4);
+  position: relative;
+}
+
+/* =============================================
+   THEME HEADER
+   ============================================= */
+.theme-header {
+  max-width: 1100px;
+  margin: 60px auto 20px;
+  background: #0f3c6c;
+  border-radius: 16px;
+  padding: 50px 60px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+}
+.theme-badge {
+  display: inline-block;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.theme-badge.green { background: #e8f5e9; color: #2e7d32; }
+.theme-badge.blue { background: #e3f2fd; color: #1565c0; }
+.theme-badge.orange { background: #fff3e0; color: #e65100; }
+
+.theme-header h2 {
+  font-size: 32px;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 16px;
+  line-height: 1.3;
+}
+.theme-header .insight {
+  font-size: 16px;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.7;
+  max-width: 900px;
+}
+.theme-header .idea-count {
+  margin-top: 30px;
+  font-size: 13px;
+  color: rgba(255,255,255,0.4);
+}
+
+/* =============================================
+   IDEA CARD
+   ============================================= */
+.idea-card {
+  max-width: 1100px;
+  margin: 30px auto;
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+.idea-card.big-swing {
+  box-shadow: 0 4px 24px rgba(45,27,105,0.15), 0 0 0 2px rgba(200,50,120,0.15);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  padding: 18px 30px;
+  border-bottom: 1px solid #eee;
+  gap: 14px;
+}
+.idea-number {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+.card-header h3 {
+  flex: 1;
+  font-size: 20px;
+  font-weight: 600;
+  color: #0f3c6c;
+}
+.location-tag {
+  padding: 6px 14px;
+  background: #f0f2f5;
+  border-radius: 6px;
+  font-size: 12px;
+  color: #888;
+  white-space: nowrap;
+}
+
+/* =============================================
+   SCREENSHOT AREA — CRITICAL FLEX LAYOUT
+   ============================================= */
+.screenshot-area {
+  display: flex;
+  min-height: 480px;
+  background: #fafbfc;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.mockup-wrapper {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.notes-sidebar {
+  width: 280px;
+  min-width: 280px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: #f8f9fa;
+  border-left: 1px solid #e8e8e8;
+  overflow-y: auto;
+  max-height: 480px;
+}
+
+.sticky-note {
+  position: static;
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 4px;
+  box-shadow: 2px 2px 8px rgba(0,0,0,0.08);
+  font-size: 13px;
+  line-height: 1.5;
+}
+.sticky-note .note-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.observation-note {
+  background: #fff9c4;
+  border-left: 3px solid #f9a825;
+}
+.observation-note .note-label { color: #f57f17; }
+.idea-note {
+  background: #c8e6c9;
+  border-left: 3px solid #43a047;
+}
+.idea-note .note-label { color: #2e7d32; }
+
+/* =============================================
+   HYPOTHESIS BAR
+   ============================================= */
+.hypothesis-bar {
+  padding: 20px 30px;
+  background: #f8f0ff;
+  border-left: 4px solid #0064b0;
+}
+.hypothesis-bar .hyp-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: #0064b0;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.hypothesis-bar p {
+  font-size: 14px;
+  font-style: italic;
+  color: #555;
+  line-height: 1.7;
+}
+
+/* =============================================
+   MOCKUP INTERNALS
+   ============================================= */
+.browser-chrome {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+  overflow: hidden;
+  width: 100%;
+  max-width: 680px;
+}
+.chrome-bar {
+  background: #f1f3f4;
+  padding: 8px 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border-bottom: 1px solid #ddd;
+}
+.chrome-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+.chrome-url {
+  flex: 1;
+  margin-left: 10px;
+  background: white;
+  border-radius: 4px;
+  padding: 4px 10px;
+  font-size: 11px;
+  color: #888;
+}
+.proposed-badge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: #e91e63;
+  color: white;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  z-index: 10;
+}
+
+.current-badge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: #f44336;
+  color: white;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 9px;
+  font-weight: 700;
+  z-index: 10;
+}
+
+/* =============================================
+   BOLT DESIGN SYSTEM REPLICAS
+   ============================================= */
+.bolt-button {
+  display: inline-block;
+  background: #0064b0;
+  color: white;
+  padding: 12px 28px;
+  border-radius: 50px;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  transition: background 0.2s;
+  font-family: 'Inter', sans-serif;
+}
+.bolt-button:hover { background: #0052a0; }
+.bolt-button-green {
+  background: #007f4e;
+}
+.bolt-button-green:hover { background: #006441; }
+
+.bolt-card {
+  border: 1px solid #e8e8e8;
+  border-radius: 12px;
+  padding: 16px;
+  background: white;
+  margin: 8px 0;
+}
+
+.pricing-card {
+  border: 2px solid #007f4e;
+  border-radius: 12px;
+  padding: 20px;
+  background: white;
+  text-align: center;
+}
+.pricing-card.primary {
+  background: #0064b0;
+  color: white;
+  border-color: #0064b0;
+}
+.pricing-card .badge {
+  background: #007f4e;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  display: inline-block;
+  margin-bottom: 8px;
+}
+
+.trust-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin: 4px 8px 4px 0;
+  font-size: 12px;
+  color: #555;
+}
+
+.checkmark {
+  color: #007f4e;
+  font-weight: bold;
+  margin-right: 4px;
+}
+
+.green-accent {
+  color: #007f4e;
+  font-weight: 600;
+}
+
+.split-mockup {
+  display: flex;
+  width: 100%;
+  gap: 0;
+}
+
+.split-mockup > div {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.split-mockup .mockup-label {
+  position: absolute;
+  top: -20px;
+  left: 10px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #666;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* =============================================
+   STAMP OVERLAY
+   ============================================= */
+.problem-stamp {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-15deg);
+  background: rgba(244, 67, 54, 0.15);
+  border: 3px solid #f44336;
+  color: #f44336;
+  padding: 12px 24px;
+  font-weight: 700;
+  font-size: 12px;
+  pointer-events: none;
+  border-radius: 4px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* =============================================
+   FOOTER
+   ============================================= */
+.document-footer {
+  max-width: 1100px;
+  margin: 80px auto 40px;
+  padding: 30px 60px;
+  background: white;
+  border-radius: 16px;
+  border-top: 1px solid #eee;
+  text-align: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+}
+.document-footer p {
+  font-size: 13px;
+  color: #888;
+  margin: 8px 0;
+}
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <h1>Subscription Funnel Experimentation Ideas</h1>
+  <div class="subtitle">Q2 2026 — Subscription Conversion & Retention Focus</div>
+  <div class="divider"></div>
+  <div class="meta">
+    <strong>April 2026</strong>
+    <span>•</span>
+    <strong>6 Experiment Ideas</strong>
+    <span>•</span>
+    <strong>2 Big Swings + 2 Themes</strong>
+  </div>
+  <div class="prepared-for">Prepared for the Bolt Pharmacy Team</div>
+</div>
+
+<!-- TL;DR -->
+<div class="tldr-section">
+  <div class="section-label">Research Context</div>
+  <h2>Why Subscriptions, Why Now</h2>
+  <p>Bolt's subscription retention data shows compelling patterns: patients who survive Month 1 typically stay 4–6 months. Yet Month 1 is the critical churn cliff. Q2 strategy commits to going all-in on subscription funnel optimisation. This document presents 6 experiment ideas across the key subscription pages, all grounded in original research (5 user interviews, customer survey N=173, session recordings, heatmaps, first impression testing N=150, customer service analysis).</p>
+  <p>Two big swings target the core subscription architecture. Two additional themes address psychological barriers and entry-page messaging. Each experiment is above-the-fold, high-impact, and testable within a single sprint.</p>
+  <div class="data-points">
+    <div class="data-point">
+      <div class="label">Research Base</div>
+      <div class="value">5+ Methods</div>
+    </div>
+    <div class="data-point">
+      <div class="label">Survey Insight</div>
+      <div class="value">57% chose Bolt for price</div>
+    </div>
+    <div class="data-point">
+      <div class="label">Retention Pattern</div>
+      <div class="value">Highest drop Month 1, then 4–6 months</div>
+    </div>
+    <div class="data-point">
+      <div class="label">Scope</div>
+      <div class="value">3 Pages · 6 Experiments · All Above-the-Fold</div>
+    </div>
+  </div>
+</div>
+
+<!-- BIG SWINGS SECTION -->
+<div class="big-swings-header">
+  <div class="big-swing-badge">Big Swings</div>
+  <h2>Subscription Pricing & Architecture</h2>
+  <div class="insight">These two experiments target the pricing architecture of the subscription model itself. CS data confirms price is the #1 barrier (57% chose Bolt for price), and user interviews reveal deep anxiety about long-term costs ("cost of subsequent doses is a major concern"). Bolt's own retention data shows patients who survive Month 1 stay 4–6 months — yet the current pricing model offers no incentive to commit past that threshold. Numan already proves market appetite with 12-month commitment tiers. The pricing structure is the experiment.</div>
+  <div class="idea-count">2 structural experiments</div>
+</div>
+
+<!-- BIG SWING 1: Subscription Wizard — Separate Product & Pricing Decisions -->
+<div class="idea-card big-swing">
+  <div class="card-header">
+    <div class="idea-number" style="background: linear-gradient(135deg, #c2185b, #e91e63); color: white;">BS1</div>
+    <h3>Subscription Wizard — Split Product Choice From Pricing Decision</h3>
+    <div class="location-tag">/your-plan-sb-c &amp; /your-plan-sb-e</div>
+  </div>
+
+  <!-- STEP 1 MOCKUP — Mobile-first (89.6% mobile traffic) -->
+  <div style="max-width: 1100px; margin: 0 auto; padding: 0 30px;">
+    <div style="background: #f0f7ff; border-left: 4px solid #0064b0; padding: 12px 16px; border-radius: 6px; margin-bottom: 16px; font-size: 12px; color: #0064b0; font-weight: 600;">STEP 1 OF 3 — Choose Your Product <span style="color: #888; font-weight: 400;">(mobile view — 89.6% of traffic)</span></div>
+  </div>
+  <div class="screenshot-area">
+    <div class="mockup-wrapper">
+      <!-- Mobile phone frame -->
+      <div style="width: 375px; min-height: 680px; background: #f8f8f8; border-radius: 36px; overflow: hidden; box-shadow: 0 8px 40px rgba(0,0,0,0.15); border: 8px solid #1a1a1a; position: relative;">
+        <!-- Phone notch -->
+        <div style="position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 150px; height: 28px; background: #1a1a1a; border-radius: 0 0 20px 20px; z-index: 10;"></div>
+        <!-- Screen content -->
+        <div style="background: white; min-height: 100%; padding-top: 36px;">
+          <div class="proposed-badge" style="position: relative; display: inline-block; margin: 8px 0 0 16px;">PROPOSED VARIANT</div>
+
+          <!-- Header area -->
+          <div style="padding: 12px 24px 0; text-align: center;">
+            <div style="margin-bottom: 10px;">
+              <span style="font-size: 20px; font-weight: 800; color: #0f3c6c;">⚡ bolt</span>
+              <span style="font-size: 9px; color: #888; display: block; margin-top: -2px;">PHARMACY</span>
+            </div>
+            <h2 style="font-size: 18px; font-weight: 700; color: #0f3c6c; margin-bottom: 4px; line-height: 1.3;">Clinically proven weight loss,<br>at a price that works for you.</h2>
+            <p style="font-size: 12px; color: #888; margin-bottom: 14px;">Choose your product</p>
+          </div>
+
+          <!-- Progress stepper -->
+          <div style="display: flex; align-items: center; justify-content: center; gap: 0; padding: 0 32px 16px; position: relative;">
+            <div style="display: flex; flex-direction: column; align-items: center; z-index: 2;">
+              <div style="width: 28px; height: 28px; border-radius: 50%; background: #007f4e; display: flex; align-items: center; justify-content: center;">
+                <span style="color: white; font-size: 12px; font-weight: 700;">1</span>
+              </div>
+              <span style="font-size: 9px; color: #007f4e; font-weight: 600; margin-top: 3px;">product</span>
+            </div>
+            <div style="flex: 1; height: 2px; background: #ddd; margin: 0 -4px; margin-top: -10px;"></div>
+            <div style="display: flex; flex-direction: column; align-items: center; z-index: 2;">
+              <div style="width: 28px; height: 28px; border-radius: 50%; background: white; border: 2px solid #ddd; display: flex; align-items: center; justify-content: center;">
+                <span style="color: #bbb; font-size: 12px; font-weight: 700;">2</span>
+              </div>
+              <span style="font-size: 9px; color: #bbb; font-weight: 600; margin-top: 3px;">subscription</span>
+            </div>
+            <div style="flex: 1; height: 2px; background: #ddd; margin: 0 -4px; margin-top: -10px;"></div>
+            <div style="display: flex; flex-direction: column; align-items: center; z-index: 2;">
+              <div style="width: 28px; height: 28px; border-radius: 50%; background: white; border: 2px solid #ddd; display: flex; align-items: center; justify-content: center;">
+                <span style="color: #bbb; font-size: 12px; font-weight: 700;">3</span>
+              </div>
+              <span style="font-size: 9px; color: #bbb; font-weight: 600; margin-top: 3px;">checkout</span>
+            </div>
+          </div>
+
+          <!-- Product cards — STACKED for mobile -->
+          <div style="padding: 0 20px 24px; display: flex; flex-direction: column; gap: 14px;">
+            <!-- Wegovy Card -->
+            <div style="border: 2px solid #007f4e; border-radius: 16px; overflow: hidden; cursor: pointer; position: relative;">
+              <div style="position: absolute; top: 10px; right: 10px; background: #007f4e; color: white; padding: 3px 10px; border-radius: 12px; font-size: 9px; font-weight: 700;">BEST VALUE</div>
+              <div style="display: flex; align-items: center; gap: 0;">
+                <div style="background: #e8f5e9; padding: 20px 16px; text-align: center; width: 130px; flex-shrink: 0;">
+                  <div style="font-size: 22px; font-weight: 800; color: #0f3c6c;">Wegovy®</div>
+                  <div style="font-size: 10px; color: #555; margin-top: 2px;">Once-weekly</div>
+                </div>
+                <div style="padding: 14px 16px; flex: 1;">
+                  <div style="font-size: 11px; color: #555; line-height: 1.7; margin-bottom: 10px;">
+                    <div><span style="color: #007f4e; font-weight: 700;">✓</span> ~20.7% avg weight loss</div>
+                    <div><span style="color: #007f4e; font-weight: 700;">✓</span> Proven safety profile</div>
+                    <div><span style="color: #007f4e; font-weight: 700;">✓</span> From <strong>£29.75/week</strong></div>
+                  </div>
+                </div>
+              </div>
+              <div style="padding: 0 16px 16px;">
+                <div style="background: #0064b0; color: white; text-align: center; padding: 14px; border-radius: 50px; font-weight: 600; font-size: 14px;">Select Wegovy →</div>
+              </div>
+            </div>
+
+            <!-- Mounjaro Card -->
+            <div style="border: 2px solid #0064b0; border-radius: 16px; overflow: hidden; cursor: pointer;">
+              <div style="display: flex; align-items: center; gap: 0;">
+                <div style="background: #e3f2fd; padding: 20px 16px; text-align: center; width: 130px; flex-shrink: 0;">
+                  <div style="font-size: 22px; font-weight: 800; color: #0f3c6c;">Mounjaro®</div>
+                  <div style="font-size: 10px; color: #555; margin-top: 2px;">Once-weekly</div>
+                </div>
+                <div style="padding: 14px 16px; flex: 1;">
+                  <div style="font-size: 11px; color: #555; line-height: 1.7; margin-bottom: 10px;">
+                    <div><span style="color: #0064b0; font-weight: 700;">✓</span> ~22.5% avg weight loss</div>
+                    <div><span style="color: #0064b0; font-weight: 700;">✓</span> Dual hormone pathway</div>
+                    <div><span style="color: #0064b0; font-weight: 700;">✓</span> From <strong>£44.75/week</strong></div>
+                  </div>
+                </div>
+              </div>
+              <div style="padding: 0 16px 16px;">
+                <div style="background: #0064b0; color: white; text-align: center; padding: 14px; border-radius: 50px; font-weight: 600; font-size: 14px;">Select Mounjaro →</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 2 MOCKUP — Mobile-first -->
+  <div style="max-width: 1100px; margin: 0 auto; padding: 20px 30px 0;">
+    <div style="background: #e8f5e9; border-left: 4px solid #007f4e; padding: 12px 16px; border-radius: 6px; margin-bottom: 16px; font-size: 12px; color: #2e7d32; font-weight: 600;">STEP 2 OF 3 — Choose Your Subscription <span style="color: #888; font-weight: 400;">(after selecting Wegovy)</span></div>
+  </div>
+  <div class="screenshot-area">
+    <div class="mockup-wrapper">
+      <!-- Mobile phone frame -->
+      <div style="width: 375px; min-height: 720px; background: #f8f8f8; border-radius: 36px; overflow: hidden; box-shadow: 0 8px 40px rgba(0,0,0,0.15); border: 8px solid #1a1a1a; position: relative;">
+        <div style="position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 150px; height: 28px; background: #1a1a1a; border-radius: 0 0 20px 20px; z-index: 10;"></div>
+        <div style="background: white; min-height: 100%; padding-top: 36px;">
+          <div class="proposed-badge" style="position: relative; display: inline-block; margin: 8px 0 0 16px;">PROPOSED VARIANT</div>
+
+          <!-- Header -->
+          <div style="padding: 12px 24px 0; text-align: center;">
+            <div style="margin-bottom: 10px;">
+              <span style="font-size: 20px; font-weight: 800; color: #0f3c6c;">⚡ bolt</span>
+              <span style="font-size: 9px; color: #888; display: block; margin-top: -2px;">PHARMACY</span>
+            </div>
+            <h2 style="font-size: 18px; font-weight: 700; color: #0f3c6c; margin-bottom: 4px;">Choose your Subscription</h2>
+            <p style="font-size: 12px; color: #888; margin-bottom: 14px;">Wegovy® 0.25mg selected</p>
+          </div>
+
+          <!-- Progress stepper — Step 2 active -->
+          <div style="display: flex; align-items: center; justify-content: center; gap: 0; padding: 0 32px 16px; position: relative;">
+            <div style="display: flex; flex-direction: column; align-items: center; z-index: 2;">
+              <div style="width: 28px; height: 28px; border-radius: 50%; background: #007f4e; display: flex; align-items: center; justify-content: center;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              </div>
+              <span style="font-size: 9px; color: #007f4e; font-weight: 600; margin-top: 3px;">product</span>
+            </div>
+            <div style="flex: 1; height: 2px; background: #007f4e; margin: 0 -4px; margin-top: -10px;"></div>
+            <div style="display: flex; flex-direction: column; align-items: center; z-index: 2;">
+              <div style="width: 28px; height: 28px; border-radius: 50%; background: #007f4e; display: flex; align-items: center; justify-content: center;">
+                <span style="color: white; font-size: 12px; font-weight: 700;">2</span>
+              </div>
+              <span style="font-size: 9px; color: #007f4e; font-weight: 600; margin-top: 3px;">subscription</span>
+            </div>
+            <div style="flex: 1; height: 2px; background: #ddd; margin: 0 -4px; margin-top: -10px;"></div>
+            <div style="display: flex; flex-direction: column; align-items: center; z-index: 2;">
+              <div style="width: 28px; height: 28px; border-radius: 50%; background: white; border: 2px solid #ddd; display: flex; align-items: center; justify-content: center;">
+                <span style="color: #bbb; font-size: 12px; font-weight: 700;">3</span>
+              </div>
+              <span style="font-size: 9px; color: #bbb; font-weight: 600; margin-top: 3px;">checkout</span>
+            </div>
+          </div>
+
+          <!-- Plan heading -->
+          <div style="padding: 0 24px; text-align: center; margin-bottom: 8px;">
+            <div style="font-size: 15px; font-weight: 700; color: #0f3c6c;">Choose Your Plan</div>
+            <div style="font-size: 11px; color: #888; margin-top: 3px;">Lock in your price and cancel anytime</div>
+          </div>
+
+          <!-- 3 Pricing Tier Cards — STACKED for mobile -->
+          <div style="padding: 8px 20px 24px; display: flex; flex-direction: column; gap: 12px;">
+
+            <!-- 3-Month Plan (MOST POPULAR — first position for mobile) -->
+            <div style="border: 3px solid #007f4e; border-radius: 14px; padding: 18px 18px; background: #f0f8f5; position: relative; box-shadow: 0 4px 16px rgba(0,127,78,0.15);">
+              <div style="position: absolute; top: -11px; left: 50%; transform: translateX(-50%); background: #007f4e; color: white; padding: 4px 16px; border-radius: 12px; font-size: 9px; font-weight: 700; text-transform: uppercase; white-space: nowrap;">MOST POPULAR</div>
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 4px;">
+                <div>
+                  <div style="font-size: 13px; font-weight: 700; color: #0f3c6c;">3-Month Plan</div>
+                  <div style="font-size: 11px; color: #007f4e; font-weight: 600; margin-top: 2px;">Save £27 per quarter</div>
+                </div>
+                <div style="text-align: right;">
+                  <div style="font-size: 26px; font-weight: 800; color: #007f4e;">£27.50</div>
+                  <div style="font-size: 10px; color: #888;">per week · £110/month</div>
+                </div>
+              </div>
+              <div style="display: flex; gap: 12px; margin-top: 12px; font-size: 10px; color: #555;">
+                <span>✓ Free delivery</span><span>✓ Price lock</span><span>✓ Priority support</span>
+              </div>
+              <div style="background: #007f4e; color: white; text-align: center; padding: 14px; border-radius: 50px; font-weight: 600; font-size: 14px; margin-top: 14px; cursor: pointer;">Start Now</div>
+            </div>
+
+            <!-- Monthly Rolling -->
+            <div style="border: 2px solid #ddd; border-radius: 14px; padding: 16px 18px; background: white;">
+              <div style="display: flex; align-items: center; justify-content: space-between;">
+                <div>
+                  <div style="font-size: 13px; font-weight: 700; color: #0f3c6c;">Monthly Rolling</div>
+                  <div style="font-size: 11px; color: #888; margin-top: 2px;">No commitment</div>
+                </div>
+                <div style="text-align: right;">
+                  <div style="font-size: 26px; font-weight: 800; color: #0064b0;">£29.75</div>
+                  <div style="font-size: 10px; color: #888;">per week · £119/month</div>
+                </div>
+              </div>
+              <div style="display: flex; gap: 12px; margin-top: 10px; font-size: 10px; color: #555;">
+                <span>✓ Free delivery</span><span>✓ Cancel anytime</span><span>✓ Priority support</span>
+              </div>
+              <div style="background: #0064b0; color: white; text-align: center; padding: 12px; border-radius: 50px; font-weight: 600; font-size: 13px; margin-top: 12px; cursor: pointer;">Start Now</div>
+            </div>
+
+            <!-- 6-Month Plan -->
+            <div style="border: 2px solid #007f4e; border-radius: 14px; padding: 16px 18px; background: white;">
+              <div style="display: flex; align-items: center; justify-content: space-between;">
+                <div>
+                  <div style="font-size: 13px; font-weight: 700; color: #0f3c6c;">6-Month Plan</div>
+                  <div style="font-size: 11px; color: #007f4e; font-weight: 600; margin-top: 2px;">Save £60 over 6 months</div>
+                </div>
+                <div style="text-align: right;">
+                  <div style="font-size: 26px; font-weight: 800; color: #007f4e;">£24.75</div>
+                  <div style="font-size: 10px; color: #888;">per week · £99/month</div>
+                </div>
+              </div>
+              <div style="display: flex; gap: 12px; margin-top: 10px; font-size: 10px; color: #555;">
+                <span>✓ Free delivery</span><span>✓ Price lock</span><span>✓ Priority support</span>
+              </div>
+              <div style="background: #007f4e; color: white; text-align: center; padding: 12px; border-radius: 50px; font-weight: 600; font-size: 13px; margin-top: 12px; cursor: pointer;">Start Now</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="notes-sidebar">
+      <div class="sticky-note observation-note">
+        <div class="note-label">Observation</div>
+        With 89.6% mobile traffic, the current plans page is a vertical scroll marathon. Session recordings show users spending 10+ minutes scrolling 3-4 times between Wegovy and Mounjaro — comparing prices, benefits, and side effects simultaneously. Heatmaps confirm only 52% of mobile users even see the Mounjaro CTA. The page forces product selection AND subscription decision AND checkout intent into a single overwhelming scroll. CS data confirms the #1 barrier is price (57%), and retention data shows the Month 1 churn cliff — but the current single-price model offers no commitment incentive.
+      </div>
+      <div class="sticky-note idea-note">
+        <div class="note-label">Idea</div>
+        Replace the monolithic post-quiz page with a 3-step mobile wizard: Step 1 — choose your product (Wegovy vs Mounjaro stacked, thumb-friendly cards). Step 2 — choose your subscription tier (3-Month "Most Popular" shown first, then Monthly Rolling, then 6-Month, with weekly pricing). Step 3 — checkout. This separates two fundamentally different decisions (which product? which commitment?) into focused, single-scroll mobile screens and introduces commitment-tier pricing with weekly framing.
+      </div>
+    </div>
+  </div>
+  <div class="hypothesis-bar">
+    <div class="hyp-label">Hypothesis</div>
+    <p>If we replace the monolithic post-quiz page with a 3-step mobile wizard (product → subscription tier → checkout), then we will see higher subscription conversion, shorter decision time, and improved 90-day retention, because 89.6% of users are on mobile where session recordings show 10+ minutes of scrolling between products (decision overload), only 52% see both options, and the current page bundles three decisions into one infinite scroll. Separating product choice from subscription commitment into focused mobile screens reduces cognitive load — while the commitment tiers (weekly pricing: £27.50 "Most Popular", £29.75, £24.75) with anchoring on the 3-month plan incentivise users to commit past the critical Month 1 churn cliff.</p>
+  </div>
+</div>
+
+<!-- BIG SWING 2: Full Dose Journey Cost Transparency -->
+<div class="idea-card big-swing">
+  <div class="card-header">
+    <div class="idea-number" style="background: linear-gradient(135deg, #c2185b, #e91e63); color: white;">BS2</div>
+    <h3>Full Dose Journey Cost Transparency</h3>
+    <div class="location-tag">/your-plan-sb-c</div>
+  </div>
+  <div class="screenshot-area">
+    <div class="mockup-wrapper">
+      <!-- CURRENT STATE -->
+      <div style="flex: 1; padding: 20px; display: flex; align-items: center; justify-content: center; position: relative;">
+        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-15deg); background: rgba(244, 67, 54, 0.08); border: 3px solid #f44336; color: #f44336; padding: 10px 20px; font-weight: 700; font-size: 11px; pointer-events: none; border-radius: 4px; letter-spacing: 0.5px; text-transform: uppercase; white-space: nowrap; z-index: 5;">UNCLEAR LONG-TERM COST</div>
+        <div style="width: 100%; max-width: 320px; background: white; border-radius: 12px; padding: 0; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+          <div style="padding: 16px;">
+            <div style="font-size: 13px; color: #888; margin-bottom: 8px; text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px;">Subscribe &amp; Save</div>
+            <div style="margin: 12px 0;">
+              <div style="font-size: 24px; font-weight: 700; color: #007f4e;">£79.00</div>
+              <div style="font-size: 12px; color: #999; text-decoration: line-through;">£119.00</div>
+              <div style="font-size: 11px; color: #888;">First month</div>
+            </div>
+            <div style="background: #e8f5e9; color: #2e7d32; padding: 8px; border-radius: 8px; font-size: 11px; font-weight: 600; margin-bottom: 12px; text-align: center;">Save £40 on your first month</div>
+            <div style="font-size: 11px; color: #555; line-height: 1.6; margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid #eee;">
+              <div>✓ £20 discount applied to every order</div>
+              <div>✓ Extra £20 discount on your first order</div>
+            </div>
+            <div style="font-size: 11px; color: #888; line-height: 1.5; font-style: italic;">From <strong>£99/month</strong> thereafter, your dose and price will increase depending on your treatment plan.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROPOSED STATE -->
+      <div style="flex: 1; padding: 20px; display: flex; align-items: center; justify-content: center;">
+        <div style="width: 100%; max-width: 380px; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.12);">
+          <div style="padding: 16px; border-bottom: 1px solid #eee;">
+            <div style="font-size: 13px; color: #888; margin-bottom: 8px; text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px;">Subscribe &amp; Save</div>
+            <div style="margin: 12px 0; margin-bottom: 8px;">
+              <div style="font-size: 24px; font-weight: 700; color: #007f4e;">£79.00</div>
+              <div style="font-size: 12px; color: #999; text-decoration: line-through;">£119.00</div>
+              <div style="font-size: 11px; color: #888;">First month</div>
+            </div>
+            <div style="background: #e8f5e9; color: #2e7d32; padding: 8px; border-radius: 8px; font-size: 11px; font-weight: 600; margin-bottom: 12px; text-align: center;">Save £40 on your first month</div>
+          </div>
+          <div style="padding: 16px; border-bottom: 1px solid #eee;">
+            <div style="font-size: 12px; font-weight: 600; color: #0f3c6c; margin-bottom: 10px;">Your 6-month journey:</div>
+            <div style="font-size: 11px; color: #555; line-height: 1.8;">
+              <div style="display: flex; gap: 8px; align-items: flex-start; margin-bottom: 8px;">
+                <div style="color: #007f4e; font-weight: 700;">●</div>
+                <div>
+                  <strong>Months 1–2 (0.25mg)</strong><br>
+                  <span style="color: #007f4e; font-weight: 600;">£79/mo</span> <span style="color: #888;">(-£40 first month)</span>
+                </div>
+              </div>
+              <div style="display: flex; gap: 8px; align-items: flex-start; margin-bottom: 8px;">
+                <div style="color: #ccc; font-weight: 700;">●</div>
+                <div>
+                  <strong>Months 3–4 (0.5mg)</strong><br>
+                  <span style="font-weight: 600;">£109/mo</span>
+                </div>
+              </div>
+              <div style="display: flex; gap: 8px; align-items: flex-start; margin-bottom: 12px;">
+                <div style="color: #ccc; font-weight: 700;">●</div>
+                <div>
+                  <strong>Months 5–6 (1.0mg)</strong><br>
+                  <span style="font-weight: 600;">£119/mo</span>
+                </div>
+              </div>
+            </div>
+            <div style="background: #f0f7ff; border-left: 3px solid #0064b0; padding: 10px 12px; border-radius: 4px; font-size: 11px; color: #0f3c6c; margin-bottom: 12px;">
+              <strong>6-month total: ~£536</strong><br>
+              <span style="color: #888;">Average result: 15–20% body weight loss</span>
+            </div>
+            <div style="background: #f0f8f5; border-left: 3px solid #007f4e; padding: 10px 12px; border-radius: 4px; font-size: 11px; color: #0f3c6c;">
+              <strong>🛡️ Money-back guarantee</strong><br>
+              Full refund if under 5% weight loss in 6 months
+            </div>
+          </div>
+          <div style="padding: 16px;">
+            <div style="font-size: 11px; color: #555; line-height: 1.6; margin-bottom: 12px;">
+              <div>✓ £20 discount applied to every order</div>
+              <div>✓ Extra £20 discount on your first order</div>
+            </div>
+            <button class="bolt-button" style="width: 100%;">Start my subscription →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="notes-sidebar">
+      <div class="sticky-note observation-note">
+        <div class="note-label">Observation</div>
+        CS analysis: "Cost of subsequent doses and subscriptions is a major concern." Current page text "From £99/month thereafter, your dose and price will increase depending on your treatment plan" is vague and anxiety-inducing. Users don't see the full financial picture.
+      </div>
+      <div class="sticky-note idea-note">
+        <div class="note-label">Idea</div>
+        Replace vague text with a visual dose escalation timeline showing cost at each phase (6 months). Include projected total investment (£536) and expected outcome (15–20% weight loss). Pair with money-back guarantee to de-risk.
+      </div>
+    </div>
+  </div>
+  <div class="hypothesis-bar">
+    <div class="hyp-label">Hypothesis</div>
+    <p>If we replace the vague "From £99/month thereafter..." text with a transparent dose escalation timeline showing costs at each phase and projected 6-month total (~£536), then Subscribe &amp; Save selection and post-purchase plan certainty will increase, because CS data and user interviews both confirm that uncertainty about long-term costs is a primary conversion barrier — and showing the complete picture alongside the money-back guarantee transforms the decision from "open-ended gamble" to "transparent investment with a safety net."</p>
+  </div>
+</div>
+
+<!-- THEME 1: Subscription as Trial -->
+<div class="theme-header">
+  <div class="theme-badge green">THEME 1: SUBSCRIPTION FRAMING</div>
+  <h2>The Subscription Isn't Framed as a Trial</h2>
+  <div class="insight">The drop rate is highest after the first month of service — but patients who continue past Month 1 typically stay 4–6 months until they reach their goal. The primary quit reason is pricing, with patients chasing competitor first-customer discounts. Bolt already offers £40 off the first month, but it's framed as a "promo discount" rather than a risk-free trial. Reframing the subscription entry as a low-commitment trial could bridge the Month 1 churn gap and shift the psychological framing from "subscription commitment" to "low-risk trial."</div>
+  <div class="idea-count">2 reframing experiments</div>
+</div>
+
+<!-- IDEA 3: First-Month Trial Framing -->
+<div class="idea-card">
+  <div class="card-header">
+    <div class="idea-number" style="background: #007f4e; color: white;">T1-1</div>
+    <h3>First-Month Trial Framing — Change Headline &amp; Messaging</h3>
+    <div class="location-tag">/your-plan-sb-e</div>
+  </div>
+  <div class="screenshot-area">
+    <div class="mockup-wrapper">
+      <div style="width: 100%; max-width: 420px; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.12);">
+        <div style="padding: 24px; border-bottom: 1px solid #eee; text-align: center;">
+          <div style="font-size: 11px; color: #888; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px;">Clinically proven weight loss</div>
+          <h2 style="font-size: 24px; font-weight: 700; color: #0f3c6c; margin-bottom: 8px; line-height: 1.3;">Try your treatment for 30 days<br><span style="color: #007f4e;">Risk-free.</span></h2>
+          <p style="font-size: 13px; color: #888; margin-bottom: 16px; line-height: 1.5;">We recommend Wegovy® based on your assessment. Start your 30-day trial — cancel before month 2 if it's not for you.</p>
+        </div>
+        <div style="padding: 16px; background: #f8f9fa; display: flex; gap: 12px;">
+          <div style="flex: 1; text-align: center; padding: 8px; background: white; border-radius: 8px;">
+            <div style="font-size: 11px; color: #888; margin-bottom: 4px;">First month</div>
+            <div style="font-size: 20px; font-weight: 700; color: #007f4e;">£79</div>
+            <div style="font-size: 10px; color: #999;">-£40 off</div>
+          </div>
+          <div style="flex: 1; text-align: center; padding: 8px; background: white; border-radius: 8px;">
+            <div style="font-size: 11px; color: #888; margin-bottom: 4px;">Month 2+</div>
+            <div style="font-size: 20px; font-weight: 700; color: #0f3c6c;">£99</div>
+            <div style="font-size: 10px; color: #999;">then increase</div>
+          </div>
+          <div style="flex: 1; text-align: center; padding: 8px; background: white; border-radius: 8px;">
+            <div style="font-size: 11px; color: #888; margin-bottom: 4px;">Anytime</div>
+            <div style="font-size: 20px; font-weight: 700; color: #555;">Cancel</div>
+            <div style="font-size: 10px; color: #999;">No fees</div>
+          </div>
+        </div>
+        <div style="padding: 20px;">
+          <div style="background: #e8f5e9; border-left: 3px solid #007f4e; padding: 12px 14px; border-radius: 6px; margin-bottom: 14px;">
+            <div style="font-size: 11px; color: #2e7d32; font-weight: 600; margin-bottom: 4px;">Try for 30 days</div>
+            <div style="font-size: 12px; color: #555; line-height: 1.5;">Love it? Your subscription continues automatically. Not for you? Cancel with one click before day 28.</div>
+          </div>
+          <div style="background: #f8f9fa; padding: 12px 14px; border-radius: 6px; margin-bottom: 14px; border: 1px solid #eee;">
+            <div style="font-size: 11px; color: #555; line-height: 1.6;">
+              <div>✓ Free delivery every month</div>
+              <div>✓ £20 discount on every order</div>
+              <div>✓ Money-back guarantee</div>
+            </div>
+          </div>
+          <div style="background: #f0f7ff; border-left: 3px solid #0064b0; padding: 10px 12px; border-radius: 6px; margin-bottom: 14px; font-size: 11px; color: #0f3c6c;">
+            <strong>Social proof:</strong> 4,000+ patients chose to continue after their first month
+          </div>
+          <button class="bolt-button" style="width: 100%; font-weight: 700;">Start my 30-day trial →</button>
+        </div>
+      </div>
+    </div>
+    <div class="notes-sidebar">
+      <div class="sticky-note observation-note">
+        <div class="note-label">Observation</div>
+        Highest churn after Month 1. Quit reason: price + seeking competitor discounts. Bolt offers £40 discount but frames it as promo. User interviews revealed commitment anxiety: "open-ended and uncontrollable." Trial framing directly addresses psychological barrier.
+      </div>
+      <div class="sticky-note idea-note">
+        <div class="note-label">Idea</div>
+        Reframe entire post-quiz page as "30-day trial" instead of subscription. Change headline, card header, CTA. Add explicit "cancel before day 28" messaging. Add retention social proof ("4,000+ patients continued"). Transforms signup from commitment to low-risk trial.
+      </div>
+    </div>
+  </div>
+  <div class="hypothesis-bar">
+    <div class="hyp-label">Hypothesis</div>
+    <p>If we reframe the /your-plan-sb-e subscription page as a "30-day trial" with explicit cancel-anytime messaging and retention social proof, then first-month subscription starts will increase and post-trial cancellation will decrease, because user interviews revealed that subscription commitment anxiety ("open-ended and uncontrollable") is a primary hesitation point — and reframing the psychological narrative from "sign up for a subscription" to "try a 30-day trial" only needs to get users past the Month 1 threshold, where retention data shows they will naturally continue 4–6 months.</p>
+  </div>
+</div>
+
+<!-- IDEA 4: Risk Reversal Hero — Money-Back Guarantee -->
+<div class="idea-card">
+  <div class="card-header">
+    <div class="idea-number" style="background: #007f4e; color: white;">T1-2</div>
+    <h3>Risk Reversal Hero — Lead With Money-Back Guarantee</h3>
+    <div class="location-tag">/your-plan-sb-c</div>
+  </div>
+  <div class="screenshot-area">
+    <div class="mockup-wrapper">
+      <div style="width: 100%; max-width: 420px; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.12);">
+        <div style="padding: 16px; background: #e8f5e9; border-bottom: 3px solid #007f4e; display: flex; gap: 12px; align-items: flex-start;">
+          <div style="font-size: 24px; margin-top: 2px;">🛡️</div>
+          <div>
+            <div style="font-size: 13px; font-weight: 700; color: #2e7d32; margin-bottom: 4px;">Guaranteed Results</div>
+            <div style="font-size: 12px; color: #555; line-height: 1.5;">Lose 5% body weight in 6 months or <strong>get a full refund</strong> — no questions asked.</div>
+          </div>
+          <div style="font-size: 11px; color: #007f4e; font-weight: 600; white-space: nowrap; text-decoration: underline; cursor: pointer;">Learn more →</div>
+        </div>
+        <div style="padding: 24px; border-bottom: 1px solid #eee; text-align: center;">
+          <div style="font-size: 11px; color: #888; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px;">Most affordable weight-loss jabs</div>
+          <h2 style="font-size: 24px; font-weight: 700; color: #0f3c6c; margin-bottom: 8px;">in the UK.</h2>
+          <p style="font-size: 13px; color: #888;">Based on your assessment, we recommend Wegovy®.</p>
+        </div>
+        <div style="padding: 20px;">
+          <div style="font-size: 12px; font-weight: 600; color: #0f3c6c; margin-bottom: 12px;">Subscribe &amp; Save</div>
+          <div style="background: white; border: 2px solid #007f4e; border-radius: 10px; padding: 16px; margin-bottom: 14px;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 10px;">
+              <div>
+                <div style="font-size: 12px; color: #888;">Wegovy® 0.25mg</div>
+                <div style="font-size: 24px; font-weight: 700; color: #007f4e; margin: 4px 0;">£79</div>
+              </div>
+              <div style="font-size: 11px; color: #888;">First month</div>
+            </div>
+            <div style="background: #e8f5e9; color: #2e7d32; padding: 6px 10px; border-radius: 6px; font-size: 10px; font-weight: 700; margin-bottom: 12px; text-align: center;">Save £40 on your first month</div>
+            <div style="border-top: 1px solid #eee; padding-top: 10px; font-size: 11px; color: #555; line-height: 1.6;">
+              <div>✓ £20 discount applied to every order</div>
+              <div>✓ Extra £20 discount on your first order</div>
+            </div>
+          </div>
+          <div style="background: #f0f8f5; border-left: 4px solid #007f4e; padding: 14px; border-radius: 6px; margin-bottom: 14px; font-size: 11px; color: #0f3c6c; line-height: 1.6;">
+            <div style="font-weight: 700; margin-bottom: 6px;">Your safety net:</div>
+            <div>✓ Full refund if under 5% weight loss in 6 months</div>
+            <div>✓ Cancel anytime — no fees</div>
+            <div>✓ Pause for holidays — restart anytime</div>
+            <div>✓ Switch between Wegovy &amp; Mounjaro freely</div>
+          </div>
+          <button class="bolt-button" style="width: 100%; font-weight: 700;">Select Wegovy →</button>
+        </div>
+      </div>
+    </div>
+    <div class="notes-sidebar">
+      <div class="sticky-note observation-note">
+        <div class="note-label">Observation</div>
+        Bolt HAS a money-back guarantee ("refund if you don't achieve 5% body weight reduction in 6 months") but it's buried below the fold. User interviews confirm commitment anxiety is the #1 psychological barrier. This guarantee is Bolt's strongest differentiator vs. competitors — currently invisible.
+      </div>
+      <div class="sticky-note idea-note">
+        <div class="note-label">Idea</div>
+        Surface the guarantee as a prominent hero banner between header and product cards. Add a "safety net" checklist showing all risk-reversal elements (refund, cancel anytime, pause, switch products). Makes Bolt's strongest advantage visible from the moment users land on the page.
+      </div>
+    </div>
+  </div>
+  <div class="hypothesis-bar">
+    <div class="hyp-label">Hypothesis</div>
+    <p>If we surface the money-back guarantee as a hero banner and add a risk-reversal checklist within the subscription card on /your-plan-sb-c, then subscription conversion will increase, because the guarantee addresses both the #1 stated barrier (price — 57% in survey) and the #1 psychological barrier (commitment anxiety from user interviews) — and no major UK competitor offers a comparable guarantee, making this Bolt's most underutilised competitive advantage.</p>
+  </div>
+</div>
+
+<!-- THEME 2: Entry Pages Don't Sell Subscription -->
+<div class="theme-header">
+  <div class="theme-badge orange">THEME 2: ENTRY-PAGE SUBSCRIPTION MESSAGING</div>
+  <h2>Entry Pages Don't Sell the Subscription Value</h2>
+  <div class="insight">The /baxl-sb page currently shows pricing but doesn't actively sell the subscription value. There's no outcome framing, no daily cost anchoring, no social proof about subscriber retention. Research shows users entering via this page spend 10+ minutes on the plans page comparing options — indicating the entry page isn't priming them for the subscription decision. First impression testing (N=150) showed users' #1 missing information: "how it works" (30%), "pricing" (20%). The entry page has a unique opportunity to frame the subscription as simple, affordable, and backed by evidence.</div>
+  <div class="idea-count">2 framing experiments</div>
+</div>
+
+<!-- IDEA 5: Daily Cost Reframe + Outcome Anchor -->
+<div class="idea-card">
+  <div class="card-header">
+    <div class="idea-number" style="background: #f9a825; color: white;">T2-1</div>
+    <h3>Daily Cost Reframe + Outcome Anchor — Reframe Price Perception</h3>
+    <div class="location-tag">/baxl-sb</div>
+  </div>
+  <div class="screenshot-area">
+    <div class="mockup-wrapper">
+
+      <!-- CURRENT STATE — faithful to /baxl-sb mobile screenshot -->
+      <div style="flex: 1; padding: 20px; display: flex; align-items: flex-start; justify-content: center; position: relative;">
+        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-15deg); background: rgba(244, 67, 54, 0.08); border: 3px solid #f44336; color: #f44336; padding: 10px 20px; font-weight: 700; font-size: 11px; pointer-events: none; border-radius: 4px; letter-spacing: 0.5px; text-transform: uppercase; white-space: nowrap; z-index: 5;">MONTHLY PRICE SHOCK</div>
+        <!-- Mobile frame -->
+        <div style="width: 375px; background: #f8f8f8; border-radius: 36px; overflow: hidden; box-shadow: 0 8px 40px rgba(0,0,0,0.15); border: 8px solid #1a1a1a; position: relative;">
+          <div style="position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 150px; height: 28px; background: #1a1a1a; border-radius: 0 0 20px 20px; z-index: 10;"></div>
+          <div style="background: #dff0e0; min-height: 100%; padding-top: 36px;">
+            <div class="current-badge" style="position: relative; display: inline-block; margin: 8px 0 0 16px;">CURRENT</div>
+
+            <!-- Breadcrumb -->
+            <div style="padding: 8px 20px 0;">
+              <span style="font-size: 10px; color: #0064b0; text-decoration: underline;">All</span>
+              <span style="font-size: 10px; color: #888;"> › </span>
+              <span style="font-size: 10px; color: #0064b0; text-decoration: underline;">Weight loss</span>
+            </div>
+
+            <!-- Title + Trustpilot -->
+            <div style="padding: 6px 20px 0;">
+              <h2 style="font-size: 20px; font-weight: 800; color: #0f3c6c; margin-bottom: 4px; line-height: 1.2;">Medicated weight<br>loss treatments</h2>
+              <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 14px;">
+                <span style="font-size: 11px; color: #007f4e;">★</span>
+                <span style="font-size: 11px; font-weight: 600; color: #0f3c6c;">Trustpilot</span>
+                <div style="display: flex; gap: 1px;">
+                  <div style="width: 18px; height: 18px; background: #00b67a; display: flex; align-items: center; justify-content: center;"><span style="color: white; font-size: 9px; font-weight: 700;">★</span></div>
+                  <div style="width: 18px; height: 18px; background: #00b67a; display: flex; align-items: center; justify-content: center;"><span style="color: white; font-size: 9px; font-weight: 700;">★</span></div>
+                  <div style="width: 18px; height: 18px; background: #00b67a; display: flex; align-items: center; justify-content: center;"><span style="color: white; font-size: 9px; font-weight: 700;">★</span></div>
+                  <div style="width: 18px; height: 18px; background: #00b67a; display: flex; align-items: center; justify-content: center;"><span style="color: white; font-size: 9px; font-weight: 700;">★</span></div>
+                  <div style="width: 18px; height: 18px; background: #00b67a; display: flex; align-items: center; justify-content: center;"><span style="color: white; font-size: 9px; font-weight: 700;">★</span></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Product image carousel area -->
+            <div style="margin: 0 20px 14px; background: #d4e8d4; border-radius: 14px; padding: 30px 20px; text-align: center; position: relative; min-height: 120px; display: flex; align-items: center; justify-content: center;">
+              <div style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); font-size: 18px; color: #bbb;">‹</div>
+              <div style="font-size: 11px; color: #888; font-style: italic;">[ product pen carousel ]</div>
+              <div style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); font-size: 18px; color: #bbb;">›</div>
+            </div>
+
+            <!-- Benefits list -->
+            <div style="padding: 0 20px 14px; font-size: 12px; color: #0f3c6c; line-height: 2.0;">
+              <div><span style="color: #0064b0;">✅</span> Lose up to 22.5% body weight*</div>
+              <div><span style="color: #0064b0;">✅</span> Easily switch between treatments</div>
+              <div><span style="color: #0064b0;">✅</span> Flexible dosing option</div>
+              <div><span style="color: #007f4e;">✅</span> <strong>£20 discount applied to every order</strong></div>
+              <div><span style="color: #007f4e;">✅</span> <strong>Extra £20 discount on your first order</strong></div>
+            </div>
+
+            <!-- Explore all prices section -->
+            <div style="background: white; margin: 0; padding: 16px 20px 20px; border-radius: 14px 14px 0 0;">
+              <div style="font-size: 15px; font-weight: 700; color: #0f3c6c; margin-bottom: 12px;">Explore all prices</div>
+              <!-- Dropdowns -->
+              <div style="border: 1.5px solid #ccc; border-radius: 8px; padding: 12px 14px; font-size: 13px; color: #333; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; background: white;">
+                <span>Wegovy®</span> <span style="color: #888;">▾</span>
+              </div>
+              <div style="border: 1.5px solid #ccc; border-radius: 8px; padding: 12px 14px; font-size: 13px; color: #333; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; background: white;">
+                <span>0.25mg</span> <span style="color: #888;">▾</span>
+              </div>
+              <!-- Current pricing display -->
+              <div style="margin-bottom: 6px;">
+                <span style="font-size: 12px; color: #555;">Save &amp; subscribe from</span>
+                <span style="font-size: 24px; font-weight: 800; color: #007f4e; margin-left: 6px;">£79.00</span>
+                <span style="font-size: 13px; color: #999; text-decoration: line-through; margin-left: 4px;">£119.00</span>
+              </div>
+              <div style="background: #007f4e; color: white; padding: 2px 8px; border-radius: 4px; font-size: 9px; font-weight: 700; display: inline-block; margin-bottom: 16px;">£40 off on your first month</div>
+              <!-- CTA -->
+              <div style="background: #0f3c6c; color: white; text-align: center; padding: 16px; border-radius: 50px; font-weight: 700; font-size: 15px; cursor: pointer;">Check your eligibility →</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROPOSED STATE -->
+      <div style="flex: 1; padding: 20px; display: flex; align-items: flex-start; justify-content: center;">
+        <!-- Mobile frame -->
+        <div style="width: 375px; background: #f8f8f8; border-radius: 36px; overflow: hidden; box-shadow: 0 8px 40px rgba(0,0,0,0.15); border: 8px solid #1a1a1a; position: relative;">
+          <div style="position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 150px; height: 28px; background: #1a1a1a; border-radius: 0 0 20px 20px; z-index: 10;"></div>
+          <div style="background: #dff0e0; min-height: 100%; padding-top: 36px;">
+            <div class="proposed-badge" style="position: relative; display: inline-block; margin: 8px 0 0 16px;">PROPOSED VARIANT</div>
+
+            <!-- Breadcrumb -->
+            <div style="padding: 8px 20px 0;">
+              <span style="font-size: 10px; color: #0064b0; text-decoration: underline;">All</span>
+              <span style="font-size: 10px; color: #888;"> › </span>
+              <span style="font-size: 10px; color: #0064b0; text-decoration: underline;">Weight loss</span>
+            </div>
+
+            <!-- Title + Trustpilot (identical) -->
+            <div style="padding: 6px 20px 0;">
+              <h2 style="font-size: 20px; font-weight: 800; color: #0f3c6c; margin-bottom: 4px; line-height: 1.2;">Medicated weight<br>loss treatments</h2>
+              <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 14px;">
+                <span style="font-size: 11px; color: #007f4e;">★</span>
+                <span style="font-size: 11px; font-weight: 600; color: #0f3c6c;">Trustpilot</span>
+                <div style="display: flex; gap: 1px;">
+                  <div style="width: 18px; height: 18px; background: #00b67a; display: flex; align-items: center; justify-content: center;"><span style="color: white; font-size: 9px; font-weight: 700;">★</span></div>
+                  <div style="width: 18px; height: 18px; background: #00b67a; display: flex; align-items: center; justify-content: center;"><span style="color: white; font-size: 9px; font-weight: 700;">★</span></div>
+                  <div style="width: 18px; height: 18px; background: #00b67a; display: flex; align-items: center; justify-content: center;"><span style="color: white; font-size: 9px; font-weight: 700;">★</span></div>
+                  <div style="width: 18px; height: 18px; background: #00b67a; display: flex; align-items: center; justify-content: center;"><span style="color: white; font-size: 9px; font-weight: 700;">★</span></div>
+                  <div style="width: 18px; height: 18px; background: #00b67a; display: flex; align-items: center; justify-content: center;"><span style="color: white; font-size: 9px; font-weight: 700;">★</span></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Product image carousel area (identical) -->
+            <div style="margin: 0 20px 14px; background: #d4e8d4; border-radius: 14px; padding: 30px 20px; text-align: center; position: relative; min-height: 120px; display: flex; align-items: center; justify-content: center;">
+              <div style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); font-size: 18px; color: #bbb;">‹</div>
+              <div style="font-size: 11px; color: #888; font-style: italic;">[ product pen carousel ]</div>
+              <div style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); font-size: 18px; color: #bbb;">›</div>
+            </div>
+
+            <!-- Benefits list (identical) -->
+            <div style="padding: 0 20px 14px; font-size: 12px; color: #0f3c6c; line-height: 2.0;">
+              <div><span style="color: #0064b0;">✅</span> Lose up to 22.5% body weight*</div>
+              <div><span style="color: #0064b0;">✅</span> Easily switch between treatments</div>
+              <div><span style="color: #0064b0;">✅</span> Flexible dosing option</div>
+              <div><span style="color: #007f4e;">✅</span> <strong>£20 discount applied to every order</strong></div>
+              <div><span style="color: #007f4e;">✅</span> <strong>Extra £20 discount on your first order</strong></div>
+            </div>
+
+            <!-- CHANGED: Explore all prices section with daily cost reframe -->
+            <div style="background: white; margin: 0; padding: 16px 20px 20px; border-radius: 14px 14px 0 0;">
+              <div style="font-size: 15px; font-weight: 700; color: #0f3c6c; margin-bottom: 12px;">Explore all prices</div>
+              <!-- Dropdowns (same) -->
+              <div style="border: 1.5px solid #ccc; border-radius: 8px; padding: 12px 14px; font-size: 13px; color: #333; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; background: white;">
+                <span>Wegovy®</span> <span style="color: #888;">▾</span>
+              </div>
+              <div style="border: 1.5px solid #ccc; border-radius: 8px; padding: 12px 14px; font-size: 13px; color: #333; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; background: white;">
+                <span>0.25mg</span> <span style="color: #888;">▾</span>
+              </div>
+
+              <!-- NEW: Daily cost reframe block -->
+              <div style="background: linear-gradient(135deg, #f0f8f5, #e8f5e9); border: 2px solid #007f4e; border-radius: 14px; padding: 18px; margin-bottom: 14px; text-align: center;">
+                <div style="font-size: 11px; color: #555; text-transform: uppercase; font-weight: 600; letter-spacing: 1px; margin-bottom: 6px;">SUBSCRIBE &amp; SAVE FROM</div>
+                <div style="font-size: 40px; font-weight: 800; color: #007f4e; line-height: 1;">£2.82</div>
+                <div style="font-size: 14px; font-weight: 600; color: #333; margin-bottom: 6px;">per day</div>
+                <div style="font-size: 12px; color: #888; margin-bottom: 14px;">That's less than your morning coffee ☕</div>
+
+                <!-- Coffee comparison -->
+                <div style="background: white; border-radius: 10px; padding: 10px 14px; margin-bottom: 14px; display: flex; justify-content: space-around; align-items: center;">
+                  <div style="text-align: center;">
+                    <div style="font-size: 18px; margin-bottom: 2px;">☕</div>
+                    <div style="font-size: 11px; color: #888;">Daily coffee</div>
+                    <div style="font-size: 14px; font-weight: 700; color: #888; text-decoration: line-through;">£4.50</div>
+                  </div>
+                  <div style="font-size: 16px; color: #ccc;">vs</div>
+                  <div style="text-align: center;">
+                    <div style="font-size: 18px; margin-bottom: 2px;">💊</div>
+                    <div style="font-size: 11px; color: #007f4e; font-weight: 600;">Bolt subscription</div>
+                    <div style="font-size: 14px; font-weight: 800; color: #007f4e;">£2.82/day</div>
+                  </div>
+                </div>
+
+                <!-- Outcome anchor -->
+                <div style="background: white; border-left: 3px solid #007f4e; border-radius: 8px; padding: 10px 14px; text-align: left; margin-bottom: 10px;">
+                  <span style="font-size: 12px; color: #0f3c6c; font-weight: 600;">Average result: </span>
+                  <span style="font-size: 14px; color: #007f4e; font-weight: 800;">-20.7% body weight loss</span>
+                </div>
+
+                <!-- Monthly equivalent -->
+                <div style="font-size: 11px; color: #888;">= <strong>£79/month</strong> first month (£40 off)</div>
+              </div>
+
+              <!-- CTA -->
+              <div style="background: #0f3c6c; color: white; text-align: center; padding: 16px; border-radius: 50px; font-weight: 700; font-size: 15px; cursor: pointer; margin-bottom: 10px;">Check your eligibility →</div>
+
+              <!-- Reassurance strip -->
+              <div style="display: flex; justify-content: center; gap: 14px; font-size: 10px; color: #888; text-align: center;">
+                <span>✓ Cancel anytime</span>
+                <span>✓ Free delivery</span>
+                <span>✓ Money-back</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="notes-sidebar">
+      <div class="sticky-note observation-note">
+        <div class="note-label">Observation</div>
+        User research showed price expectations averaged £110/month. Weekly pricing "felt like an enabler." First impression testing flagged missing info: "pricing" (20%), "how it works" (30%). The current "Explore all prices" section on /baxl-sb shows "Save &amp; subscribe from £79.00" with a strikethrough £119.00 — a monthly figure that triggers price shock. With 89.6% mobile traffic, users see this number and immediately compare it to monthly expenses. Daily pricing framing reduces this friction. Coffee anchor (£4.50/day) is a familiar everyday reference point.
+      </div>
+      <div class="sticky-note idea-note">
+        <div class="note-label">Idea</div>
+        Replace the monthly price display in the "Explore all prices" section with a daily cost anchor (£2.82/day) compared to everyday purchase (coffee at £4.50). Keep the same dropdown selectors and page structure. Show monthly equivalent in smaller text for transparency. Add outcome pairing (20.7% weight loss) directly below the price comparison. Add reassurance strip below CTA (cancel anytime, free delivery, money-back guarantee).
+      </div>
+    </div>
+  </div>
+  <div class="hypothesis-bar">
+    <div class="hyp-label">Hypothesis</div>
+    <p>If we reframe the /baxl-sb pricing from monthly (£79) to daily (£2.82/day) with a coffee-price anchor and immediate outcome pairing in the "Explore all prices" section, then CTR to the eligibility quiz will increase and price anxiety will decrease, because user research confirmed that more granular pricing framing ("weekly felt like an enabler") reduces price shock — and anchoring against a familiar £4.50 daily coffee makes the subscription feel trivially affordable, while the outcome pairing (20.7% body weight loss) immediately connects cost with tangible value.</p>
+  </div>
+</div>
+
+<!-- IDEA 6: Remove Single Order + Add Subscriber Social Proof -->
+<div class="idea-card">
+  <div class="card-header">
+    <div class="idea-number" style="background: #f9a825; color: white;">T2-2</div>
+    <h3>Remove Single Order Option + Add Subscriber Social Proof</h3>
+    <div class="location-tag">/your-plan-sb-e</div>
+  </div>
+  <div class="screenshot-area">
+    <div class="mockup-wrapper">
+
+      <!-- CURRENT STATE — matching live Bolt layout -->
+      <div style="flex: 1; padding: 20px; display: flex; align-items: flex-start; justify-content: center; position: relative;">
+        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-15deg); background: rgba(244, 67, 54, 0.08); border: 3px solid #f44336; color: #f44336; padding: 10px 20px; font-weight: 700; font-size: 11px; pointer-events: none; border-radius: 4px; letter-spacing: 0.5px; text-transform: uppercase; white-space: nowrap; z-index: 5;">COMPARISON FRICTION</div>
+        <!-- Mobile frame -->
+        <div style="width: 375px; background: #f8f8f8; border-radius: 36px; overflow: hidden; box-shadow: 0 8px 40px rgba(0,0,0,0.15); border: 8px solid #1a1a1a; position: relative;">
+          <div style="position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 150px; height: 28px; background: #1a1a1a; border-radius: 0 0 20px 20px; z-index: 10;"></div>
+          <div style="background: white; padding-top: 36px;">
+            <div class="current-badge" style="position: relative; display: inline-block; margin: 8px 0 0 16px;">CURRENT</div>
+
+            <!-- Header -->
+            <div style="padding: 12px 20px 0; text-align: center;">
+              <div style="font-size: 12px; color: #888; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 4px;">Clinically proven weight loss</div>
+              <h2 style="font-size: 18px; font-weight: 700; color: #0f3c6c; margin-bottom: 14px;">at a price that works for you.</h2>
+            </div>
+
+            <!-- Subscribe & Save / Single Purchase toggle -->
+            <div style="display: flex; margin: 0 20px 16px; background: #e8e8e8; border-radius: 50px; padding: 4px; position: relative;">
+              <div style="flex: 1; text-align: center; padding: 10px 8px; border-radius: 50px; background: white; box-shadow: 0 1px 4px rgba(0,0,0,0.1); position: relative;">
+                <div style="position: absolute; top: -8px; left: 50%; transform: translateX(-50%); background: #007f4e; color: white; padding: 2px 8px; border-radius: 8px; font-size: 8px; font-weight: 700; white-space: nowrap;">Save £20/mo</div>
+                <span style="font-size: 12px; font-weight: 600; color: #0f3c6c;">Subscribe &amp; Save</span>
+              </div>
+              <div style="flex: 1; text-align: center; padding: 10px 8px; border-radius: 50px;">
+                <span style="font-size: 12px; font-weight: 500; color: #888;">Single Purchase</span>
+              </div>
+            </div>
+
+            <!-- Two product cards side by side -->
+            <div style="display: flex; gap: 10px; padding: 0 16px 20px;">
+              <!-- Wegovy -->
+              <div style="flex: 1; background: #f0f4f0; border-radius: 14px; overflow: hidden;">
+                <div style="background: #e8ece8; padding: 16px 10px; text-align: center; min-height: 90px; display: flex; align-items: center; justify-content: center;">
+                  <div style="font-size: 11px; color: #888; font-style: italic;">[ pen image ]</div>
+                </div>
+                <div style="padding: 12px 10px;">
+                  <div style="font-size: 13px; font-weight: 700; color: #0f3c6c; margin-bottom: 4px;">Wegovy® for Weight Loss</div>
+                  <div style="margin-bottom: 4px;">
+                    <span style="font-size: 16px; font-weight: 700; color: #007f4e;">£24.75/week</span>
+                    <span style="font-size: 11px; color: #999; text-decoration: line-through; margin-left: 4px;">£29.75/week</span>
+                  </div>
+                  <div style="font-size: 10px; color: #888; margin-bottom: 10px;">First month · Cancel anytime</div>
+                  <div style="background: #e8f5e9; border: 1px solid #c8e6c9; border-radius: 8px; padding: 8px; margin-bottom: 8px;">
+                    <div style="font-size: 9px; font-weight: 700; color: #007f4e; text-transform: uppercase; margin-bottom: 4px;">◇ SUBSCRIBER EXCLUSIVES</div>
+                    <div style="font-size: 10px; color: #2e7d32; line-height: 1.6;">
+                      <div>✅ Save £20 every month</div>
+                      <div>✅ Priority access to clinical support</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Mounjaro -->
+              <div style="flex: 1; background: #eef2f8; border-radius: 14px; overflow: hidden;">
+                <div style="background: #e3e8f0; padding: 16px 10px; text-align: center; min-height: 90px; display: flex; align-items: center; justify-content: center;">
+                  <div style="font-size: 11px; color: #888; font-style: italic;">[ pen image ]</div>
+                </div>
+                <div style="padding: 12px 10px;">
+                  <div style="font-size: 13px; font-weight: 700; color: #0f3c6c; margin-bottom: 4px;">Mounjaro® for Weight Loss</div>
+                  <div style="margin-bottom: 4px;">
+                    <span style="font-size: 16px; font-weight: 700; color: #007f4e;">£37.25/week</span>
+                    <span style="font-size: 11px; color: #999; text-decoration: line-through; margin-left: 4px;">£44.75/week</span>
+                  </div>
+                  <div style="font-size: 10px; color: #888; margin-bottom: 10px;">First month · Cancel anytime</div>
+                  <div style="background: #e8f5e9; border: 1px solid #c8e6c9; border-radius: 8px; padding: 8px; margin-bottom: 8px;">
+                    <div style="font-size: 9px; font-weight: 700; color: #007f4e; text-transform: uppercase; margin-bottom: 4px;">◇ SUBSCRIBER EXCLUSIVES</div>
+                    <div style="font-size: 10px; color: #2e7d32; line-height: 1.6;">
+                      <div>✅ Save £20 every month</div>
+                      <div>✅ Priority access to clinical support</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROPOSED STATE -->
+      <div style="flex: 1; padding: 20px; display: flex; align-items: flex-start; justify-content: center;">
+        <!-- Mobile frame -->
+        <div style="width: 375px; background: #f8f8f8; border-radius: 36px; overflow: hidden; box-shadow: 0 8px 40px rgba(0,0,0,0.15); border: 8px solid #1a1a1a; position: relative;">
+          <div style="position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 150px; height: 28px; background: #1a1a1a; border-radius: 0 0 20px 20px; z-index: 10;"></div>
+          <div style="background: white; padding-top: 36px;">
+            <div class="proposed-badge" style="position: relative; display: inline-block; margin: 8px 0 0 16px;">PROPOSED VARIANT</div>
+
+            <!-- Header -->
+            <div style="padding: 12px 20px 0; text-align: center;">
+              <div style="font-size: 12px; color: #888; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 4px;">Clinically proven weight loss</div>
+              <h2 style="font-size: 18px; font-weight: 700; color: #0f3c6c; margin-bottom: 10px;">at a price that works for you.</h2>
+            </div>
+
+            <!-- Social proof banner (replaces toggle) -->
+            <div style="margin: 0 20px 14px; background: #e8f5e9; border-radius: 10px; padding: 10px 14px; text-align: center;">
+              <span style="font-size: 12px; font-weight: 600; color: #2e7d32;">👥 93% of patients choose Subscribe &amp; Save</span>
+            </div>
+
+            <!-- Recommendation text -->
+            <div style="padding: 0 20px; margin-bottom: 14px; text-align: center;">
+              <p style="font-size: 12px; color: #555;">Based on your assessment, we recommend <strong style="color: #0f3c6c;">Wegovy®</strong>.</p>
+            </div>
+
+            <!-- Single subscription card — Wegovy only -->
+            <div style="margin: 0 20px 16px; border: 2px solid #007f4e; border-radius: 16px; overflow: hidden;">
+              <!-- Product image area -->
+              <div style="background: #e8ece8; padding: 20px; text-align: center; display: flex; align-items: center; justify-content: center; min-height: 100px;">
+                <div>
+                  <div style="font-size: 20px; font-weight: 800; color: #0f3c6c;">Wegovy® 0.25mg</div>
+                  <div style="font-size: 11px; color: #555; margin-top: 2px;">Once-weekly injection</div>
+                </div>
+              </div>
+
+              <div style="padding: 16px;">
+                <!-- Pricing -->
+                <div style="display: flex; align-items: baseline; gap: 8px; margin-bottom: 4px;">
+                  <span style="font-size: 28px; font-weight: 800; color: #007f4e;">£79</span>
+                  <span style="font-size: 13px; color: #999; text-decoration: line-through;">£119</span>
+                  <span style="font-size: 12px; color: #888;">First month</span>
+                </div>
+                <div style="background: #e8f5e9; color: #2e7d32; padding: 8px 12px; border-radius: 8px; font-size: 11px; font-weight: 600; text-align: center; margin-bottom: 12px;">Save £40 on your first month</div>
+
+                <!-- Subscriber exclusives -->
+                <div style="font-size: 11px; color: #555; line-height: 1.7; margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid #eee;">
+                  <div><span style="color: #007f4e; font-weight: 700;">✓</span> £20 discount applied to every order</div>
+                  <div><span style="color: #007f4e; font-weight: 700;">✓</span> Extra £20 discount on your first order</div>
+                  <div><span style="color: #007f4e; font-weight: 700;">✓</span> Average subscriber stays 5 months</div>
+                </div>
+
+                <!-- Why subscribe? box -->
+                <div style="background: #f0f7ff; border-left: 3px solid #0064b0; padding: 10px 12px; border-radius: 6px; font-size: 11px; color: #0f3c6c; line-height: 1.6; margin-bottom: 14px;">
+                  <div style="font-weight: 700; margin-bottom: 4px;">Why subscribe?</div>
+                  <div>✓ Save £240/year vs one-time purchases</div>
+                  <div>✓ Free delivery every month</div>
+                  <div>✓ Price lock guarantee</div>
+                  <div>✓ Priority clinical support</div>
+                </div>
+
+                <!-- CTA -->
+                <div style="background: #0064b0; color: white; text-align: center; padding: 16px; border-radius: 50px; font-weight: 700; font-size: 15px; cursor: pointer; margin-bottom: 12px;">Start my subscription →</div>
+
+                <!-- De-emphasised one-time link -->
+                <div style="text-align: center; font-size: 11px; color: #999; cursor: pointer;"><span style="text-decoration: underline;">Prefer a one-time purchase? Click here</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="notes-sidebar">
+      <div class="sticky-note observation-note">
+        <div class="note-label">Observation</div>
+        Session recordings show users spend 10+ minutes comparing Subscribe vs One-time options at the critical decision point. The Subscribe &amp; Save / Single Purchase toggle creates a binary comparison that triggers deliberation exactly when you want frictionless conversion. Strategy deck flagged this as a key test: "Remove single order option to eliminate comparison friction." With 89.6% mobile traffic, every second of deliberation on a small screen costs conversions.
+      </div>
+      <div class="sticky-note idea-note">
+        <div class="note-label">Idea</div>
+        Remove the Subscribe &amp; Save / Single Purchase toggle and one-time purchase card entirely. Replace the toggle with a social proof banner ("93% of patients choose Subscribe &amp; Save"). Show only the subscription card with the recommended product. Add "average subscriber stays 5 months" retention data and a "Why subscribe?" benefits summary highlighting £240/year savings. Keep a de-emphasised text link for users who insist on one-time purchase.
+      </div>
+    </div>
+  </div>
+  <div class="hypothesis-bar">
+    <div class="hyp-label">Hypothesis</div>
+    <p>If we remove the Subscribe &amp; Save / Single Purchase toggle and replace it with subscriber social proof and a single subscription card on /your-plan-sb-e, then subscription conversion rate will increase and decision time will decrease, because session recordings show users spend excessive time toggling between Subscribe vs One-time at the commitment point (creating decision friction on 89.6% mobile traffic) — and the strategy deck already identified this as a key test: simplifying the choice architecture by removing the comparison should accelerate the subscription decision while the social proof ("93% choose Subscribe") and retention data ("average subscriber stays 5 months") shift the default assumption toward subscription.</p>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="document-footer">
+  <p><strong>Document prepared:</strong> April 2026 · All experiments above-the-fold, high-impact, and sprint-ready</p>
+  <p><strong>Research base:</strong> 5 user interviews · N=173 customer survey · Session recordings · Heatmaps · First impression testing (N=150) · Customer service analysis</p>
+  <p style="margin-top: 20px; color: #666; font-size: 12px;">For questions about hypothesis design, statistical validity, or implementation details, refer to the strategy deck: "Bolt Subscription Funnel — Q2 2026 Strategy" · All designs faithfully recreate Bolt's actual UI from live pages</p>
+</div>
+
+</body>
+</html>

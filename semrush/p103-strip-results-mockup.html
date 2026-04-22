@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>P1-03 — Strip Results Page to Essentials (Mockup)</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #F5F6F7;
+            color: #171A1C;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ===== ANNOTATION BAR ===== */
+        .annotation-bar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: #181E15;
+            color: white;
+            padding: 0.75rem 2.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            font-size: 0.8rem;
+        }
+        .annotation-bar .badge {
+            background: #18F0BF;
+            color: #181E15;
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-weight: 800;
+            font-size: 0.7rem;
+            letter-spacing: 0.04em;
+            flex-shrink: 0;
+        }
+        .annotation-bar .text { color: #D1D2D5; }
+        .annotation-bar .text strong { color: white; }
+
+        /* ===== VERSION TOGGLE ===== */
+        .version-toggle {
+            display: flex;
+            justify-content: center;
+            gap: 0;
+            padding: 1.5rem 2rem 0;
+        }
+        .toggle-btn {
+            padding: 0.75rem 2.5rem;
+            font-size: 0.85rem;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+        .toggle-btn.control {
+            background: #FFF0F0;
+            color: #D42B2B;
+            border-radius: 8px 0 0 8px;
+            border: 2px solid #F5CCCC;
+        }
+        .toggle-btn.control.active {
+            background: #D42B2B;
+            color: white;
+            border-color: #D42B2B;
+        }
+        .toggle-btn.variant {
+            background: #EDFFF8;
+            color: #0A8F6A;
+            border-radius: 0 8px 8px 0;
+            border: 2px solid #B3F0DC;
+        }
+        .toggle-btn.variant.active {
+            background: #0A8F6A;
+            color: white;
+            border-color: #0A8F6A;
+        }
+
+        /* ===== BROWSER CHROME ===== */
+        .browser-frame {
+            max-width: 1280px;
+            margin: 1.5rem auto 3rem;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.12);
+            border: 1px solid #D0D2D6;
+        }
+        .browser-bar {
+            background: #F0F1F2;
+            padding: 0.6rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            border-bottom: 1px solid #D0D2D6;
+        }
+        .browser-dots {
+            display: flex;
+            gap: 5px;
+        }
+        .browser-dots span {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+        .browser-dots span:nth-child(1) { background: #FF5F56; }
+        .browser-dots span:nth-child(2) { background: #FFBD2E; }
+        .browser-dots span:nth-child(3) { background: #27C93F; }
+        .browser-url {
+            flex: 1;
+            background: white;
+            padding: 0.4rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            color: #6C6E79;
+            border: 1px solid #E0E2E7;
+        }
+        .browser-body {
+            background: white;
+            position: relative;
+        }
+
+        /* ===== SEMRUSH NAV ===== */
+        .sr-topnav {
+            display: flex;
+            align-items: center;
+            padding: 0 1.5rem;
+            height: 56px;
+            border-bottom: 1px solid #E8E9EB;
+            background: white;
+        }
+        .sr-topnav-logo {
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: #171A1C;
+            letter-spacing: -0.02em;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            margin-right: 2rem;
+        }
+        .sr-topnav-logo svg { width: 22px; height: 22px; }
+        .sr-topnav-links {
+            display: flex;
+            gap: 1.5rem;
+            font-size: 0.82rem;
+            font-weight: 500;
+            color: #555B65;
+        }
+        .sr-topnav-links span:hover { color: #171A1C; cursor: pointer; }
+        .sr-topnav-right {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .sr-login { font-size: 0.82rem; font-weight: 600; color: #555B65; cursor: pointer; }
+        .sr-signup {
+            background: #FF642D;
+            color: white;
+            border: none;
+            padding: 0.5rem 1.25rem;
+            border-radius: 8px;
+            font-size: 0.82rem;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        /* ===== TOOL HEADER AREA ===== */
+        .tool-header {
+            padding: 2rem 2rem 0;
+            background: white;
+        }
+        .tool-header h1 {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: #171A1C;
+            margin-bottom: 0.5rem;
+        }
+        .tool-header p {
+            font-size: 0.85rem;
+            color: #8C919A;
+            margin-bottom: 1.25rem;
+        }
+
+        /* ===== SEARCH BAR ===== */
+        .search-bar-row {
+            display: flex;
+            gap: 0.5rem;
+            padding: 0 2rem 1.5rem;
+            background: white;
+        }
+        .search-input {
+            flex: 1;
+            padding: 0.85rem 1rem;
+            border: 1px solid #D0D2D6;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-family: inherit;
+            color: #171A1C;
+            outline: none;
+        }
+        .search-input:focus { border-color: #FF642D; }
+        .search-btn {
+            background: #FF642D;
+            color: white;
+            border: none;
+            padding: 0.85rem 1.75rem;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            cursor: pointer;
+            font-family: inherit;
+            white-space: nowrap;
+        }
+
+        /* ===== PROMO BANNER (control only) ===== */
+        .promo-banner {
+            margin: 0 2rem 1rem;
+            padding: 1rem 1.5rem;
+            background: linear-gradient(90deg, #7B2EE8 0%, #3F16B0 100%);
+            border-radius: 8px;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .promo-banner-text {
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        .promo-banner-text span {
+            font-weight: 400;
+            opacity: 0.85;
+            font-size: 0.8rem;
+            margin-left: 0.5rem;
+        }
+        .promo-banner-btn {
+            background: white;
+            color: #7B2EE8;
+            border: none;
+            padding: 0.5rem 1.25rem;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 0.8rem;
+            cursor: pointer;
+            font-family: inherit;
+            white-space: nowrap;
+        }
+        .promo-close {
+            margin-left: 0.75rem;
+            color: white;
+            opacity: 0.6;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 400;
+        }
+
+        /* ===== CONTENT LAYOUT ===== */
+        .content-layout {
+            display: flex;
+            min-height: 600px;
+        }
+
+        /* ===== SIDEBAR (control only) ===== */
+        .sidebar {
+            width: 240px;
+            border-right: 1px solid #E8E9EB;
+            padding: 1.25rem;
+            flex-shrink: 0;
+            background: #FAFBFC;
+        }
+        .sidebar-title {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #8C919A;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.75rem;
+        }
+        .sidebar-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.5rem 0.75rem;
+            font-size: 0.82rem;
+            color: #373D47;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-bottom: 0.15rem;
+        }
+        .sidebar-item:hover { background: #F0F1F2; }
+        .sidebar-item.active { background: #EBF0FF; color: #2969FF; font-weight: 600; }
+        .sidebar-count {
+            font-size: 0.7rem;
+            color: #8C919A;
+            background: #F0F1F2;
+            padding: 0.15rem 0.5rem;
+            border-radius: 4px;
+        }
+        .sidebar-item.active .sidebar-count { background: #D4E0FF; color: #2969FF; }
+
+        /* ===== MAIN RESULTS AREA ===== */
+        .results-main {
+            flex: 1;
+            padding: 1.5rem 2rem;
+            overflow-x: auto;
+        }
+
+        /* ===== METRIC CARDS ===== */
+        .metric-row {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 1.25rem;
+        }
+        .metric-card {
+            background: white;
+            border: 1px solid #E8E9EB;
+            border-radius: 8px;
+            padding: 0.85rem 1.1rem;
+            flex: 1;
+        }
+        .metric-card-label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #8C919A;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            margin-bottom: 0.25rem;
+        }
+        .metric-card-value {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: #171A1C;
+        }
+        .metric-card-value .unit {
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: #8C919A;
+        }
+
+        /* ===== FILTER BAR ===== */
+        .filter-bar {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+        .filter-chip {
+            padding: 0.4rem 0.85rem;
+            border: 1px solid #D0D2D6;
+            border-radius: 6px;
+            font-size: 0.78rem;
+            color: #555B65;
+            cursor: pointer;
+            font-family: inherit;
+            background: white;
+        }
+        .filter-chip:hover { border-color: #171A1C; }
+        .filter-chip.active {
+            background: #171A1C;
+            color: white;
+            border-color: #171A1C;
+        }
+
+        /* ===== RESULTS TABLE ===== */
+        .results-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.82rem;
+        }
+        .results-table thead th {
+            text-align: left;
+            padding: 0.65rem 0.75rem;
+            font-weight: 600;
+            color: #8C919A;
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            border-bottom: 2px solid #E8E9EB;
+            white-space: nowrap;
+        }
+        .results-table tbody td {
+            padding: 0.75rem;
+            border-bottom: 1px solid #F0F1F2;
+            color: #373D47;
+        }
+        .results-table tbody tr:hover { background: #FAFBFC; }
+        .kw-link { color: #2969FF; text-decoration: none; font-weight: 500; }
+        .kw-link:hover { text-decoration: underline; }
+
+        .intent-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 22px;
+            height: 22px;
+            border-radius: 4px;
+            font-size: 0.6rem;
+            font-weight: 800;
+            color: white;
+        }
+        .intent-i { background: #2969FF; }
+        .intent-c { background: #FF642D; }
+        .intent-t { background: #7B2EE8; }
+        .intent-n { background: #8C919A; }
+
+        .kd-bar {
+            display: inline-block;
+            width: 32px;
+            height: 6px;
+            border-radius: 3px;
+            margin-right: 0.4rem;
+            vertical-align: middle;
+        }
+        .kd-easy { background: #27C93F; }
+        .kd-medium { background: #FFBD2E; }
+        .kd-hard { background: #FF5F56; }
+
+        /* Blurred / locked rows */
+        .row-blurred td {
+            filter: blur(4px);
+            user-select: none;
+            position: relative;
+        }
+        .blur-overlay {
+            position: relative;
+        }
+        .blur-overlay::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 120px;
+            background: linear-gradient(transparent, white);
+            pointer-events: none;
+        }
+
+        /* ===== CTA BLOCKS ===== */
+        .cta-block {
+            margin-top: 0.5rem;
+            padding: 1.25rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .cta-block.scattered {
+            background: #F5F0FF;
+            border: 1px solid #D4C5F7;
+        }
+        .cta-block.primary {
+            background: #FFF5F0;
+            border: 1px solid #FFD4C4;
+        }
+        .cta-btn-orange {
+            background: #FF642D;
+            color: white;
+            border: none;
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            font-family: inherit;
+        }
+        .cta-btn-blue {
+            background: #2969FF;
+            color: white;
+            border: none;
+            padding: 0.6rem 1.5rem;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.82rem;
+            cursor: pointer;
+            font-family: inherit;
+            margin: 0 0.35rem;
+        }
+        .cta-link {
+            color: #2969FF;
+            font-weight: 600;
+            font-size: 0.82rem;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .cta-reassurance {
+            font-size: 0.75rem;
+            color: #8C919A;
+            margin-top: 0.5rem;
+        }
+
+        /* ===== HOW TO USE SECTION (control) ===== */
+        .how-to-section {
+            margin: 1.5rem 2rem;
+            padding: 2rem;
+            background: #FAFBFC;
+            border: 1px solid #E8E9EB;
+            border-radius: 12px;
+        }
+        .how-to-section h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #171A1C;
+        }
+        .how-to-section ol {
+            padding-left: 1.25rem;
+            color: #555B65;
+            font-size: 0.85rem;
+            line-height: 2;
+        }
+
+        /* ===== ANNOTATIONS ===== */
+        .control-annotation {
+            position: absolute;
+            background: #D42B2B;
+            color: white;
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            z-index: 10;
+            pointer-events: none;
+            white-space: nowrap;
+        }
+        .variant-annotation {
+            position: absolute;
+            background: #0A8F6A;
+            color: white;
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            z-index: 10;
+            pointer-events: none;
+            white-space: nowrap;
+        }
+
+        /* ===== RED / GREEN OUTLINES ON SECTIONS ===== */
+        .control-highlight {
+            outline: 2px dashed #D42B2B;
+            outline-offset: 4px;
+            border-radius: 8px;
+            position: relative;
+        }
+        .variant-highlight {
+            outline: 2px solid #18F0BF;
+            outline-offset: 4px;
+            border-radius: 8px;
+            position: relative;
+        }
+
+        /* ===== INLINE VALUE ROW (variant) ===== */
+        .value-row {
+            background: linear-gradient(90deg, #F0FFF8, #E8FFF4);
+            border: 1px solid #B3F0DC;
+            border-radius: 8px;
+            padding: 1rem 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 0.5rem;
+        }
+        .value-row-text {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #0A8F6A;
+        }
+        .value-row-text strong {
+            font-size: 1.1rem;
+            font-weight: 800;
+        }
+
+        /* ===== STRIKETHROUGH SECTIONS ===== */
+        .removed-section {
+            position: relative;
+            opacity: 0.35;
+        }
+        .removed-section::after {
+            content: 'REMOVED';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-5deg);
+            background: #D42B2B;
+            color: white;
+            padding: 0.35rem 1.25rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 800;
+            letter-spacing: 0.1em;
+            z-index: 5;
+        }
+
+        /* Hide/show versions */
+        .version { display: none; }
+        .version.active { display: block; }
+    </style>
+</head>
+<body>
+
+    <!-- Annotation Bar -->
+    <div class="annotation-bar">
+        <span class="badge">P1-03</span>
+        <span class="text"><strong>Strip Results Page to Essentials</strong> &mdash; Keyword Magic Tool Results Page</span>
+        <span class="text" style="margin-left: auto; font-size: 0.7rem; opacity: 0.6;">Mockup &bull; The Initial &bull; April 2026</span>
+    </div>
+
+    <!-- Version Toggle -->
+    <div class="version-toggle">
+        <button class="toggle-btn control active" onclick="showVersion('control')">&#x2715; Control (Current)</button>
+        <button class="toggle-btn variant" onclick="showVersion('variant')">&#x2713; Variant (Proposed)</button>
+    </div>
+
+    <!-- ============================================= -->
+    <!-- CONTROL VERSION — Current Cluttered Page -->
+    <!-- ============================================= -->
+    <div class="version active" id="control">
+        <div class="browser-frame">
+            <div class="browser-bar">
+                <div class="browser-dots"><span></span><span></span><span></span></div>
+                <div class="browser-url">&#128274; semrush.com/analytics/keywordmagic/?q=content+marketing</div>
+            </div>
+            <div class="browser-body">
+
+                <!-- Nav -->
+                <div class="sr-topnav">
+                    <div class="sr-topnav-logo">
+                        <svg viewBox="0 0 32 32" fill="none"><path d="M5.5 16.5C5.5 16.5 8 10 16 10C24 10 26.5 16.5 26.5 16.5" stroke="#171A1C" stroke-width="3" stroke-linecap="round"/><path d="M2 22C2 22 6 13 16 13C26 13 30 22 30 22" stroke="#171A1C" stroke-width="3" stroke-linecap="round"/><circle cx="16" cy="8" r="3" fill="#FF642D"/></svg>
+                        Semrush
+                    </div>
+                    <div class="sr-topnav-links">
+                        <span>Products</span>
+                        <span>Pricing</span>
+                        <span>Resources</span>
+                        <span>Company</span>
+                    </div>
+                    <div class="sr-topnav-right">
+                        <span class="sr-login">Log In</span>
+                        <button class="sr-signup">Sign Up</button>
+                    </div>
+                </div>
+
+                <!-- Tool Header -->
+                <div class="tool-header">
+                    <h1>Keyword Magic Tool</h1>
+                    <p>Find the best keywords for your SEO and PPC campaigns</p>
+                </div>
+
+                <!-- Search Bar -->
+                <div class="search-bar-row">
+                    <input class="search-input" type="text" value="content marketing" readonly>
+                    <button class="search-btn">Search</button>
+                </div>
+
+                <!-- PROMO BANNER — annotated -->
+                <div style="position: relative;">
+                    <div class="control-annotation" style="top: -10px; right: 2rem;">NOISE: &lt;1s dismiss rate</div>
+                    <div class="promo-banner control-highlight">
+                        <div class="promo-banner-text">
+                            &#128640; Don&rsquo;t get left behind in SEO
+                            <span>Unlock 26.9B keywords with a Semrush Pro plan</span>
+                        </div>
+                        <div style="display: flex; align-items: center;">
+                            <button class="promo-banner-btn">Try for Free</button>
+                            <span class="promo-close">&times;</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Content Layout with Sidebar -->
+                <div class="content-layout">
+
+                    <!-- Sidebar — annotated -->
+                    <div class="sidebar" style="position: relative;">
+                        <div class="control-annotation" style="top: -10px; left: 50%; transform: translateX(-50%);">NOISE: Low engagement</div>
+                        <div class="sidebar-title">Keyword Groups</div>
+                        <div class="sidebar-item active">
+                            <span>All Keywords</span>
+                            <span class="sidebar-count">24,891</span>
+                        </div>
+                        <div class="sidebar-item">
+                            <span>strategy</span>
+                            <span class="sidebar-count">4,210</span>
+                        </div>
+                        <div class="sidebar-item">
+                            <span>examples</span>
+                            <span class="sidebar-count">2,890</span>
+                        </div>
+                        <div class="sidebar-item">
+                            <span>plan</span>
+                            <span class="sidebar-count">2,340</span>
+                        </div>
+                        <div class="sidebar-item">
+                            <span>tips</span>
+                            <span class="sidebar-count">1,880</span>
+                        </div>
+                        <div class="sidebar-item">
+                            <span>tools</span>
+                            <span class="sidebar-count">1,560</span>
+                        </div>
+                        <div class="sidebar-item">
+                            <span>social media</span>
+                            <span class="sidebar-count">1,240</span>
+                        </div>
+                        <div class="sidebar-item">
+                            <span>b2b</span>
+                            <span class="sidebar-count">980</span>
+                        </div>
+                        <div class="sidebar-item">
+                            <span>agency</span>
+                            <span class="sidebar-count">720</span>
+                        </div>
+                    </div>
+
+                    <!-- Main results -->
+                    <div class="results-main">
+                        <!-- Metric Cards -->
+                        <div class="metric-row">
+                            <div class="metric-card">
+                                <div class="metric-card-label">Total Keywords</div>
+                                <div class="metric-card-value">24,891</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-card-label">Avg. Search Volume</div>
+                                <div class="metric-card-value">2.4K <span class="unit">/mo</span></div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-card-label">Avg. KD %</div>
+                                <div class="metric-card-value">42 <span class="unit">%</span></div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-card-label">Avg. CPC</div>
+                                <div class="metric-card-value">$3.20</div>
+                            </div>
+                        </div>
+
+                        <!-- Filter Bar -->
+                        <div class="filter-bar">
+                            <span class="filter-chip active">All</span>
+                            <span class="filter-chip"><span class="intent-badge intent-i" style="display:inline-flex; width:18px; height:18px; font-size:0.55rem; margin-right:0.25rem; vertical-align:middle;">I</span> Informational</span>
+                            <span class="filter-chip"><span class="intent-badge intent-c" style="display:inline-flex; width:18px; height:18px; font-size:0.55rem; margin-right:0.25rem; vertical-align:middle;">C</span> Commercial</span>
+                            <span class="filter-chip"><span class="intent-badge intent-t" style="display:inline-flex; width:18px; height:18px; font-size:0.55rem; margin-right:0.25rem; vertical-align:middle;">T</span> Transactional</span>
+                            <span class="filter-chip"><span class="intent-badge intent-n" style="display:inline-flex; width:18px; height:18px; font-size:0.55rem; margin-right:0.25rem; vertical-align:middle;">N</span> Navigational</span>
+                        </div>
+
+                        <!-- CTA scattered above table — annotated -->
+                        <div style="position: relative; margin-bottom: 0.75rem;">
+                            <div class="control-annotation" style="top: -10px; right: 0;">CTA #1 of 4</div>
+                            <div style="display: flex; align-items: center; gap: 0.75rem;">
+                                <button class="cta-btn-blue">Download all keywords</button>
+                                <a class="cta-link" href="#">Export to CSV &rarr;</a>
+                            </div>
+                        </div>
+
+                        <!-- Results Table -->
+                        <div class="blur-overlay">
+                            <table class="results-table">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 30%;">Keyword</th>
+                                        <th>Intent</th>
+                                        <th>Volume</th>
+                                        <th>KD %</th>
+                                        <th>CPC</th>
+                                        <th>Com.</th>
+                                        <th>Results</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><a class="kw-link" href="#">content marketing</a></td>
+                                        <td><span class="intent-badge intent-i">I</span></td>
+                                        <td><strong>110,000</strong></td>
+                                        <td><span class="kd-bar kd-hard"></span>72</td>
+                                        <td>$7.50</td>
+                                        <td>0.85</td>
+                                        <td>1.2B</td>
+                                    </tr>
+                                    <tr>
+                                        <td><a class="kw-link" href="#">content marketing strategy</a></td>
+                                        <td><span class="intent-badge intent-i">I</span></td>
+                                        <td><strong>8,100</strong></td>
+                                        <td><span class="kd-bar kd-medium"></span>42</td>
+                                        <td>$5.80</td>
+                                        <td>0.72</td>
+                                        <td>890M</td>
+                                    </tr>
+                                    <tr>
+                                        <td><a class="kw-link" href="#">what is content marketing</a></td>
+                                        <td><span class="intent-badge intent-i">I</span></td>
+                                        <td><strong>6,600</strong></td>
+                                        <td><span class="kd-bar kd-medium"></span>38</td>
+                                        <td>$4.20</td>
+                                        <td>0.55</td>
+                                        <td>720M</td>
+                                    </tr>
+                                    <tr>
+                                        <td><a class="kw-link" href="#">content marketing examples</a></td>
+                                        <td><span class="intent-badge intent-c">C</span></td>
+                                        <td><strong>5,400</strong></td>
+                                        <td><span class="kd-bar kd-easy"></span>28</td>
+                                        <td>$3.90</td>
+                                        <td>0.48</td>
+                                        <td>540M</td>
+                                    </tr>
+                                    <tr>
+                                        <td><a class="kw-link" href="#">content marketing plan</a></td>
+                                        <td><span class="intent-badge intent-t">T</span></td>
+                                        <td><strong>4,400</strong></td>
+                                        <td><span class="kd-bar kd-medium"></span>45</td>
+                                        <td>$6.10</td>
+                                        <td>0.68</td>
+                                        <td>410M</td>
+                                    </tr>
+                                    <tr class="row-blurred">
+                                        <td><a class="kw-link" href="#">content marketing agency</a></td>
+                                        <td><span class="intent-badge intent-c">C</span></td>
+                                        <td><strong>3,600</strong></td>
+                                        <td><span class="kd-bar kd-hard"></span>62</td>
+                                        <td>$12.40</td>
+                                        <td>0.92</td>
+                                        <td>380M</td>
+                                    </tr>
+                                    <tr class="row-blurred">
+                                        <td><a class="kw-link" href="#">content marketing tools</a></td>
+                                        <td><span class="intent-badge intent-c">C</span></td>
+                                        <td><strong>2,900</strong></td>
+                                        <td><span class="kd-bar kd-medium"></span>35</td>
+                                        <td>$8.70</td>
+                                        <td>0.78</td>
+                                        <td>290M</td>
+                                    </tr>
+                                    <tr class="row-blurred">
+                                        <td><a class="kw-link" href="#">b2b content marketing</a></td>
+                                        <td><span class="intent-badge intent-i">I</span></td>
+                                        <td><strong>2,400</strong></td>
+                                        <td><span class="kd-bar kd-medium"></span>40</td>
+                                        <td>$9.30</td>
+                                        <td>0.81</td>
+                                        <td>210M</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Scattered CTAs — annotated -->
+                        <div style="position: relative; margin-top: 1.5rem;">
+                            <div class="control-annotation" style="top: -10px; left: 0;">CTA #2, #3, #4 — Competing for attention</div>
+                            <div style="display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap; padding: 1rem; background: #F5F0FF; border-radius: 8px; border: 1px dashed #D42B2B;">
+                                <button class="cta-btn-orange">Access all 24,891 keywords</button>
+                                <button class="cta-btn-blue">Start Free Trial</button>
+                                <a class="cta-link" href="#">View all keywords &rarr;</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- How to Use Section — annotated -->
+                <div style="position: relative;">
+                    <div class="control-annotation" style="top: 0.75rem; right: 2.75rem;">NOISE: Near-zero engagement &bull; 50-75% drop off before here</div>
+                    <div class="how-to-section control-highlight">
+                        <h3>How to Use the Keyword Magic Tool</h3>
+                        <ol>
+                            <li>Enter a seed keyword or topic in the search bar above</li>
+                            <li>Browse keyword suggestions grouped by topic</li>
+                            <li>Filter by search intent, volume, or difficulty</li>
+                            <li>Export your selected keywords for SEO or PPC campaigns</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <!-- Bottom padding -->
+                <div style="height: 2rem;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================= -->
+    <!-- VARIANT VERSION — Stripped to Essentials -->
+    <!-- ============================================= -->
+    <div class="version" id="variant">
+        <div class="browser-frame">
+            <div class="browser-bar">
+                <div class="browser-dots"><span></span><span></span><span></span></div>
+                <div class="browser-url">&#128274; semrush.com/analytics/keywordmagic/?q=content+marketing</div>
+            </div>
+            <div class="browser-body">
+
+                <!-- Nav (same) -->
+                <div class="sr-topnav">
+                    <div class="sr-topnav-logo">
+                        <svg viewBox="0 0 32 32" fill="none"><path d="M5.5 16.5C5.5 16.5 8 10 16 10C24 10 26.5 16.5 26.5 16.5" stroke="#171A1C" stroke-width="3" stroke-linecap="round"/><path d="M2 22C2 22 6 13 16 13C26 13 30 22 30 22" stroke="#171A1C" stroke-width="3" stroke-linecap="round"/><circle cx="16" cy="8" r="3" fill="#FF642D"/></svg>
+                        Semrush
+                    </div>
+                    <div class="sr-topnav-links">
+                        <span>Products</span>
+                        <span>Pricing</span>
+                        <span>Resources</span>
+                        <span>Company</span>
+                    </div>
+                    <div class="sr-topnav-right">
+                        <span class="sr-login">Log In</span>
+                        <button class="sr-signup">Sign Up</button>
+                    </div>
+                </div>
+
+                <!-- Tool Header -->
+                <div class="tool-header">
+                    <h1>Keyword Magic Tool</h1>
+                    <p style="color: #0A8F6A; font-weight: 500;">No sign-up required &middot; 5 free searches &middot; Full keyword data</p>
+                </div>
+
+                <!-- Search Bar -->
+                <div class="search-bar-row">
+                    <input class="search-input" type="text" value="content marketing" readonly>
+                    <button class="search-btn">Search</button>
+                </div>
+
+                <!-- NO promo banner -->
+                <!-- NO sidebar — full width -->
+
+                <!-- Results area — FULL WIDTH -->
+                <div style="padding: 1.5rem 2rem;">
+
+                    <!-- Metric Cards — cleaner, full width -->
+                    <div class="metric-row">
+                        <div class="metric-card variant-highlight">
+                            <div class="metric-card-label">Total Keywords</div>
+                            <div class="metric-card-value">24,891</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-card-label">Avg. Search Volume</div>
+                            <div class="metric-card-value">2.4K <span class="unit">/mo</span></div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-card-label">Avg. KD %</div>
+                            <div class="metric-card-value">42 <span class="unit">%</span></div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-card-label">Avg. CPC</div>
+                            <div class="metric-card-value">$3.20</div>
+                        </div>
+                        <div class="metric-card" style="background: #F0FFF8; border-color: #B3F0DC;">
+                            <div class="metric-card-label" style="color: #0A8F6A;">Credits Remaining</div>
+                            <div class="metric-card-value" style="color: #0A8F6A;">4 <span class="unit">of 5</span></div>
+                        </div>
+                    </div>
+
+                    <!-- Filter Bar (kept — useful) -->
+                    <div class="filter-bar">
+                        <span class="filter-chip active">All</span>
+                        <span class="filter-chip"><span class="intent-badge intent-i" style="display:inline-flex; width:18px; height:18px; font-size:0.55rem; margin-right:0.25rem; vertical-align:middle;">I</span> Informational</span>
+                        <span class="filter-chip"><span class="intent-badge intent-c" style="display:inline-flex; width:18px; height:18px; font-size:0.55rem; margin-right:0.25rem; vertical-align:middle;">C</span> Commercial</span>
+                        <span class="filter-chip"><span class="intent-badge intent-t" style="display:inline-flex; width:18px; height:18px; font-size:0.55rem; margin-right:0.25rem; vertical-align:middle;">T</span> Transactional</span>
+                        <span class="filter-chip"><span class="intent-badge intent-n" style="display:inline-flex; width:18px; height:18px; font-size:0.55rem; margin-right:0.25rem; vertical-align:middle;">N</span> Navigational</span>
+                    </div>
+
+                    <!-- NO scattered CTA above table -->
+
+                    <!-- Results Table — FULL WIDTH, clean -->
+                    <table class="results-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 30%;">Keyword</th>
+                                <th>Intent</th>
+                                <th>Volume</th>
+                                <th>KD %</th>
+                                <th>CPC</th>
+                                <th>Com.</th>
+                                <th>Results</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><a class="kw-link" href="#">content marketing</a></td>
+                                <td><span class="intent-badge intent-i">I</span></td>
+                                <td><strong>110,000</strong></td>
+                                <td><span class="kd-bar kd-hard"></span>72</td>
+                                <td>$7.50</td>
+                                <td>0.85</td>
+                                <td>1.2B</td>
+                            </tr>
+                            <tr>
+                                <td><a class="kw-link" href="#">content marketing strategy</a></td>
+                                <td><span class="intent-badge intent-i">I</span></td>
+                                <td><strong>8,100</strong></td>
+                                <td><span class="kd-bar kd-medium"></span>42</td>
+                                <td>$5.80</td>
+                                <td>0.72</td>
+                                <td>890M</td>
+                            </tr>
+                            <tr>
+                                <td><a class="kw-link" href="#">what is content marketing</a></td>
+                                <td><span class="intent-badge intent-i">I</span></td>
+                                <td><strong>6,600</strong></td>
+                                <td><span class="kd-bar kd-medium"></span>38</td>
+                                <td>$4.20</td>
+                                <td>0.55</td>
+                                <td>720M</td>
+                            </tr>
+                            <tr>
+                                <td><a class="kw-link" href="#">content marketing examples</a></td>
+                                <td><span class="intent-badge intent-c">C</span></td>
+                                <td><strong>5,400</strong></td>
+                                <td><span class="kd-bar kd-easy"></span>28</td>
+                                <td>$3.90</td>
+                                <td>0.48</td>
+                                <td>540M</td>
+                            </tr>
+                            <tr>
+                                <td><a class="kw-link" href="#">content marketing plan</a></td>
+                                <td><span class="intent-badge intent-t">T</span></td>
+                                <td><strong>4,400</strong></td>
+                                <td><span class="kd-bar kd-medium"></span>45</td>
+                                <td>$6.10</td>
+                                <td>0.68</td>
+                                <td>410M</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <!-- Inline Value Row — replaces blurred overlay + scattered CTAs -->
+                    <div class="value-row" style="margin-top: 0.75rem;">
+                        <div class="value-row-text">
+                            + <strong>24,886</strong> more keywords including <strong>3,412</strong> low-competition opportunities
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 0.75rem;">
+                            <button class="cta-btn-orange" style="padding: 0.65rem 1.5rem; font-size: 0.85rem;">Start 7-Day FREE Trial</button>
+                        </div>
+                    </div>
+                    <div class="cta-reassurance" style="text-align: center; margin-top: 0.5rem;">No credit card required &middot; Cancel anytime &middot; Full access to all 26.9B keywords</div>
+
+                    <!-- Variant annotation -->
+                    <div style="margin-top: 2rem; padding: 1.25rem; background: #F0FFF8; border: 1px solid #B3F0DC; border-radius: 8px;">
+                        <div style="font-size: 0.8rem; font-weight: 700; color: #0A8F6A; margin-bottom: 0.5rem;">&#x2713; What changed</div>
+                        <div style="font-size: 0.8rem; color: #373D47; line-height: 1.8;">
+                            &#x2022; Removed promotional banner (users dismiss in &lt;1 second)<br>
+                            &#x2022; Removed sidebar navigation (heatmaps: &lt;0.5% engagement)<br>
+                            &#x2022; Removed &ldquo;How to Use&rdquo; section (50&ndash;75% drop-off before reaching it)<br>
+                            &#x2022; Consolidated 4 competing CTAs into 1 clear action<br>
+                            &#x2022; Added reassurance microcopy below CTA<br>
+                            &#x2022; Results table now full-width — more space for data<br>
+                            &#x2022; Added inline value row quantifying what&rsquo;s behind the paywall
+                        </div>
+                    </div>
+                </div>
+
+                <!-- NO "How to Use" section -->
+                <!-- NO bottom clutter -->
+
+                <div style="height: 2rem;"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showVersion(v) {
+            document.querySelectorAll('.version').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.toggle-btn').forEach(el => el.classList.remove('active'));
+            document.getElementById(v).classList.add('active');
+            document.querySelector('.toggle-btn.' + v).classList.add('active');
+        }
+    </script>
+</body>
+</html>

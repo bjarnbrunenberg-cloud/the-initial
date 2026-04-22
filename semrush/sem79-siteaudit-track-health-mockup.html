@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEM-79 — Track Your Site Health | Inline Email Capture (Mockup)</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #ECEDEF;
+            color: #171A1C;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ===== ANNOTATION BAR ===== */
+        .annotation-bar {
+            position: sticky; top: 0; z-index: 1000;
+            background: #181E15; color: white;
+            padding: 0.65rem 2rem;
+            display: flex; align-items: center; gap: 1.5rem;
+            font-size: 0.78rem;
+        }
+        .annotation-bar .badge {
+            background: #18F0BF; color: #181E15;
+            padding: 0.2rem 0.65rem; border-radius: 4px;
+            font-weight: 800; font-size: 0.68rem;
+            letter-spacing: 0.04em; flex-shrink: 0;
+        }
+        .annotation-bar .text { color: #D1D2D5; }
+        .annotation-bar .text strong { color: white; }
+
+        /* ===== VERSION TOGGLE ===== */
+        .version-toggle {
+            display: flex; justify-content: center; gap: 0;
+            padding: 1.5rem 2rem 0;
+        }
+        .toggle-btn {
+            padding: 0.7rem 2.25rem; font-size: 0.82rem; font-weight: 700;
+            border: none; cursor: pointer; transition: all 0.2s; font-family: inherit;
+        }
+        .toggle-btn.control {
+            background: #FFF0F0; color: #D42B2B;
+            border-radius: 8px 0 0 8px; border: 2px solid #F5CCCC;
+        }
+        .toggle-btn.control.active { background: #D42B2B; color: white; border-color: #D42B2B; }
+        .toggle-btn.variant {
+            background: #EDFFF8; color: #0A8F6A;
+            border-radius: 0 8px 8px 0; border: 2px solid #B3F0DC;
+        }
+        .toggle-btn.variant.active { background: #0A8F6A; color: white; border-color: #0A8F6A; }
+
+        /* ===== BROWSER CHROME ===== */
+        .browser-frame {
+            max-width: 1280px; margin: 1.5rem auto 3rem;
+            border-radius: 12px; overflow: hidden;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.12);
+            border: 1px solid #D0D2D6;
+        }
+        .browser-bar {
+            background: #F0F1F2; padding: 0.6rem 1rem;
+            display: flex; align-items: center; gap: 0.75rem;
+            border-bottom: 1px solid #D0D2D6;
+        }
+        .browser-dots { display: flex; gap: 5px; }
+        .browser-dots span { width: 10px; height: 10px; border-radius: 50%; }
+        .browser-dots span:nth-child(1) { background: #FF5F56; }
+        .browser-dots span:nth-child(2) { background: #FFBD2E; }
+        .browser-dots span:nth-child(3) { background: #27C93F; }
+        .browser-url {
+            flex: 1; background: white; padding: 0.4rem 0.75rem;
+            border-radius: 6px; font-size: 0.75rem; color: #6C6E79;
+            border: 1px solid #E0E2E7;
+        }
+        .browser-body { background: white; }
+
+        /* ===== SEMRUSH TOP NAV ===== */
+        .sr-nav {
+            display: flex; align-items: center; padding: 0 1rem 0 0; height: 56px;
+            background: white; border-bottom: 1px solid #ECEDEF;
+        }
+        .sr-logo {
+            font-size: 1.15rem; font-weight: 800; color: #171A1C;
+            letter-spacing: -0.02em; display: flex; align-items: center;
+            gap: 0.4rem; padding: 0 1.5rem; margin-right: 1rem;
+        }
+        .sr-logo svg { width: 22px; height: 22px; }
+        .sr-nav-links {
+            display: flex; gap: 1.5rem; font-size: 0.82rem;
+            font-weight: 500; color: #555B65;
+        }
+        .sr-nav-right {
+            margin-left: auto; display: flex; align-items: center; gap: 1rem;
+        }
+        .sr-nav-login { font-size: 0.82rem; font-weight: 600; color: #555B65; }
+        .sr-nav-signup {
+            background: #2BBF71; color: white; border: none;
+            padding: 0.5rem 1.25rem; border-radius: 28px;
+            font-size: 0.82rem; font-weight: 700; cursor: pointer; font-family: inherit;
+        }
+
+        /* ===== LEFT SIDEBAR ===== */
+        .page-layout {
+            display: flex; min-height: 600px;
+        }
+        .sr-sidebar {
+            width: 220px; flex-shrink: 0;
+            background: white; border-right: 1px solid #ECEDEF;
+            padding: 1.25rem 0; font-size: 0.8rem;
+            overflow-y: auto;
+        }
+        .sr-sidebar .nav-group { margin-bottom: 1.25rem; }
+        .sr-sidebar .nav-group-label {
+            font-size: 0.68rem; font-weight: 700; color: #8C919A;
+            text-transform: uppercase; letter-spacing: 0.04em;
+            padding: 0 1.25rem; margin-bottom: 0.35rem;
+        }
+        .sr-sidebar .nav-item {
+            display: flex; align-items: center; gap: 0.6rem;
+            padding: 0.45rem 1.25rem; color: #373D47; cursor: pointer;
+            transition: background 0.15s;
+        }
+        .sr-sidebar .nav-item:hover { background: #F5F6F7; }
+        .sr-sidebar .nav-item.active {
+            background: #E8F5EC; color: #171A1C; font-weight: 600;
+        }
+        .sr-sidebar .nav-icon {
+            width: 18px; height: 18px; display: flex;
+            align-items: center; justify-content: center;
+            font-size: 0.85rem; color: #8C919A;
+        }
+
+        /* ===== MAIN CONTENT AREA ===== */
+        .main-content {
+            flex: 1; min-width: 0;
+        }
+
+        /* ===== TOOL HEADER ===== */
+        .tool-header {
+            padding: 2rem 2.5rem 1.5rem;
+            border-bottom: 1px solid #ECEDEF;
+        }
+        .tool-header h1 {
+            font-size: 1.6rem; font-weight: 800; color: #171A1C;
+            letter-spacing: -0.02em; margin-bottom: 0.35rem;
+        }
+        .tool-header p {
+            font-size: 0.88rem; color: #8C919A; line-height: 1.5;
+        }
+
+        /* ===== SEARCH BAR ===== */
+        .audit-search {
+            padding: 1.25rem 2.5rem;
+            display: flex; align-items: center; gap: 0.6rem;
+            border-bottom: 1px solid #ECEDEF;
+        }
+        .audit-search-input {
+            flex: 1; max-width: 420px; padding: 0.75rem 1.25rem;
+            border: 1.5px solid #D0D2D6; border-radius: 8px;
+            font-size: 0.88rem; font-family: inherit;
+            color: #171A1C; background: white; outline: none;
+        }
+        .audit-search-input::placeholder { color: #B0B5BD; }
+        .audit-search-btn {
+            padding: 0.75rem 1.75rem;
+            background: #FF642D; color: white; border: none;
+            border-radius: 8px; font-size: 0.88rem; font-weight: 700;
+            cursor: pointer; font-family: inherit; white-space: nowrap;
+        }
+
+        /* ===== SUMMARY METRICS ===== */
+        .metrics-row {
+            display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 1.25rem;
+            padding: 1.5rem 2.5rem;
+        }
+        .metric-card {
+            border: 1px solid #E8E9EB; border-radius: 12px;
+            padding: 1.25rem; text-align: center;
+            position: relative;
+        }
+        .metric-card .metric-label {
+            font-size: 0.72rem; font-weight: 600; color: #8C919A;
+            text-transform: uppercase; letter-spacing: 0.04em;
+            margin-bottom: 0.75rem;
+        }
+        .metric-card .metric-value {
+            font-size: 1.8rem; font-weight: 900; color: #171A1C;
+        }
+        .metric-card .metric-accent { font-weight: 900; }
+
+        /* Health score ring */
+        .health-ring-wrap {
+            display: flex; align-items: center; justify-content: center;
+            margin-bottom: 0.25rem;
+        }
+        .health-ring-wrap svg { width: 90px; height: 90px; }
+        .health-ring-text {
+            font-size: 1.4rem; font-weight: 900; fill: #171A1C;
+        }
+        .health-ring-label {
+            font-size: 0.42rem; font-weight: 600; fill: #8C919A;
+            text-transform: uppercase; letter-spacing: 0.05em;
+        }
+
+        /* ===== ISSUES TABLE ===== */
+        .issues-section {
+            padding: 0 2.5rem 2rem;
+        }
+        .issues-section h3 {
+            font-size: 1rem; font-weight: 800; color: #171A1C;
+            margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;
+        }
+        .issues-table {
+            width: 100%; border-collapse: collapse;
+            font-size: 0.82rem;
+        }
+        .issues-table th {
+            text-align: left; padding: 0.75rem 1rem;
+            background: #F5F6F7; font-weight: 700; color: #555B65;
+            font-size: 0.72rem; text-transform: uppercase;
+            letter-spacing: 0.04em; border-bottom: 1px solid #E8E9EB;
+        }
+        .issues-table td {
+            padding: 0.85rem 1rem;
+            border-bottom: 1px solid #F0F1F2;
+            color: #373D47;
+            vertical-align: top;
+        }
+        .issues-table tr:last-child td { border-bottom: none; }
+        .severity-dot {
+            display: inline-block; width: 8px; height: 8px;
+            border-radius: 50%; margin-right: 0.5rem;
+        }
+        .severity-error { background: #D42B2B; }
+        .severity-warning { background: #E6A000; }
+        .severity-notice { background: #3B82F6; }
+        .severity-tag {
+            font-size: 0.68rem; font-weight: 700;
+            padding: 0.15rem 0.5rem; border-radius: 4px;
+            display: inline-flex; align-items: center; gap: 0.3rem;
+        }
+        .severity-tag.error { background: #FFF0F0; color: #D42B2B; }
+        .severity-tag.warning { background: #FFF8E6; color: #B38600; }
+        .severity-tag.notice { background: #EFF6FF; color: #2563EB; }
+        .issue-name { font-weight: 600; color: #171A1C; }
+        .pages-count { font-weight: 700; color: #171A1C; }
+        .fix-hint { color: #8C919A; font-size: 0.78rem; }
+
+        /* ===== ANNOTATIONS ===== */
+        .control-ann {
+            position: absolute;
+            background: #D42B2B; color: white;
+            font-size: 0.62rem; font-weight: 700;
+            padding: 0.2rem 0.55rem; border-radius: 4px;
+            z-index: 10; pointer-events: none; white-space: nowrap;
+        }
+        .variant-ann {
+            position: absolute;
+            background: #0A8F6A; color: white;
+            font-size: 0.62rem; font-weight: 700;
+            padding: 0.2rem 0.55rem; border-radius: 4px;
+            z-index: 10; pointer-events: none; white-space: nowrap;
+        }
+        .control-outline {
+            outline: 2.5px dashed #D42B2B; outline-offset: 6px;
+        }
+        .variant-outline {
+            outline: 2.5px solid #0A8F6A; outline-offset: 6px; border-radius: 10px;
+        }
+
+        /* ===== INLINE EMAIL CAPTURE (Variant) ===== */
+        .inline-capture {
+            background: #F0FDFB;
+            border: 1px solid #B3E8DC;
+            border-radius: 12px;
+            padding: 1.5rem 2rem;
+            display: flex; align-items: center; gap: 1.5rem;
+            margin: 0;
+        }
+        .inline-capture-icon {
+            flex-shrink: 0;
+            width: 48px; height: 48px;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .inline-capture-content {
+            flex: 1; min-width: 0;
+        }
+        .inline-capture-content h4 {
+            font-size: 0.95rem; font-weight: 700; color: #171A1C;
+            margin-bottom: 0.25rem;
+        }
+        .inline-capture-content p {
+            font-size: 0.82rem; font-weight: 400; color: #6C6E79;
+            line-height: 1.5;
+        }
+        .inline-capture-form {
+            flex-shrink: 0; display: flex; flex-direction: column;
+            align-items: flex-end; gap: 0.5rem;
+        }
+        .inline-capture-row {
+            display: flex; gap: 0.5rem; align-items: center;
+        }
+        .inline-email-input {
+            padding: 0.65rem 1rem;
+            border: 1.5px solid #D0D2D6; border-radius: 8px;
+            font-size: 0.82rem; font-family: inherit;
+            outline: none; width: 200px; color: #171A1C;
+        }
+        .inline-email-input::placeholder { color: #B0B5BD; }
+        .inline-capture-btn {
+            padding: 0.65rem 1.25rem;
+            background: #009F81; color: white; border: none;
+            border-radius: 8px; font-size: 0.82rem; font-weight: 700;
+            cursor: pointer; font-family: inherit; white-space: nowrap;
+        }
+        .inline-dismiss {
+            font-size: 0.72rem; color: #8C919A; cursor: pointer;
+            text-decoration: none; font-weight: 500;
+        }
+        .inline-dismiss:hover { text-decoration: underline; }
+
+        /* ===== SIGNUP ANNOTATION ===== */
+        .signup-annotated {
+            position: relative;
+        }
+
+        /* ===== CHANGES BOX ===== */
+        .changes-box {
+            margin: 2rem 2.5rem 0;
+            padding: 1.15rem 1.5rem;
+            background: #F0FFF8; border: 1px solid #B3F0DC; border-radius: 8px;
+        }
+        .changes-box h4 {
+            font-size: 0.78rem; font-weight: 700; color: #0A8F6A;
+            margin-bottom: 0.4rem;
+        }
+        .changes-box p {
+            font-size: 0.78rem; color: #373D47; line-height: 1.85;
+        }
+
+        /* ===== VERSION TOGGLE ===== */
+        .version { display: none; }
+        .version.active { display: block; }
+    </style>
+</head>
+<body>
+
+    <!-- Annotation Bar -->
+    <div class="annotation-bar">
+        <span class="badge">SEM-79</span>
+        <span class="text"><strong>Track Your Site Health | Inline Email Capture</strong> &middot; Site Audit Results Page &middot; Inline email capture at scroll midpoint</span>
+        <span class="text" style="margin-left: auto; font-size: 0.68rem; opacity: 0.6;">Mockup &bull; The Initial &bull; April 2026</span>
+    </div>
+
+    <!-- Version Toggle -->
+    <div class="version-toggle">
+        <button class="toggle-btn control active" onclick="showVersion('control')">&#x2715; Control (Current)</button>
+        <button class="toggle-btn variant" onclick="showVersion('variant')">&#x2713; Variant (Proposed)</button>
+    </div>
+
+    <!-- =================================================== -->
+    <!-- CONTROL — Current Site Audit Results Page            -->
+    <!-- =================================================== -->
+    <div class="version active" id="control">
+        <div class="browser-frame">
+            <div class="browser-bar">
+                <div class="browser-dots"><span></span><span></span><span></span></div>
+                <div class="browser-url">&#128274; semrush.com/analytics/siteaudit/</div>
+            </div>
+            <div class="browser-body">
+
+                <!-- Nav -->
+                <div class="sr-nav">
+                    <div class="sr-logo">
+                        <svg viewBox="0 0 32 32" fill="none"><path d="M5.5 16.5C5.5 16.5 8 10 16 10C24 10 26.5 16.5 26.5 16.5" stroke="#171A1C" stroke-width="3" stroke-linecap="round"/><path d="M2 22C2 22 6 13 16 13C26 13 30 22 30 22" stroke="#171A1C" stroke-width="3" stroke-linecap="round"/><circle cx="16" cy="8" r="3" fill="#FF642D"/></svg>
+                        Semrush
+                    </div>
+                    <div class="sr-nav-links">
+                        <span>Pricing</span><span>Enterprise</span><span>More</span>
+                    </div>
+                    <div class="sr-nav-right">
+                        <span class="sr-nav-login">Log In</span>
+                        <div class="signup-annotated">
+                            <div class="control-ann" style="top: -22px; right: -8px;">Only conversion trigger &mdash; ignored for 11+ min</div>
+                            <button class="sr-nav-signup control-outline">Sign Up</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Page layout with sidebar -->
+                <div class="page-layout">
+                    <!-- Sidebar -->
+                    <div class="sr-sidebar">
+                        <div class="nav-group">
+                            <div class="nav-item" style="font-weight: 700; color: #171A1C; padding-bottom: 0.75rem;">
+                                <span class="nav-icon">&#x1F50D;</span> SEO
+                            </div>
+                        </div>
+                        <div class="nav-group">
+                            <div class="nav-item" style="padding-left: 2.5rem;">Dashboard</div>
+                        </div>
+                        <div class="nav-group">
+                            <div class="nav-group-label">Site Performance</div>
+                            <div class="nav-item active" style="padding-left: 2.5rem;">Site Audit</div>
+                            <div class="nav-item" style="padding-left: 2.5rem;">Position Tracking</div>
+                        </div>
+                        <div class="nav-group">
+                            <div class="nav-group-label">Competitive Analysis</div>
+                            <div class="nav-item" style="padding-left: 2.5rem;">Domain Overview</div>
+                            <div class="nav-item" style="padding-left: 2.5rem;">Organic Rankings</div>
+                            <div class="nav-item" style="padding-left: 2.5rem;">Top Pages</div>
+                            <div class="nav-item" style="padding-left: 2.5rem;">Compare Domains</div>
+                            <div class="nav-item" style="padding-left: 2.5rem;">Keyword Gap</div>
+                            <div class="nav-item" style="padding-left: 2.5rem;">Backlink Gap</div>
+                        </div>
+                        <div class="nav-group">
+                            <div class="nav-group-label">Keyword Research</div>
+                            <div class="nav-item" style="padding-left: 2.5rem;">Keyword Overview</div>
+                            <div class="nav-item" style="padding-left: 2.5rem;">Keyword Magic Tool</div>
+                            <div class="nav-item" style="padding-left: 2.5rem;">Keyword Strategy Builder</div>
+                        </div>
+                    </div>
+
+                    <!-- Main content -->
+                    <div class="main-content">
+                        <!-- Tool Header -->
+                        <div class="tool-header">
+                            <h1>Site Audit</h1>
+                            <p>Analyse your website for technical SEO issues</p>
+                        </div>
+
+                        <!-- Search Bar -->
+                        <div class="audit-search">
+                            <input class="audit-search-input" type="text" value="example.com">
+                            <button class="audit-search-btn">Analyse</button>
+                        </div>
+
+                        <!-- Summary Metrics -->
+                        <div class="metrics-row">
+                            <!-- Health Score with SVG ring -->
+                            <div class="metric-card">
+                                <div class="metric-label">Site Health Score</div>
+                                <div class="health-ring-wrap">
+                                    <svg viewBox="0 0 90 90">
+                                        <!-- Background ring -->
+                                        <circle cx="45" cy="45" r="36" fill="none" stroke="#E8E9EB" stroke-width="7"/>
+                                        <!-- Score ring (68% of circumference) -->
+                                        <circle cx="45" cy="45" r="36" fill="none" stroke="#009F81" stroke-width="7"
+                                            stroke-dasharray="153.94 226.19"
+                                            stroke-linecap="round"
+                                            transform="rotate(-90 45 45)"/>
+                                        <!-- Score text -->
+                                        <text x="45" y="43" text-anchor="middle" class="health-ring-text">68</text>
+                                        <text x="45" y="53" text-anchor="middle" class="health-ring-label">out of 100</text>
+                                    </svg>
+                                </div>
+                            </div>
+                            <!-- Errors -->
+                            <div class="metric-card">
+                                <div class="metric-label">Errors</div>
+                                <div class="metric-value metric-accent" style="color: #D42B2B;">12</div>
+                            </div>
+                            <!-- Warnings -->
+                            <div class="metric-card">
+                                <div class="metric-label">Warnings</div>
+                                <div class="metric-value metric-accent" style="color: #E6A000;">34</div>
+                            </div>
+                            <!-- Notices -->
+                            <div class="metric-card">
+                                <div class="metric-label">Notices</div>
+                                <div class="metric-value metric-accent" style="color: #3B82F6;">87</div>
+                            </div>
+                        </div>
+
+                        <!-- Issues Table -->
+                        <div class="issues-section">
+                            <h3>Issues Found <span style="font-weight: 500; color: #8C919A; font-size: 0.82rem;">(133 total)</span></h3>
+                            <table class="issues-table">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 110px;">Severity</th>
+                                        <th>Issue</th>
+                                        <th style="width: 120px;">Pages Affected</th>
+                                        <th style="width: 240px;">How to Fix</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><span class="severity-tag error"><span class="severity-dot severity-error"></span>Error</span></td>
+                                        <td class="issue-name">Missing title tags</td>
+                                        <td class="pages-count">8 pages</td>
+                                        <td class="fix-hint">Add unique, descriptive title tags under 60 characters</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="severity-tag error"><span class="severity-dot severity-error"></span>Error</span></td>
+                                        <td class="issue-name">Broken internal links (404)</td>
+                                        <td class="pages-count">5 pages</td>
+                                        <td class="fix-hint">Fix or remove links pointing to non-existent pages</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="severity-tag warning"><span class="severity-dot severity-warning"></span>Warning</span></td>
+                                        <td class="issue-name">Missing meta descriptions</td>
+                                        <td class="pages-count">23 pages</td>
+                                        <td class="fix-hint">Add descriptive meta descriptions under 155 characters</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="severity-tag warning"><span class="severity-dot severity-warning"></span>Warning</span></td>
+                                        <td class="issue-name">Slow page load time (&gt;3s)</td>
+                                        <td class="pages-count">12 pages</td>
+                                        <td class="fix-hint">Optimise images, enable caching, minify CSS/JS</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="severity-tag warning"><span class="severity-dot severity-warning"></span>Warning</span></td>
+                                        <td class="issue-name">Missing alt text on images</td>
+                                        <td class="pages-count">18 pages</td>
+                                        <td class="fix-hint">Add descriptive alt attributes to all content images</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="severity-tag notice"><span class="severity-dot severity-notice"></span>Notice</span></td>
+                                        <td class="issue-name">Pages with low word count (&lt;300)</td>
+                                        <td class="pages-count">34 pages</td>
+                                        <td class="fix-hint">Consider expanding thin content with relevant information</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="severity-tag notice"><span class="severity-dot severity-notice"></span>Notice</span></td>
+                                        <td class="issue-name">Duplicate H1 tags across pages</td>
+                                        <td class="pages-count">6 pages</td>
+                                        <td class="fix-hint">Ensure each page has a unique H1 heading</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="severity-tag notice"><span class="severity-dot severity-notice"></span>Notice</span></td>
+                                        <td class="issue-name">Missing structured data</td>
+                                        <td class="pages-count">27 pages</td>
+                                        <td class="fix-hint">Add schema markup to improve search appearance</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div style="height: 2rem;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- =================================================== -->
+    <!-- VARIANT — With Inline Email Capture                  -->
+    <!-- =================================================== -->
+    <div class="version" id="variant">
+        <div class="browser-frame">
+            <div class="browser-bar">
+                <div class="browser-dots"><span></span><span></span><span></span></div>
+                <div class="browser-url">&#128274; semrush.com/analytics/siteaudit/</div>
+            </div>
+            <div class="browser-body">
+
+                <!-- Nav -->
+                <div class="sr-nav">
+                    <div class="sr-logo">
+                        <svg viewBox="0 0 32 32" fill="none"><path d="M5.5 16.5C5.5 16.5 8 10 16 10C24 10 26.5 16.5 26.5 16.5" stroke="#171A1C" stroke-width="3" stroke-linecap="round"/><path d="M2 22C2 22 6 13 16 13C26 13 30 22 30 22" stroke="#171A1C" stroke-width="3" stroke-linecap="round"/><circle cx="16" cy="8" r="3" fill="#FF642D"/></svg>
+                        Semrush
+                    </div>
+                    <div class="sr-nav-links">
+                        <span>Pricing</span><span>Enterprise</span><span>More</span>
+                    </div>
+                    <div class="sr-nav-right">
+                        <span class="sr-nav-login">Log In</span>
+                        <button class="sr-nav-signup">Sign Up</button>
+                    </div>
+                </div>
+
+                <!-- Page layout with sidebar -->
+                <div class="page-layout">
+                    <!-- Sidebar -->
+                    <div class="sr-sidebar">
+                        <div class="nav-group">
+                            <div class="nav-item" style="font-weight: 700; color: #171A1C; padding-bottom: 0.75rem;">
+                                <span class="nav-icon">&#x1F50D;</span> SEO
+                            </div>
+                        </div>
+                        <div class="nav-group">
+                            <div class="nav-item" style="padding-left: 2.5rem;">Dashboard</div>
+                        </div>
+                        <div class="nav-group">
+                            <div class="nav-group-label">Site Performance</div>
+                            <div class="nav-item active" style="padding-left: 2.5rem;">Site Audit</div>
+                            <div class="nav-item" style="padding-left: 2.5rem;">Position Tracking</div>
+                        </div>
+                        <div class="nav-group">
+                            <div class="nav-group-label">Competitive Analysis</div>
+                            <div class="nav-item" style="padding-left: 2.5rem;">Domain Overview</div>
+                            <div class="nav-item" style="padding-left: 2.5rem;">Organic Rankings</div>
+                            <div class="nav-item" style="padding-left: 2.5rem;">Top Pages</div>
+                            <div class="nav-item" style="padding-left: 2.5rem;">Compare Domains</div>
+                            <div class="nav-item" style="padding-left: 2.5rem;">Keyword Gap</div>
+                            <div class="nav-item" style="padding-left: 2.5rem;">Backlink Gap</div>
+                        </div>
+                        <div class="nav-group">
+                            <div class="nav-group-label">Keyword Research</div>
+                            <div class="nav-item" style="padding-left: 2.5rem;">Keyword Overview</div>
+                            <div class="nav-item" style="padding-left: 2.5rem;">Keyword Magic Tool</div>
+                            <div class="nav-item" style="padding-left: 2.5rem;">Keyword Strategy Builder</div>
+                        </div>
+                    </div>
+
+                    <!-- Main content -->
+                    <div class="main-content">
+                        <!-- Tool Header -->
+                        <div class="tool-header">
+                            <h1>Site Audit</h1>
+                            <p>Analyse your website for technical SEO issues</p>
+                        </div>
+
+                        <!-- Search Bar -->
+                        <div class="audit-search">
+                            <input class="audit-search-input" type="text" value="example.com">
+                            <button class="audit-search-btn">Analyse</button>
+                        </div>
+
+                        <!-- Summary Metrics -->
+                        <div class="metrics-row">
+                            <!-- Health Score with SVG ring -->
+                            <div class="metric-card">
+                                <div class="metric-label">Site Health Score</div>
+                                <div class="health-ring-wrap">
+                                    <svg viewBox="0 0 90 90">
+                                        <circle cx="45" cy="45" r="36" fill="none" stroke="#E8E9EB" stroke-width="7"/>
+                                        <circle cx="45" cy="45" r="36" fill="none" stroke="#009F81" stroke-width="7"
+                                            stroke-dasharray="153.94 226.19"
+                                            stroke-linecap="round"
+                                            transform="rotate(-90 45 45)"/>
+                                        <text x="45" y="43" text-anchor="middle" class="health-ring-text">68</text>
+                                        <text x="45" y="53" text-anchor="middle" class="health-ring-label">out of 100</text>
+                                    </svg>
+                                </div>
+                            </div>
+                            <!-- Errors -->
+                            <div class="metric-card">
+                                <div class="metric-label">Errors</div>
+                                <div class="metric-value metric-accent" style="color: #D42B2B;">12</div>
+                            </div>
+                            <!-- Warnings -->
+                            <div class="metric-card">
+                                <div class="metric-label">Warnings</div>
+                                <div class="metric-value metric-accent" style="color: #E6A000;">34</div>
+                            </div>
+                            <!-- Notices -->
+                            <div class="metric-card">
+                                <div class="metric-label">Notices</div>
+                                <div class="metric-value metric-accent" style="color: #3B82F6;">87</div>
+                            </div>
+                        </div>
+
+                        <!-- Issues Table with Inline Capture inserted -->
+                        <div class="issues-section">
+                            <h3>Issues Found <span style="font-weight: 500; color: #8C919A; font-size: 0.82rem;">(133 total)</span></h3>
+                            <table class="issues-table">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 110px;">Severity</th>
+                                        <th>Issue</th>
+                                        <th style="width: 120px;">Pages Affected</th>
+                                        <th style="width: 240px;">How to Fix</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><span class="severity-tag error"><span class="severity-dot severity-error"></span>Error</span></td>
+                                        <td class="issue-name">Missing title tags</td>
+                                        <td class="pages-count">8 pages</td>
+                                        <td class="fix-hint">Add unique, descriptive title tags under 60 characters</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="severity-tag error"><span class="severity-dot severity-error"></span>Error</span></td>
+                                        <td class="issue-name">Broken internal links (404)</td>
+                                        <td class="pages-count">5 pages</td>
+                                        <td class="fix-hint">Fix or remove links pointing to non-existent pages</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="severity-tag warning"><span class="severity-dot severity-warning"></span>Warning</span></td>
+                                        <td class="issue-name">Missing meta descriptions</td>
+                                        <td class="pages-count">23 pages</td>
+                                        <td class="fix-hint">Add descriptive meta descriptions under 155 characters</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <!-- Inline Email Capture Banner -->
+                            <div style="position: relative; margin: 1.25rem 0;">
+                                <div class="variant-ann" style="top: -10px; left: 0;">NEW &mdash; Inline email capture at 50% scroll depth</div>
+                                <div class="inline-capture variant-outline">
+                                    <div class="inline-capture-icon">
+                                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                                            <circle cx="20" cy="20" r="18" stroke="#009F81" stroke-width="2" fill="#E6FAF5"/>
+                                            <path d="M20 12V20L24 24" stroke="#009F81" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                            <path d="M13 28C13 28 15 26 20 26C25 26 27 28 27 28" stroke="#009F81" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+                                        </svg>
+                                    </div>
+                                    <div class="inline-capture-content">
+                                        <h4>Want to track your site health over time?</h4>
+                                        <p>Get weekly updates as issues get fixed. See what&rsquo;s improving and what needs attention.</p>
+                                    </div>
+                                    <div class="inline-capture-form">
+                                        <div class="inline-capture-row">
+                                            <input class="inline-email-input" type="email" placeholder="your@email.com">
+                                            <button class="inline-capture-btn">Start Tracking</button>
+                                        </div>
+                                        <span class="inline-dismiss">Maybe later</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Remaining issues continue below the capture -->
+                            <table class="issues-table">
+                                <tbody>
+                                    <tr>
+                                        <td><span class="severity-tag warning"><span class="severity-dot severity-warning"></span>Warning</span></td>
+                                        <td class="issue-name">Slow page load time (&gt;3s)</td>
+                                        <td class="pages-count">12 pages</td>
+                                        <td class="fix-hint">Optimise images, enable caching, minify CSS/JS</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="severity-tag warning"><span class="severity-dot severity-warning"></span>Warning</span></td>
+                                        <td class="issue-name">Missing alt text on images</td>
+                                        <td class="pages-count">18 pages</td>
+                                        <td class="fix-hint">Add descriptive alt attributes to all content images</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="severity-tag notice"><span class="severity-dot severity-notice"></span>Notice</span></td>
+                                        <td class="issue-name">Pages with low word count (&lt;300)</td>
+                                        <td class="pages-count">34 pages</td>
+                                        <td class="fix-hint">Consider expanding thin content with relevant information</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="severity-tag notice"><span class="severity-dot severity-notice"></span>Notice</span></td>
+                                        <td class="issue-name">Duplicate H1 tags across pages</td>
+                                        <td class="pages-count">6 pages</td>
+                                        <td class="fix-hint">Ensure each page has a unique H1 heading</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="severity-tag notice"><span class="severity-dot severity-notice"></span>Notice</span></td>
+                                        <td class="issue-name">Missing structured data</td>
+                                        <td class="pages-count">27 pages</td>
+                                        <td class="fix-hint">Add schema markup to improve search appearance</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- What Changed -->
+                        <div class="changes-box">
+                            <h4>&#x2713; What changed</h4>
+                            <p>
+                                &#x2022; Added native inline email capture at scroll midpoint (between 3rd and 4th issue row)<br>
+                                &#x2022; Offers genuine utility (health tracking over time), not a sales pitch<br>
+                                &#x2022; Single email field &mdash; minimal friction<br>
+                                &#x2022; Dismissible &mdash; &ldquo;Maybe later&rdquo; respects user choice<br>
+                                &#x2022; Matches page styling &mdash; feels native, not promotional<br>
+                                &#x2022; No interruption to the audit review flow
+                            </p>
+                        </div>
+
+                        <div style="height: 2rem;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showVersion(v) {
+            document.querySelectorAll('.version').forEach(function(el) { el.classList.remove('active'); });
+            document.querySelectorAll('.version-toggle .toggle-btn').forEach(function(el) { el.classList.remove('active'); });
+            document.getElementById(v).classList.add('active');
+            document.querySelector('.toggle-btn.' + v).classList.add('active');
+        }
+    </script>
+</body>
+</html>

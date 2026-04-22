@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>P2-08 — Test Credit: Free Exploration Before Real Credits (Mockup)</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #ECEDEF;
+            color: #171A1C;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ===== ANNOTATION BAR ===== */
+        .annotation-bar {
+            position: sticky; top: 0; z-index: 1000;
+            background: #181E15; color: white;
+            padding: 0.65rem 2rem;
+            display: flex; align-items: center; gap: 1.5rem;
+            font-size: 0.78rem;
+        }
+        .annotation-bar .badge {
+            background: #C190FF; color: #181E15;
+            padding: 0.2rem 0.65rem; border-radius: 4px;
+            font-weight: 800; font-size: 0.68rem;
+            letter-spacing: 0.04em; flex-shrink: 0;
+        }
+        .annotation-bar .text { color: #D1D2D5; }
+        .annotation-bar .text strong { color: white; }
+
+        /* ===== VERSION TOGGLE ===== */
+        .version-toggle {
+            display: flex; justify-content: center; gap: 0;
+            padding: 1.5rem 2rem 0;
+        }
+        .toggle-btn {
+            padding: 0.7rem 2.25rem; font-size: 0.82rem; font-weight: 700;
+            border: none; cursor: pointer; transition: all 0.2s; font-family: inherit;
+        }
+        .toggle-btn.control {
+            background: #FFF0F0; color: #D42B2B;
+            border-radius: 8px 0 0 8px; border: 2px solid #F5CCCC;
+        }
+        .toggle-btn.control.active { background: #D42B2B; color: white; border-color: #D42B2B; }
+        .toggle-btn.variant {
+            background: #EDFFF8; color: #0A8F6A;
+            border-radius: 0 8px 8px 0; border: 2px solid #B3F0DC;
+        }
+        .toggle-btn.variant.active { background: #0A8F6A; color: white; border-color: #0A8F6A; }
+
+        /* ===== BROWSER CHROME ===== */
+        .browser-frame {
+            max-width: 1280px; margin: 1.5rem auto 3rem;
+            border-radius: 12px; overflow: hidden;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.12);
+            border: 1px solid #D0D2D6;
+        }
+        .browser-bar {
+            background: #F0F1F2; padding: 0.6rem 1rem;
+            display: flex; align-items: center; gap: 0.75rem;
+            border-bottom: 1px solid #D0D2D6;
+        }
+        .browser-dots { display: flex; gap: 5px; }
+        .browser-dots span { width: 10px; height: 10px; border-radius: 50%; }
+        .browser-dots span:nth-child(1) { background: #FF5F56; }
+        .browser-dots span:nth-child(2) { background: #FFBD2E; }
+        .browser-dots span:nth-child(3) { background: #27C93F; }
+        .browser-url {
+            flex: 1; background: white; padding: 0.4rem 0.75rem;
+            border-radius: 6px; font-size: 0.75rem; color: #6C6E79;
+            border: 1px solid #E0E2E7;
+        }
+        .browser-body { background: white; }
+
+        /* ===== SEMRUSH TOP NAV ===== */
+        .sr-nav {
+            display: flex; align-items: center; padding: 0 1rem 0 0; height: 56px;
+            background: white; border-bottom: 1px solid #ECEDEF;
+        }
+        .sr-logo {
+            font-size: 1.15rem; font-weight: 800; color: #171A1C;
+            letter-spacing: -0.02em; display: flex; align-items: center;
+            gap: 0.4rem; padding: 0 1.5rem; margin-right: 1rem;
+        }
+        .sr-logo svg { width: 22px; height: 22px; }
+        .sr-nav-links {
+            display: flex; gap: 1.5rem; font-size: 0.82rem;
+            font-weight: 500; color: #555B65;
+        }
+        .sr-nav-right {
+            margin-left: auto; display: flex; align-items: center; gap: 1rem;
+        }
+        .sr-nav-login { font-size: 0.82rem; font-weight: 600; color: #555B65; }
+        .sr-nav-signup {
+            background: #2BBF71; color: white; border: none;
+            padding: 0.5rem 1.25rem; border-radius: 28px;
+            font-size: 0.82rem; font-weight: 700; cursor: pointer; font-family: inherit;
+        }
+
+        /* ===== LEFT SIDEBAR ===== */
+        .page-layout { display: flex; }
+        .sr-sidebar {
+            width: 220px; flex-shrink: 0;
+            background: white; border-right: 1px solid #ECEDEF;
+            padding: 1.25rem 0; font-size: 0.8rem;
+        }
+        .nav-group { margin-bottom: 1.25rem; }
+        .nav-group-label {
+            font-size: 0.68rem; font-weight: 700; color: #8C919A;
+            text-transform: uppercase; letter-spacing: 0.04em;
+            padding: 0 1.25rem; margin-bottom: 0.35rem;
+        }
+        .nav-item {
+            display: block; padding: 0.45rem 1.25rem 0.45rem 2.5rem;
+            color: #373D47; cursor: pointer; transition: background 0.15s;
+            font-size: 0.8rem;
+        }
+        .nav-item:hover { background: #F5F6F7; }
+        .nav-item.active { background: #E8F5EC; color: #171A1C; font-weight: 600; }
+        .sidebar-top {
+            padding: 0 1.25rem 0.75rem; font-weight: 700; color: #171A1C;
+            font-size: 0.85rem; display: flex; align-items: center; gap: 0.5rem;
+        }
+
+        /* ===== MAIN CONTENT ===== */
+        .main-content { flex: 1; min-width: 0; }
+
+        /* Hero */
+        .hero-section {
+            background: linear-gradient(180deg, #D6EDDB 0%, #E4F2E7 35%, #F2F8F3 60%, #FFFFFF 100%);
+            padding: 2rem 3.5rem 2.5rem;
+        }
+        .breadcrumb {
+            font-size: 0.82rem; color: #6C6E79; margin-bottom: 1.5rem;
+        }
+        .breadcrumb a { color: #373D47; text-decoration: none; font-weight: 500; }
+        .breadcrumb .sep { margin: 0 0.4rem; color: #B0B5BD; }
+        .hero-title {
+            font-size: 3.2rem; font-weight: 900; color: #171A1C;
+            letter-spacing: -0.035em; line-height: 1.08; margin-bottom: 1rem;
+        }
+        .hero-desc {
+            font-size: 1.05rem; color: #373D47; line-height: 1.7;
+            max-width: 680px; margin-bottom: 2.25rem;
+        }
+        .hero-desc strong { color: #171A1C; font-weight: 700; }
+
+        /* Search row */
+        .search-row {
+            display: flex; align-items: center; gap: 0.6rem; margin-bottom: 1rem;
+        }
+        .search-input-wrap { flex: 1; max-width: 380px; }
+        .search-input {
+            width: 100%; padding: 0.9rem 1.35rem;
+            border: 1.5px solid #D0D2D6; border-radius: 32px;
+            font-size: 0.92rem; font-family: inherit;
+            color: #8C919A; background: white; outline: none;
+        }
+        .country-select {
+            display: flex; align-items: center; gap: 0.5rem;
+            padding: 0.85rem 1.2rem; border: 1.5px solid #D0D2D6;
+            border-radius: 32px; font-size: 0.88rem; font-family: inherit;
+            color: #171A1C; background: white; cursor: pointer; font-weight: 500;
+        }
+        .country-arrow { font-size: 0.5rem; color: #8C919A; margin-left: 0.1rem; }
+        .find-btn {
+            padding: 0.9rem 2rem;
+            background: #FF642D; color: white; border: none;
+            border-radius: 32px; font-size: 0.92rem; font-weight: 700;
+            cursor: pointer; font-family: inherit; white-space: nowrap;
+        }
+
+        /* Examples + credits */
+        .search-meta {
+            display: flex; align-items: center; gap: 0.75rem;
+        }
+        .examples-row {
+            display: flex; align-items: center; gap: 0.5rem;
+            font-size: 0.82rem; color: #8C919A;
+        }
+        .example-chip {
+            padding: 0.35rem 0.85rem; background: white;
+            border: 1px solid #E0E2E7; border-radius: 6px;
+            font-size: 0.8rem; color: #373D47;
+        }
+        .credits-counter {
+            margin-left: auto; font-size: 0.85rem; font-weight: 600;
+            color: #373D47; display: flex; align-items: center; gap: 0.3rem;
+        }
+        .credits-info {
+            width: 17px; height: 17px; border-radius: 50%;
+            border: 1.5px solid #C0C2C8; display: inline-flex;
+            align-items: center; justify-content: center;
+            font-size: 0.58rem; color: #8C919A; font-weight: 700;
+        }
+
+        /* ===== TRY SEMRUSH BANNER ===== */
+        .try-semrush-banner {
+            margin: 0.25rem 3.5rem 0;
+            padding: 2rem 2.5rem;
+            background: #E6D0F5;
+            border-radius: 16px;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .try-banner-content h2 {
+            font-size: 1.3rem; font-weight: 800; color: #171A1C;
+            margin-bottom: 0.35rem;
+        }
+        .try-banner-content p {
+            font-size: 0.9rem; color: #555B65; line-height: 1.5;
+        }
+        .try-banner-btn {
+            background: #1A1A1A; color: white; border: none;
+            padding: 1rem 2rem; border-radius: 32px;
+            font-size: 0.92rem; font-weight: 700; cursor: pointer;
+            font-family: inherit; white-space: nowrap; flex-shrink: 0;
+        }
+
+        /* ===== HOW TO USE SECTION ===== */
+        .how-to-section { padding: 3rem 3.5rem 2.5rem; }
+        .how-to-title {
+            font-size: 2rem; font-weight: 900; color: #171A1C;
+            text-align: center; letter-spacing: -0.02em;
+            margin-bottom: 2.25rem; text-transform: uppercase;
+        }
+        .how-to-steps {
+            display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2rem;
+        }
+        .how-step { display: flex; align-items: flex-start; gap: 1rem; }
+        .how-step-num {
+            font-size: 4rem; font-weight: 900; line-height: 1;
+            color: #D4B8F0; flex-shrink: 0;
+        }
+        .how-step-text {
+            font-size: 0.95rem; color: #373D47; line-height: 1.6;
+            padding-top: 0.65rem;
+        }
+
+        /* ===== ANNOTATIONS ===== */
+        .control-ann {
+            position: absolute;
+            background: #D42B2B; color: white;
+            font-size: 0.62rem; font-weight: 700;
+            padding: 0.2rem 0.55rem; border-radius: 4px;
+            z-index: 10; pointer-events: none; white-space: nowrap;
+        }
+        .variant-ann {
+            position: absolute;
+            background: #0A8F6A; color: white;
+            font-size: 0.62rem; font-weight: 700;
+            padding: 0.2rem 0.55rem; border-radius: 4px;
+            z-index: 10; pointer-events: none; white-space: nowrap;
+        }
+
+        /* ===== TEST CREDIT BADGE (Variant) ===== */
+        .test-credit-badge {
+            display: inline-flex; align-items: center; gap: 0.35rem;
+            background: #F0EBFF; border: 1.5px solid #D4B8F0;
+            padding: 0.3rem 0.75rem; border-radius: 20px;
+            font-size: 0.78rem; font-weight: 700; color: #7D26E8;
+            margin-right: 0.75rem;
+            position: relative;
+        }
+        .test-credit-badge .gift-icon {
+            font-size: 0.82rem;
+        }
+
+        /* Tooltip / callout for the test credit */
+        .test-credit-callout {
+            position: relative;
+            margin-top: 0.85rem;
+            background: #F9F5FF;
+            border: 1.5px solid #D4B8F0;
+            border-radius: 10px;
+            padding: 0.75rem 1rem;
+            max-width: 420px;
+            display: flex; align-items: center; gap: 0.75rem;
+        }
+        .test-credit-callout::before {
+            content: '';
+            position: absolute;
+            top: -7px; left: 32px;
+            width: 12px; height: 12px;
+            background: #F9F5FF;
+            border-top: 1.5px solid #D4B8F0;
+            border-left: 1.5px solid #D4B8F0;
+            transform: rotate(45deg);
+        }
+        .test-credit-callout .callout-icon {
+            width: 36px; height: 36px; border-radius: 50%;
+            background: #7D26E8; color: white;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1rem; flex-shrink: 0;
+        }
+        .test-credit-callout .callout-text {
+            flex: 1;
+        }
+        .test-credit-callout .callout-text strong {
+            font-size: 0.82rem; font-weight: 800; color: #171A1C;
+            display: block; margin-bottom: 0.1rem;
+        }
+        .test-credit-callout .callout-text span {
+            font-size: 0.75rem; color: #555B65; line-height: 1.4;
+        }
+        .test-credit-callout .callout-dismiss {
+            font-size: 0.75rem; color: #B0B5BD; cursor: pointer;
+            padding: 0.2rem; flex-shrink: 0; font-weight: 700;
+        }
+
+        /* ===== CHANGES BOX ===== */
+        .changes-box {
+            margin: 2rem 3.5rem 0;
+            padding: 1.15rem 1.5rem;
+            background: #F0FFF8; border: 1px solid #B3F0DC; border-radius: 8px;
+        }
+        .changes-box h4 {
+            font-size: 0.78rem; font-weight: 700; color: #0A8F6A;
+            margin-bottom: 0.4rem;
+        }
+        .changes-box p {
+            font-size: 0.78rem; color: #373D47; line-height: 1.85;
+        }
+
+        /* Version toggling */
+        .version { display: none; }
+        .version.active { display: block; }
+    </style>
+</head>
+<body>
+
+    <!-- Annotation Bar -->
+    <div class="annotation-bar">
+        <span class="badge">P2-08</span>
+        <span class="text"><strong>Test Credit &mdash; Free Exploration Before Real Credits</strong> &mdash; All Free Tool Pages &middot; First Visit</span>
+        <span class="text" style="margin-left: auto; font-size: 0.68rem; opacity: 0.6;">Mockup &bull; The Initial &bull; April 2026</span>
+    </div>
+
+    <!-- Version Toggle -->
+    <div class="version-toggle">
+        <button class="toggle-btn control active" onclick="showVersion('control')">&#x2715; Control (Current)</button>
+        <button class="toggle-btn variant" onclick="showVersion('variant')">&#x2713; Variant (Proposed)</button>
+    </div>
+
+    <!-- =================================================== -->
+    <!-- CONTROL — Current Credit Display                     -->
+    <!-- =================================================== -->
+    <div class="version active" id="control">
+        <div class="browser-frame">
+            <div class="browser-bar">
+                <div class="browser-dots"><span></span><span></span><span></span></div>
+                <div class="browser-url">&#128274; semrush.com/analytics/keywordmagic/</div>
+            </div>
+            <div class="browser-body">
+
+                <!-- Nav -->
+                <div class="sr-nav">
+                    <div class="sr-logo">
+                        <svg viewBox="0 0 32 32" fill="none"><path d="M5.5 16.5C5.5 16.5 8 10 16 10C24 10 26.5 16.5 26.5 16.5" stroke="#171A1C" stroke-width="3" stroke-linecap="round"/><path d="M2 22C2 22 6 13 16 13C26 13 30 22 30 22" stroke="#171A1C" stroke-width="3" stroke-linecap="round"/><circle cx="16" cy="8" r="3" fill="#FF642D"/></svg>
+                        Semrush
+                    </div>
+                    <div class="sr-nav-links">
+                        <span>Pricing</span><span>Enterprise</span><span>More</span>
+                    </div>
+                    <div class="sr-nav-right">
+                        <span class="sr-nav-login">Log In</span>
+                        <button class="sr-nav-signup">Sign Up</button>
+                    </div>
+                </div>
+
+                <div class="page-layout">
+                    <!-- Sidebar -->
+                    <div class="sr-sidebar">
+                        <div class="sidebar-top">&#128269; SEO</div>
+                        <div class="nav-group">
+                            <div class="nav-item" style="padding-left: 2.5rem;">Dashboard</div>
+                        </div>
+                        <div class="nav-group">
+                            <div class="nav-group-label">Site Performance</div>
+                            <div class="nav-item">Site Audit</div>
+                            <div class="nav-item">Position Tracking</div>
+                        </div>
+                        <div class="nav-group">
+                            <div class="nav-group-label">Competitive Analysis</div>
+                            <div class="nav-item">Domain Overview</div>
+                            <div class="nav-item">Organic Rankings</div>
+                            <div class="nav-item">Top Pages</div>
+                            <div class="nav-item">Compare Domains</div>
+                            <div class="nav-item">Keyword Gap</div>
+                            <div class="nav-item">Backlink Gap</div>
+                        </div>
+                        <div class="nav-group">
+                            <div class="nav-group-label">Keyword Research</div>
+                            <div class="nav-item">Keyword Overview</div>
+                            <div class="nav-item active">Keyword Magic Tool</div>
+                            <div class="nav-item">Keyword Strategy Builder</div>
+                        </div>
+                    </div>
+
+                    <div class="main-content">
+                        <!-- Hero -->
+                        <div class="hero-section">
+                            <div class="breadcrumb">
+                                <a href="#">Free Tools</a><span class="sep">/</span><span>Keyword Tool</span>
+                            </div>
+                            <h1 class="hero-title">Free Keyword Tool</h1>
+                            <p class="hero-desc">Find keywords to grow your traffic and reach more customers. Explore <strong>keyword ideas, search volumes, and keyword difficulty</strong> in seconds. Powered by Semrush&rsquo;s Keyword Magic Tool.</p>
+
+                            <div class="search-row">
+                                <div class="search-input-wrap">
+                                    <input class="search-input" type="text" placeholder="Enter a word or phrase">
+                                </div>
+                                <div class="country-select">
+                                    <span style="font-size: 1.1rem;">&#127482;&#127480;</span>
+                                    United States
+                                    <span class="country-arrow">&#9660;</span>
+                                </div>
+                                <button class="find-btn">Find Keywords</button>
+                            </div>
+
+                            <div class="search-meta">
+                                <div class="examples-row">
+                                    For example:
+                                    <span class="example-chip">seo strategy for saas</span>
+                                    <span class="example-chip">hotels in chicago</span>
+                                </div>
+                                <div style="position: relative;">
+                                    <div class="control-ann" style="top: -22px; right: 0;">1st credit wasted on exploration</div>
+                                    <div class="credits-counter" style="outline: 2.5px dashed #D42B2B; outline-offset: 6px; border-radius: 6px; padding: 0.15rem 0.35rem;">
+                                        0/5 <span class="credits-info">?</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Try Semrush Banner -->
+                        <div class="try-semrush-banner">
+                            <div class="try-banner-content">
+                                <h2>Find the Right Keywords for Your Website</h2>
+                                <p>Use real data and metrics to uncover keyword opportunities worth targeting.</p>
+                            </div>
+                            <button class="try-banner-btn">Try Semrush</button>
+                        </div>
+
+                        <!-- How to Use -->
+                        <div class="how-to-section" style="opacity: 0.5;">
+                            <h2 class="how-to-title">How to Use the Keyword Tool</h2>
+                            <div class="how-to-steps">
+                                <div class="how-step">
+                                    <span class="how-step-num">1</span>
+                                    <p class="how-step-text">Enter a word or phrase relevant to your business.</p>
+                                </div>
+                                <div class="how-step">
+                                    <span class="how-step-num">2</span>
+                                    <p class="how-step-text">Click &ldquo;Find Keywords&rdquo; to see related keyword suggestions.</p>
+                                </div>
+                                <div class="how-step">
+                                    <span class="how-step-num">3</span>
+                                    <p class="how-step-text">Review the search data to choose the best keywords.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Problem annotation below page -->
+                <div style="margin: 0 3.5rem 1.5rem; padding: 1rem 1.25rem; background: #FFF8F7; border: 2px dashed #D42B2B; border-radius: 8px;">
+                    <div style="font-size: 0.78rem; font-weight: 800; color: #D42B2B; margin-bottom: 0.3rem;">&#9888; The First-Credit Problem</div>
+                    <p style="font-size: 0.75rem; color: #555B65; line-height: 1.65;">Users get 5 free searches. But the first one is inevitably a &ldquo;test&rdquo; &mdash; they type something random to see what results look like. That&rsquo;s 20% of their free allowance gone on exploration, not real research. Users feel the loss immediately: &ldquo;4/5 remaining&rdquo; before they&rsquo;ve even started. This creates regret and friction, especially for first-time visitors who don&rsquo;t know what to expect.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- =================================================== -->
+    <!-- VARIANT — Test Credit Added                          -->
+    <!-- =================================================== -->
+    <div class="version" id="variant">
+        <div class="browser-frame">
+            <div class="browser-bar">
+                <div class="browser-dots"><span></span><span></span><span></span></div>
+                <div class="browser-url">&#128274; semrush.com/analytics/keywordmagic/</div>
+            </div>
+            <div class="browser-body">
+
+                <!-- Nav (unchanged) -->
+                <div class="sr-nav">
+                    <div class="sr-logo">
+                        <svg viewBox="0 0 32 32" fill="none"><path d="M5.5 16.5C5.5 16.5 8 10 16 10C24 10 26.5 16.5 26.5 16.5" stroke="#171A1C" stroke-width="3" stroke-linecap="round"/><path d="M2 22C2 22 6 13 16 13C26 13 30 22 30 22" stroke="#171A1C" stroke-width="3" stroke-linecap="round"/><circle cx="16" cy="8" r="3" fill="#FF642D"/></svg>
+                        Semrush
+                    </div>
+                    <div class="sr-nav-links">
+                        <span>Pricing</span><span>Enterprise</span><span>More</span>
+                    </div>
+                    <div class="sr-nav-right">
+                        <span class="sr-nav-login">Log In</span>
+                        <button class="sr-nav-signup">Sign Up</button>
+                    </div>
+                </div>
+
+                <div class="page-layout">
+                    <!-- Sidebar (unchanged) -->
+                    <div class="sr-sidebar">
+                        <div class="sidebar-top">&#128269; SEO</div>
+                        <div class="nav-group">
+                            <div class="nav-item" style="padding-left: 2.5rem;">Dashboard</div>
+                        </div>
+                        <div class="nav-group">
+                            <div class="nav-group-label">Site Performance</div>
+                            <div class="nav-item">Site Audit</div>
+                            <div class="nav-item">Position Tracking</div>
+                        </div>
+                        <div class="nav-group">
+                            <div class="nav-group-label">Competitive Analysis</div>
+                            <div class="nav-item">Domain Overview</div>
+                            <div class="nav-item">Organic Rankings</div>
+                            <div class="nav-item">Top Pages</div>
+                            <div class="nav-item">Compare Domains</div>
+                            <div class="nav-item">Keyword Gap</div>
+                            <div class="nav-item">Backlink Gap</div>
+                        </div>
+                        <div class="nav-group">
+                            <div class="nav-group-label">Keyword Research</div>
+                            <div class="nav-item">Keyword Overview</div>
+                            <div class="nav-item active">Keyword Magic Tool</div>
+                            <div class="nav-item">Keyword Strategy Builder</div>
+                        </div>
+                    </div>
+
+                    <div class="main-content">
+                        <!-- Hero (same layout, modified credits area) -->
+                        <div class="hero-section">
+                            <div class="breadcrumb">
+                                <a href="#">Free Tools</a><span class="sep">/</span><span>Keyword Tool</span>
+                            </div>
+                            <h1 class="hero-title">Free Keyword Tool</h1>
+                            <p class="hero-desc">Find keywords to grow your traffic and reach more customers. Explore <strong>keyword ideas, search volumes, and keyword difficulty</strong> in seconds. Powered by Semrush&rsquo;s Keyword Magic Tool.</p>
+
+                            <div class="search-row">
+                                <div class="search-input-wrap">
+                                    <input class="search-input" type="text" placeholder="Enter a word or phrase">
+                                </div>
+                                <div class="country-select">
+                                    <span style="font-size: 1.1rem;">&#127482;&#127480;</span>
+                                    United States
+                                    <span class="country-arrow">&#9660;</span>
+                                </div>
+                                <button class="find-btn">Find Keywords</button>
+                            </div>
+
+                            <div class="search-meta">
+                                <div class="examples-row">
+                                    For example:
+                                    <span class="example-chip">seo strategy for saas</span>
+                                    <span class="example-chip">hotels in chicago</span>
+                                </div>
+
+                                <!-- CHANGED: Test credit badge + regular credits -->
+                                <div style="margin-left: auto; display: flex; align-items: center; gap: 0; position: relative;">
+                                    <div class="variant-ann" style="top: -22px; right: 0;">NEW &mdash; Free test credit before real credits count</div>
+                                    <div style="outline: 2.5px solid #0A8F6A; outline-offset: 6px; border-radius: 8px; display: flex; align-items: center; gap: 0;">
+                                        <div class="test-credit-badge">
+                                            <span class="gift-icon">&#127873;</span>
+                                            1 free try
+                                        </div>
+                                        <div class="credits-counter" style="padding: 0.15rem 0.35rem 0.15rem 0;">
+                                            5/5 <span class="credits-info">?</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- NEW: Test credit callout tooltip -->
+                            <div style="position: relative;">
+                                <div class="variant-ann" style="top: 0.25rem; right: 0;">NEW &mdash; First-visit tooltip explains the free try</div>
+                                <div class="test-credit-callout">
+                                    <div class="callout-icon">&#127873;</div>
+                                    <div class="callout-text">
+                                        <strong>Your first search is on us</strong>
+                                        <span>Try the tool to see how it works &mdash; this one won&rsquo;t count against your 5 free searches.</span>
+                                    </div>
+                                    <div class="callout-dismiss">&times;</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Try Semrush Banner (unchanged) -->
+                        <div class="try-semrush-banner">
+                            <div class="try-banner-content">
+                                <h2>Find the Right Keywords for Your Website</h2>
+                                <p>Use real data and metrics to uncover keyword opportunities worth targeting.</p>
+                            </div>
+                            <button class="try-banner-btn">Try Semrush</button>
+                        </div>
+
+                        <!-- How to Use (unchanged) -->
+                        <div class="how-to-section">
+                            <h2 class="how-to-title">How to Use the Keyword Tool</h2>
+                            <div class="how-to-steps">
+                                <div class="how-step">
+                                    <span class="how-step-num">1</span>
+                                    <p class="how-step-text">Enter a word or phrase relevant to your business.</p>
+                                </div>
+                                <div class="how-step">
+                                    <span class="how-step-num">2</span>
+                                    <p class="how-step-text">Click &ldquo;Find Keywords&rdquo; to see related keyword suggestions.</p>
+                                </div>
+                                <div class="how-step">
+                                    <span class="how-step-num">3</span>
+                                    <p class="how-step-text">Review the search data to choose the best keywords.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Changes summary -->
+                <div class="changes-box">
+                    <h4>&#x2713; What changed</h4>
+                    <p>
+                        &#x2022; Added &ldquo;&#127873; 1 free try&rdquo; badge next to the existing 5/5 credits counter &mdash; subtle, uses Semrush&rsquo;s existing pill style<br>
+                        &#x2022; First-visit tooltip below search bar explains: &ldquo;Your first search is on us &mdash; this one won&rsquo;t count against your 5 free searches&rdquo;<br>
+                        &#x2022; Tooltip is dismissible (&times;) &mdash; appears only on first visit, uses Semrush lavender accent<br>
+                        &#x2022; Credit counter remains at 5/5 after the test search, so users feel they&rsquo;re starting fresh<br>
+                        &#x2022; Zero layout changes to the rest of the page &mdash; only the credits area is modified
+                    </p>
+                </div>
+
+                <div style="height: 2rem;"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showVersion(v) {
+            document.querySelectorAll('.version').forEach(function(el) { el.classList.remove('active'); });
+            document.querySelectorAll('.toggle-btn').forEach(function(el) { el.classList.remove('active'); });
+            document.getElementById(v).classList.add('active');
+            document.querySelector('.toggle-btn.' + v).classList.add('active');
+        }
+    </script>
+</body>
+</html>
